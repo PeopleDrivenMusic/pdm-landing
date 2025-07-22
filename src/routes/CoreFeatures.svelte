@@ -74,7 +74,6 @@
 	<section class="core">
 		<Animate variant="fade" duration={1} delay={0}>
 			<div class="core-cta">
-                
 				<h2>Core Features</h2>
 				<p>
 					Experience music like never before. PDM puts the power back in the hands of fans and
@@ -84,18 +83,22 @@
 		</Animate>
 		<div class="features-grid">
 			{#each features as feature}
+			<Animate variant="fade" duration={1} delay={Math.random() * 0.3}>
+
 				<div class="feature-card">
-                    <div class="icon">
-                        <svelte:component this={feature.icon} />
-                    </div>
+					<div class="icon">
+						<svelte:component this={feature.icon} />
+					</div>
 					<h3>{feature.title}</h3>
 					<p>
 						{feature.description}
 					</p>
 				</div>
+			</Animate>
 			{/each}
 		</div>
 	</section>
+	<div class="fade-overlay"></div>
 </div>
 
 <style lang="scss">
@@ -104,6 +107,16 @@
 		background-image: url('/bg3.png');
 		background-size: cover;
 		background-position: center;
+		.fade-overlay {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 10vh;
+			background: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, #1a1a1a 100%);
+			z-index: 2;
+			pointer-events: none;
+		}
 		.confetti-canvas {
 			position: absolute;
 			top: 0;
@@ -118,6 +131,7 @@
 		position: relative;
 		z-index: 1;
 		// background: linear-gradient(to bottom, #fcf9ed 0%, #f5f1dd 40%, #e0d6b0 100%);
+
 		h2 {
 			text-shadow:
 				0 0 10px rgba(255, 225, 103, 0.7),
@@ -131,7 +145,6 @@
 		}
 
 		.features-grid {
-
 			display: grid;
 			margin-top: 7rem;
 			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -145,29 +158,30 @@
 			border: 1px solid rgba(255, 215, 0, 0.1);
 			border-radius: 1rem;
 			padding: 2rem;
+			height: 100%;
 			box-shadow: 0 0 10px rgba(255, 215, 0, 0.1);
 			transition: all 0.3s ease;
 			color: #f5deb3;
 			font-family: 'Georgia', serif;
 			text-align: center;
 			cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: start;
-            .icon {
-                width: 150px;
-                color: var(--main-color);
-            }
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: start;
+			.icon {
+				width: 150px;
+				color: var(--main-color);
+			}
 
 			h3 {
 				font-size: 2.2rem;
 				letter-spacing: 2px;
 				color: var(--main-color);
-                margin: 0;
-                display: flex;
-                align-items: center;
-                height: 79px;
+				margin: 0;
+				display: flex;
+				align-items: center;
+				height: 79px;
 			}
 			p {
 				font-size: 1.5rem;

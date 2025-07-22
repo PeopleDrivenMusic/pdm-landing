@@ -68,7 +68,7 @@
 			top: 0;
 			left: 0;
 			width: 100%;
-			height: 100vh;
+			height: 20px;
 			background: linear-gradient(to bottom, rgba(26, 26, 26, 0.3), rgba(26, 26, 26, 1));
 			z-index: -1;
 		}
@@ -119,6 +119,16 @@
 				color: var(--main-color);
 			}
 		}
-		
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 20px;
+			background: linear-gradient(to bottom, rgba(26, 26, 26, 0), rgba(26, 26, 26, 1));
+			z-index: 1;
+			pointer-events: none;
+		}
 	}
 </style>

@@ -99,6 +99,7 @@
 		</div>
 	</section>
 	<div class="fade-overlay"></div>
+	<div class="fade-overlay-second"></div>
 </div>
 
 <style lang="scss">
@@ -107,6 +108,17 @@
 		background-image: url('/bg3.png');
 		background-size: cover;
 		background-position: center;
+
+		.fade-overlay-second {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 10vh;
+			background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #1a1a1a 100%);
+			z-index: 2;
+			pointer-events: none;
+		}
 		.fade-overlay {
 			position: absolute;
 			top: 0;

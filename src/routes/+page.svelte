@@ -8,7 +8,7 @@
 	import Intro from './Intro.svelte';
 	import Problems from './Problems.svelte';
 	import CoreFeatures from './CoreFeatures.svelte';
-	// import Scene2 from './Scene2.svelte';
+	import How from './How.svelte';
 	let show = $state(false);
 	onMount(async () => {
 		await tick();
@@ -20,12 +20,13 @@
 <div class="wrapper">
 	<Problems />
 	<CoreFeatures />
+	<How />
 </div>
 
 <style lang="scss">
 	.wrapper {
-		background-color: #1a1a1a; // Coal black background
-		color: #fff; // Ensure text is visible on the dark background
+		background-color: #1a1a1a;
+		color: #fff;
 	}
 	:global {
 		section {

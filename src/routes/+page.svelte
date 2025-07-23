@@ -9,6 +9,7 @@
 	import Problems from './Problems.svelte';
 	import CoreFeatures from './CoreFeatures.svelte';
 	import How from './How.svelte';
+	import Join from './Join.svelte';
 	let show = $state(false);
 	onMount(async () => {
 		await tick();
@@ -21,6 +22,7 @@
 	<Problems />
 	<CoreFeatures />
 	<How />
+	<Join/>
 </div>
 
 <style lang="scss">

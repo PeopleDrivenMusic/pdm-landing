@@ -1,8 +1,6 @@
 <script>
 	import { onDestroy, onMount } from 'svelte';
 	import Animate from './Animate.svelte';
-	import { fade, scale } from 'svelte/transition';
-	import { quadOut } from 'svelte/easing';
 	import confetti from 'canvas-confetti';
 	import IconHeadphones from './icons/IconHeadphones.svelte';
 	import IconTickets from './icons/IconTickets.svelte';
@@ -47,21 +45,21 @@
 			for (let i = 0; i < 15; i++) {
 				customConfetti({
 					particleCount: 1,
-					startVelocity: 0, // случайная скорость
-					ticks: 300 + Math.random() * 200, // живут дольше
-					gravity: Math.random() * 0.2, // чуть разная гравитация
+					startVelocity: 0,
+					ticks: 300 + Math.random() * 200,
+					gravity: Math.random() * 0.2,
 					origin: {
-						x: Math.random(), // по всей ширине экрана
-						y: Math.random() * 0.9 // чуть выше экрана
+						x: Math.random(),
+						y: Math.random() * 0.9 
 					},
-					angle: 90 + (Math.random() * 20 - 10), // +/-10° разброс
+					angle: 90 + (Math.random() * 20 - 10),
 					spread: 30 + Math.random() * 20,
 					colors: ['#FFD700', '#FFC107', '#FFECB3', '#fff4cc', '#d4a017'],
 					shapes: ['square'],
-					scalar: 0.7 + Math.random() * 0.6 // размер от 0.7 до 1.3
+					scalar: 0.7 + Math.random() * 0.6
 				});
 			}
-		}, 150); // чаще, но меньше за раз — распределение плавнее
+		}, 150);
 	});
 
 	onDestroy(() => {

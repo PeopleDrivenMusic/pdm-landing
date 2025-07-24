@@ -1,21 +1,14 @@
 <script>
-	import Animate from './Animate.svelte';
-	import { fade, scale } from 'svelte/transition';
-	import { quadOut } from 'svelte/easing';
-	// import HeadphonesIcon from '$lib/assets/headphones.svg';
-
-	import { onMount, tick } from 'svelte';
+	import SEO from './SEO.svelte';
 	import Intro from './Intro.svelte';
 	import Problems from './Problems.svelte';
 	import CoreFeatures from './CoreFeatures.svelte';
 	import How from './How.svelte';
 	import Join from './Join.svelte';
-	let show = $state(false);
-	onMount(async () => {
-		await tick();
-		show = true;
-	});
+
 </script>
+
+<SEO />
 
 <Intro />
 <div class="wrapper">

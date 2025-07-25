@@ -15,26 +15,26 @@
 				description:
 					'Earn PDM tokens for daily listening — the more trust you build, the more you unlock.',
 				icon: IconAudio,
-				animation: "left"
+				animation: 'left'
 			},
 			{
 				title: 'Boost Your Trust',
 				description: 'Likes, comments, and shares increase your Trust Score and daily limits.',
 				icon: IconTrust,
-				animation: "left"
+				animation: 'left'
 			},
 			{
 				title: 'Earn Badges',
 				description: "Prove you're a real fan — collect badges and unlock early access to tickets.",
 				icon: IconNft,
-				animation: "left"
+				animation: 'left'
 			},
 			{
 				title: 'Invest in Artists',
 				description:
 					'Buy music licenses, join crowdfunds, and share in the success of the artists.',
 				icon: IconGrow,
-				animation: "left"
+				animation: 'left'
 			}
 		],
 		artists: [
@@ -42,25 +42,25 @@
 				title: 'Get Paid for Plays',
 				description: 'Earn PDM tokens whenever your tracks are played — directly, no middlemen.',
 				icon: IconPlay,
-				animation: "right"
+				animation: 'right'
 			},
 			{
 				title: 'Sell Merch & Tickets',
 				description: 'Open your store, sell exclusive merch and manage ticketing fairly.',
 				icon: IconDollar,
-				animation: "right"
+				animation: 'right'
 			},
 			{
 				title: 'Run Crowdfunds',
 				description: 'Launch funding campaigns for albums or tours with fan support.',
 				icon: IconFunds,
-				animation: "right"
+				animation: 'right'
 			},
 			{
 				title: 'Grow Your Fanbase',
 				description: 'Reach new listeners, reward your most loyal fans, and build your community.',
 				icon: IconPeople,
-				animation: "right"
+				animation: 'right'
 			}
 		]
 	};
@@ -200,6 +200,52 @@
 			background: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, #1a1a1a 100%);
 			z-index: 2;
 			pointer-events: none;
+		}
+
+		@media (max-width: 768px) {
+			padding: 3rem 1rem;
+
+			h2 {
+				font-size: 1.8rem;
+				text-align: center;
+			}
+
+			.journey-grid {
+				grid-template-columns: 1fr;
+				gap: 2rem;
+
+				.column {
+					h3 {
+						font-size: 1.5rem;
+						text-align: center;
+					}
+				}
+
+				.journey-item {
+					flex-direction: column;
+					align-items: center;
+					text-align: center;
+					min-height: auto;
+
+					.icon-wrapper {
+						width: 50px;
+						height: 50px;
+
+						:global(svg) {
+							width: 30px;
+							height: 30px;
+						}
+					}
+
+					h4 {
+						font-size: 1.2rem;
+					}
+
+					p {
+						font-size: 0.9rem;
+					}
+				}
+			}
 		}
 	}
 </style>

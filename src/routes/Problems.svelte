@@ -109,6 +109,30 @@
 					cursor: default;
 				}
 			}
+
+			@media screen and (max-width: 768px) {
+				grid-template-columns: 1fr;
+				gap: 2rem;
+
+				.problem-item {
+					padding-left: 0;
+					border-left: none;
+					text-align: center;
+
+					h3 {
+						font-size: clamp(1.5rem, 4vw, 2rem);
+					}
+
+					p {
+						font-size: 1rem;
+					}
+
+					&:hover {
+						transform: none;
+						border-left: none;
+					}
+				}
+			}
 		}
 		.cta {
 			margin-top: 5rem;

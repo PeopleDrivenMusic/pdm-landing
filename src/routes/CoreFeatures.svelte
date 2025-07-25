@@ -50,7 +50,7 @@
 					gravity: Math.random() * 0.2,
 					origin: {
 						x: Math.random(),
-						y: Math.random() * 0.9 
+						y: Math.random() * 0.9
 					},
 					angle: 90 + (Math.random() * 20 - 10),
 					spread: 30 + Math.random() * 20,
@@ -81,18 +81,17 @@
 		</Animate>
 		<div class="features-grid">
 			{#each features as feature}
-			<Animate variant="fade" duration={1} delay={Math.random() * 0.3}>
-
-				<div class="feature-card">
-					<div class="icon">
-						<svelte:component this={feature.icon} />
+				<Animate variant="fade" duration={1} delay={Math.random() * 0.3}>
+					<div class="feature-card">
+						<div class="icon">
+							<svelte:component this={feature.icon} />
+						</div>
+						<h3>{feature.title}</h3>
+						<p>
+							{feature.description}
+						</p>
 					</div>
-					<h3>{feature.title}</h3>
-					<p>
-						{feature.description}
-					</p>
-				</div>
-			</Animate>
+				</Animate>
 			{/each}
 		</div>
 	</section>
@@ -140,9 +139,11 @@
 	.core {
 		position: relative;
 		z-index: 1;
-		// background: linear-gradient(to bottom, #fcf9ed 0%, #f5f1dd 40%, #e0d6b0 100%);
-
+		.core-cta {
+			margin-top: 5vh;
+		}
 		h2 {
+			margin-top: 10px;
 			text-shadow:
 				0 0 10px rgba(255, 225, 103, 0.7),
 				0 0 20px rgba(255, 225, 103, 0.5),
@@ -196,31 +197,49 @@
 			p {
 				font-size: 1.5rem;
 			}
-		}
 
-		.feature-card:hover {
-			transform: scale(1.05);
-			box-shadow:
-				0 0 20px rgba(255, 215, 0, 0.3),
-				0 0 40px rgba(255, 215, 0, 0.2);
-			background: rgba(248, 213, 73, 0.2);
-			transition:
-				transform 0.3s ease,
-				box-shadow 0.3s ease,
-				background 0.3s ease;
-		}
+			&:hover {
+				transform: scale(1.05);
+				box-shadow:
+					0 0 20px rgba(255, 215, 0, 0.3),
+					0 0 40px rgba(255, 215, 0, 0.2);
+				background: rgba(248, 213, 73, 0.2);
+				transition:
+					transform 0.3s ease,
+					box-shadow 0.3s ease,
+					background 0.3s ease;
+			}
+			.feature-title {
+				font-size: 1.5rem;
+				font-weight: bold;
+				color: #f9d976;
+				margin-bottom: 0.5rem;
+			}
 
-		.feature-title {
-			font-size: 1.5rem;
-			font-weight: bold;
-			color: #f9d976;
-			margin-bottom: 0.5rem;
+			.feature-description {
+				font-size: 1rem;
+				color: #ddd;
+				line-height: 1.4;
+			}
 		}
-
-		.feature-description {
-			font-size: 1rem;
-			color: #ddd;
-			line-height: 1.4;
+		@media (max-width: 768px) {
+			.feature-card {
+				padding: 1.5rem;
+				.icon {
+					width: 100px;
+				}
+				h3 {
+					font-size: 1.8rem;
+					height: auto;
+				}
+				p {
+					font-size: 1.2rem;
+				}
+			}
+			.features-grid {
+				margin-top: 4rem;
+				gap: 1.5rem;
+			}
 		}
 	}
 	@keyframes flicker {

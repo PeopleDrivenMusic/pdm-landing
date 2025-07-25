@@ -8,7 +8,7 @@
 
 	<meta
 		name="keywords"
-		content="web3 music, listen to earn, blockchain music platform, PDM, fan economy, fair tickets, music NFT, crypto artists, decentralized streaming"
+		content="web3 music, listen to earn, blockchain music platform, PDM, fan economy, fair tickets, music NFT, crypto artists, decentralized streaming, blockchain, web3, token, utility"
 	/>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 

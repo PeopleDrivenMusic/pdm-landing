@@ -18,7 +18,7 @@
 	.bg {
 		position: fixed;
 		inset: 0;
-		background-image: url('/concert-bg.jpg');
+		background-image: url('/concert-bg.webp');
 		background-size: cover;
 		width: 100%;
 		height: 100vh;
@@ -28,7 +28,7 @@
 	}
 	.crowd {
 		position: absolute;
-		background-image: url('/crowd.png');
+		background-image: url('/crowd.webp');
 		bottom: 0;
 		left: 0;
 		width: 100%;

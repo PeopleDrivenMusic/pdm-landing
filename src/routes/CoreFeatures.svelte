@@ -103,7 +103,7 @@
 <style lang="scss">
 	.confetti-container {
 		position: relative;
-		background-image: url('/bg3.png');
+		background-image: url('/bg3.webp');
 		background-size: cover;
 		background-position: center;
 

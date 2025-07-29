@@ -22,8 +22,31 @@
 	.wrapper {
 		background-color: #1a1a1a;
 		color: #fff;
+		position: relative;
+		z-index: 1;
 	}
 	:global {
+		* {
+			scrollbar-width: thin;
+			scrollbar-color: var(--main-color) #1a1a1a;
+
+			&::-webkit-scrollbar {
+				width: 8px;
+			}
+
+			&::-webkit-scrollbar-track {
+				background: #1a1a1a;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				background-color: var(--main-color);
+				border-radius: 4px;
+			}
+
+			&::-webkit-scrollbar-thumb:hover {
+				background-color: #555;
+			}
+		}
 		section {
 			min-height: 100vh;
 			width: 100%;

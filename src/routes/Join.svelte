@@ -1,7 +1,8 @@
 <script>
 	import { onMount } from 'svelte';
 	import Animate from './Animate.svelte';
-	
+	import Button from './Button.svelte';
+
 	let email = $state();
 	let role = $state('listener');
 	let isLoading = $state(false);
@@ -30,7 +31,6 @@
 		}
 	}
 
-
 	onMount(() => {
 		const storedData = localStorage.getItem('pdm-join');
 		if (storedData) {
@@ -42,7 +42,7 @@
 	});
 </script>
 
-<section class="join">
+<section class="join" id="join">
 	<Animate variant="fade" duration={1} delay={0}>
 		<h2 class="neon-title">Join the revolution</h2>
 	</Animate>
@@ -68,15 +68,17 @@
 			</div>
 
 			{#if submitted}
-				<p class="success-message" >Thanks for joining! 💥</p>
+				<p class="success-message">Thanks for joining! 💥</p>
 			{:else}
-				<button class="button" class:disabled={isLoading} onclick={submit}
-					>{#if isLoading}
-						submitting...
-					{:else}
-						Join revolution
-					{/if}
-				</button>
+				<Button disabled={isLoading} click={submit}>
+					{#snippet text()}
+						{#if isLoading}
+							submitting...
+						{:else}
+							Join revolution
+						{/if}
+					{/snippet}
+				</Button>
 			{/if}
 		</div>
 	</Animate>

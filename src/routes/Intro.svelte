@@ -1,8 +1,20 @@
+<script>
+	import Button from './Button.svelte';
+</script>
+
 <div class="wrapper">
 	<div class="bg" />
 	<div class="cta">
 		<h1 class="title">PDM</h1>
 		<p class="subtitle">WHERE FANS DON'T JUST LISTEN - THEY LEAD</p>
+		<div class="button-wrapper">
+
+			<Button disabled={false} click={() => {document.getElementById("join")?.scrollIntoView({ behavior: "smooth" });}}>
+				{#snippet text()}
+				join
+				{/snippet}
+			</Button>
+		</div>
 	</div>
 	<div class="crowd" />
 	<div class="fade-overlay"></div>
@@ -23,6 +35,7 @@
 		width: 100%;
 		height: 100vh;
 		background-position: center;
+		pointer-events: none;
 		filter: brightness(0.6);
 		z-index: -1;
 	}
@@ -37,6 +50,7 @@
 		background-size: cover;
 		z-index: 1;
 		filter: brightness(0.6);
+		pointer-events: none;
 	}
 	.cta {
 		position: fixed;
@@ -45,7 +59,7 @@
 		transform: translate(-50%, -50%);
 		text-align: center;
 		color: white;
-		z-index: -1;
+		z-index: 0;
 		.title {
 			margin: 0;
 			font-size: clamp(8rem, 15vw, 20rem);
@@ -76,6 +90,12 @@
 		background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #1a1a1a 100%);
 		z-index: 2;
 		pointer-events: none;
+	}
+	.button-wrapper {
+		margin-top: 2rem;
+		:global(.button) {
+			width: 200px;
+		}
 	}
 	@keyframes flicker {
 		0%,

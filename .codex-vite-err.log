@@ -1,0 +1,28 @@
+ReferenceError: window is not defined
+    at D:\IT\pet_projects\PDM\pdm-lending\src\routes\+page.svelte:97:3
+    at render (D:\IT\pet_projects\PDM\pdm-lending\node_modules\svelte\src\internal\server\index.js:101:37)
+    at Function._render [as render] (D:\IT\pet_projects\PDM\pdm-lending\node_modules\svelte\src\legacy\legacy-server.js:27:24)
+    at render_response (D:\IT\pet_projects\PDM\pdm-lending\node_modules\@sveltejs\kit\src\runtime\server\page\render.js:192:29)
+    at async render_page (D:\IT\pet_projects\PDM\pdm-lending\node_modules\@sveltejs\kit\src\runtime\server\page\index.js:305:10)
+    at async resolve (D:\IT\pet_projects\PDM\pdm-lending\node_modules\@sveltejs\kit\src\runtime\server\respond.js:501:18)
+    at async respond (D:\IT\pet_projects\PDM\pdm-lending\node_modules\@sveltejs\kit\src\runtime\server\respond.js:365:20)
+    at async file:///D:/IT/pet_projects/PDM/pdm-lending/node_modules/@sveltejs/kit/src/exports/vite/dev/index.js:544:22
+ReferenceError: window is not defined
+    at D:\IT\pet_projects\PDM\pdm-lending\src\routes\+page.svelte:97:3
+    at render (D:\IT\pet_projects\PDM\pdm-lending\node_modules\svelte\src\internal\server\index.js:101:37)
+    at Function._render [as render] (D:\IT\pet_projects\PDM\pdm-lending\node_modules\svelte\src\legacy\legacy-server.js:27:24)
+    at render_response (D:\IT\pet_projects\PDM\pdm-lending\node_modules\@sveltejs\kit\src\runtime\server\page\render.js:192:29)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async render_page (D:\IT\pet_projects\PDM\pdm-lending\node_modules\@sveltejs\kit\src\runtime\server\page\index.js:305:10)
+    at async resolve (D:\IT\pet_projects\PDM\pdm-lending\node_modules\@sveltejs\kit\src\runtime\server\respond.js:501:18)
+    at async respond (D:\IT\pet_projects\PDM\pdm-lending\node_modules\@sveltejs\kit\src\runtime\server\respond.js:365:20)
+    at async file:///D:/IT/pet_projects/PDM/pdm-lending/node_modules/@sveltejs/kit/src/exports/vite/dev/index.js:544:22
+ReferenceError: window is not defined
+    at D:\IT\pet_projects\PDM\pdm-lending\src\routes\+page.svelte:97:3
+    at render (D:\IT\pet_projects\PDM\pdm-lending\node_modules\svelte\src\internal\server\index.js:101:37)
+    at Function._render [as render] (D:\IT\pet_projects\PDM\pdm-lending\node_modules\svelte\src\legacy\legacy-server.js:27:24)
+    at render_response (D:\IT\pet_projects\PDM\pdm-lending\node_modules\@sveltejs\kit\src\runtime\server\page\render.js:192:29)
+    at async render_page (D:\IT\pet_projects\PDM\pdm-lending\node_modules\@sveltejs\kit\src\runtime\server\page\index.js:305:10)
+    at async resolve (D:\IT\pet_projects\PDM\pdm-lending\node_modules\@sveltejs\kit\src\runtime\server\respond.js:501:18)
+    at async respond (D:\IT\pet_projects\PDM\pdm-lending\node_modules\@sveltejs\kit\src\runtime\server\respond.js:365:20)
+    at async file:///D:/IT/pet_projects/PDM/pdm-lending/node_modules/@sveltejs/kit/src/exports/vite/dev/index.js:544:22

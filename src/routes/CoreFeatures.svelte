@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
 	import Animate from './Animate.svelte';
 	import confetti from 'canvas-confetti';
@@ -7,8 +7,8 @@
 	import IconNotes from './icons/IconNotes.svelte';
 	import IconShop from './icons/IconShop.svelte';
 
-	let interval;
-	let canvasEl;
+	let interval: ReturnType<typeof setInterval>;
+	let canvasEl: HTMLCanvasElement;
 
 	const features = [
 		{

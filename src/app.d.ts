@@ -10,4 +10,6 @@ declare global {
 	}
 }
 
+declare module 'canvas-confetti';
+
 export {};

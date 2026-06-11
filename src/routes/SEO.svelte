@@ -1,54 +1,77 @@
 <svelte:head>
-	<!-- Standard SEO -->
-	<title>PDM — The Future of Music is Fan-Powered</title>
+	<title>PDM | People Driving Music - Fan-Powered Web3 Music Platform</title>
 	<meta
 		name="description"
-		content="PDM is a revolutionary Web3 music platform where fans earn crypto for listening, and artists monetize without middlemen. Decentralized, fair and community-owned — the future of music starts here."
+		content="PDM is a fan-powered Web3 music platform where listeners earn PDM tokens, artists connect directly with fans, and fair ticketing helps real audiences get access first."
 	/>
-
+	<meta name="robots" content="index, follow, max-image-preview:large" />
 	<meta
 		name="keywords"
-		content="web3 music, listen to earn, blockchain music platform, PDM, fan economy, fair tickets, music NFT, crypto artists, decentralized streaming, blockchain, web3, token, utility"
+		content="PDM, People Driving Music, Web3 music platform, listen to earn, fan-powered music, fair ticketing, music marketplace, artist community"
 	/>
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="canonical" href="https://pdm.live/" />
 
-	<!-- Open Graph (Facebook, LinkedIn, Discord etc.) -->
-	<meta property="og:title" content="PDM — Crypto-Powered Music for the Next Generation" />
+	<meta property="og:site_name" content="PDM" />
+	<meta property="og:title" content="PDM | People Driving Music" />
 	<meta
 		property="og:description"
-		content="Not just another platform. PDM is a cultural shift. Fans support what they love. Artists own what they create. And Web3 makes it possible."
+		content="A fan-powered Web3 music platform for listeners, artists, fair ticketing, rewards, and direct music communities."
 	/>
-
-	<!-- <meta property="og:image" content="https://yourdomain.com/cover.jpg" /> -->
-	<!-- <meta property="og:url" content="https://yourdomain.com" /> -->
+	<meta property="og:url" content="https://pdm.live/" />
 	<meta property="og:type" content="website" />
+	<meta property="og:image" content="https://pdm.live/concert-bg.webp" />
+	<meta property="og:image:alt" content="PDM fan-powered music platform" />
+	<meta property="og:locale" content="en_US" />
 
-	<!-- Twitter Card -->
 	<meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="🎧 PDM — Listen to Earn. Own the Future of Music." />
-    <meta name="twitter:description" content="A fan-driven crypto music platform. Fair revenue, transparent royalties, and community vibes. Built on Web3. Made for humans." />
-
-	<!-- <meta name="twitter:image" content="https://yourdomain.com/cover.jpg" /> -->
+	<meta name="twitter:title" content="PDM | People Driving Music" />
+	<meta
+		name="twitter:description"
+		content="Listeners earn, artists grow, and real fans get fair access through PDM's Web3 music platform."
+	/>
+	<meta name="twitter:image" content="https://pdm.live/concert-bg.webp" />
 
 	<script type="application/ld+json">
 		{
 			"@context": "https://schema.org",
-			"@type": "WebApplication",
-			"name": "People Driving Music",
-			"alternateName": "PDM",
-			"url": "https://yourdomain.com",
-			"applicationCategory": "EntertainmentApplication",
-			"operatingSystem": "All",
-			"description": "PDM is a decentralized music platform where fans earn tokens for listening and artists receive fair rewards. Powered by Web3 and community support.",
-			"offers": {
-				"@type": "Offer",
-				"price": "0",
-				"priceCurrency": "USD"
-			},
-			"creator": {
-				"@type": "Person",
-				"name": "Ivan Izobov"
-			}
+			"@graph": [
+				{
+					"@type": "Organization",
+					"@id": "https://pdm.live/#organization",
+					"name": "People Driving Music",
+					"alternateName": "PDM",
+					"url": "https://pdm.live/",
+					"logo": "https://pdm.live/favicon.png"
+				},
+				{
+					"@type": "WebSite",
+					"@id": "https://pdm.live/#website",
+					"name": "PDM",
+					"alternateName": "People Driving Music",
+					"url": "https://pdm.live/",
+					"publisher": {
+						"@id": "https://pdm.live/#organization"
+					}
+				},
+				{
+					"@type": "WebApplication",
+					"@id": "https://pdm.live/#webapp",
+					"name": "PDM",
+					"alternateName": "People Driving Music",
+					"url": "https://pdm.live/",
+					"applicationCategory": "EntertainmentApplication",
+					"operatingSystem": "Web",
+					"description": "PDM is a fan-powered Web3 music platform where listeners earn PDM tokens, artists connect directly with fans, and fair ticketing helps real audiences get access first.",
+					"publisher": {
+						"@id": "https://pdm.live/#organization"
+					},
+					"offers": {
+						"@type": "Offer",
+						"price": "0",
+						"priceCurrency": "USD"
+					}
+				}
+			]
 		}
 	</script>
 </svelte:head>

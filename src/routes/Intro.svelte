@@ -423,10 +423,25 @@
 			context.fillRect(x - size / 2, y - size / 2, size, size);
 		}
 
+		function projectWavePoint(progress: number, offsetY: number, waveWidth: number, waveHeight: number, centerY: number) {
+			const desktop = width > 720;
+			const startX = desktop ? width * 0.5 : width * 0.07;
+			const endX = desktop ? Math.min(width * 1.5, startX + waveWidth * 0.6) : width * 0.94;
+			const curve = Math.pow(progress, desktop ? 1.34 : 1.12);
+			const depth = 1.65 - progress * (desktop ? 1.4 : 0.38);
+			const x = startX + (endX - startX) * curve + Math.sin(progress * Math.PI) * width * (desktop ? 0.05 : 0.012);
+			const horizonLift = Math.pow(progress, desktop ? 1.18 : 1) * waveHeight * (desktop ? 1 : 0.2);
+			const y = centerY + waveHeight * (desktop ? 0.18 : 0) - horizonLift + offsetY * depth;
+
+			return { depth, x, y };
+		}
+
 		function drawWaveform(centerY: number, time: number, waveWidth: number, waveHeight: number) {
-			const left = (width - waveWidth) / 2;
-			const step = waveWidth / (bars.length - 1);
-			const dotSize = Math.max(2.3, Math.min(5.4, step * 0.42));
+			const projectedStart = projectWavePoint(0, 0, waveWidth, waveHeight, centerY);
+			const projectedEnd = projectWavePoint(1, 0, waveWidth, waveHeight, centerY);
+			const visualWidth = Math.max(1, projectedEnd.x - projectedStart.x);
+			const step = visualWidth / (bars.length - 1);
+			const dotSize = Math.max(2.2, Math.min(5.2, step * 0.5));
 			const dotGap = dotSize * 1.55;
 			const rawAmps = bars.map((bar, index) => amplitude(bar, index / (bars.length - 1), time));
 			const minAmp = Math.min(...rawAmps);
@@ -441,30 +456,31 @@
 
 			for (let index = 0; index < bars.length; index += 1) {
 				const progress = index / (bars.length - 1);
-				const x = left + index * step;
 				const rawAmp = rawAmps[index];
 				const localContrast = rangeAmp > 0.001 ? (rawAmp - minAmp) / rangeAmp : 0.5;
 				const expanded = Math.pow(localContrast, 0.58);
 				const locallySensitiveAmp = meanAmp * 0.24 + expanded * 0.76;
 				const amp = Math.max(0.035, Math.min(0.96, rawAmp * (1 - sensitivity) + locallySensitiveAmp * sensitivity));
-				const halfDots = Math.max(1, Math.round((amp * waveHeight) / dotGap));
+				const centerProjection = projectWavePoint(progress, 0, waveWidth, waveHeight, centerY);
+				const halfDots = Math.max(1, Math.round((amp * waveHeight * centerProjection.depth) / dotGap));
 				const edgeFade = Math.sin(progress * Math.PI);
 				const highlight = 0.45 + Math.pow(amp, 1.8) * 0.55;
 
 				for (let dot = -halfDots; dot <= halfDots; dot += 1) {
 					const distance = Math.abs(dot) / Math.max(halfDots, 1);
-					const y = centerY + dot * dotGap;
+					const projected = projectWavePoint(progress, dot * dotGap, waveWidth, waveHeight, centerY);
 					const lowerSide = dot > 0 ? dot / Math.max(halfDots, 1) : 0;
 					const rightCatch = Math.max(0, progress - 0.42) * 1.24;
-					const reflection = Math.min(0.22, rightCatch * (0.05 + lowerSide * 0.18) * (1 - distance * 0.18));
-					const alpha = (0.18 + highlight * 0.58) * (1 - distance * 0.42) * (0.42 + edgeFade * 0.58) + reflection;
-					const size = (dot === 0 ? dotSize * 0.78 : dotSize * (0.72 + (1 - distance) * 0.34)) * (1 + reflection * 0.28);
+					const reflection = Math.min(0.16, rightCatch * (0.04 + lowerSide * 0.14) * (1 - distance * 0.18));
+					const depthAlpha = 0.5 + projected.depth * 0.44;
+					const alpha = ((0.18 + highlight * 0.58) * (1 - distance * 0.42) * (0.42 + edgeFade * 0.58) + reflection) * depthAlpha;
+					const size = (dot === 0 ? dotSize * 0.78 : dotSize * (0.72 + (1 - distance) * 0.34)) * (0.46 + projected.depth * 0.58) * (1 + reflection * 0.22);
 
-					drawDot(x, y, size, alpha);
+					drawDot(projected.x, projected.y, size, alpha);
 				}
 			}
 
-			const baseline = context.createLinearGradient(left, 0, left + waveWidth, 0);
+			const baseline = context.createLinearGradient(projectedStart.x, projectedStart.y, projectedEnd.x, projectedEnd.y);
 			baseline.addColorStop(0, 'rgba(255, 223, 123, 0)');
 			baseline.addColorStop(0.5, 'rgba(255, 249, 214, 0.62)');
 			baseline.addColorStop(1, 'rgba(255, 223, 123, 0)');
@@ -472,8 +488,16 @@
 			context.strokeStyle = baseline;
 			context.lineWidth = 1;
 			context.globalAlpha = 1;
-			context.moveTo(left, centerY);
-			context.lineTo(left + waveWidth, centerY);
+			for (let stepIndex = 0; stepIndex <= 36; stepIndex += 1) {
+				const progress = stepIndex / 36;
+				const point = projectWavePoint(progress, 0, waveWidth, waveHeight, centerY);
+
+				if (stepIndex === 0) {
+					context.moveTo(point.x, point.y);
+				} else {
+					context.lineTo(point.x, point.y);
+				}
+			}
 			context.stroke();
 
 			context.restore();
@@ -488,8 +512,8 @@
 			lastDraw = time;
 			renderedFrames += 1;
 
-			const centerY = height * 0.43;
-			const waveWidth = Math.min(width * 0.86, 980);
+			const centerY = height * (width > 720 ? 0.46 : 0.43);
+			const waveWidth = Math.min(width * (width > 720 ? 0.74 : 0.86), 980);
 			const waveHeight = Math.min(Math.max(height * 0.18, 86), 178);
 
 			drawBackground(centerY, waveWidth, waveHeight, time);

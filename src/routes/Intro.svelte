@@ -28,6 +28,58 @@
 		windowSeconds?: number;
 	};
 
+	type WaveLobe = {
+		amp: number;
+		center: number;
+		drift: number;
+		motion: number;
+		phase: number;
+		spread: number;
+	};
+
+	type WaveStrand = {
+		end: number;
+		phaseShift: number;
+		scale: number;
+		speed?: number;
+		start: number;
+		weave: number;
+	};
+
+	const AUDIO_IMPULSE_PROBES = [
+		{ progress: 0.2, weight: 0.72 },
+		{ progress: 0.3, weight: 1.05 },
+		{ progress: 0.42, weight: 1.18 },
+		{ progress: 0.5, weight: 1.36 },
+		{ progress: 0.64, weight: 1.08 },
+		{ progress: 0.72, weight: 0.92 },
+		{ progress: 0.84, weight: 0.62 }
+	];
+
+	const WAVE_LOBES: WaveLobe[] = [
+		{ center: 0.075, spread: 0.025, amp: 0.055, phase: 0.2, drift: 0.0015, motion: 0.05 },
+		{ center: 0.2, spread: 0.058, amp: 0.34, phase: 1.4, drift: 0.0025, motion: 0.06 },
+		{ center: 0.295, spread: 0.044, amp: 0.64, phase: 2.35, drift: 0.003, motion: 0.07 },
+		{ center: 0.405, spread: 0.041, amp: 0.78, phase: 3.15, drift: 0.0025, motion: 0.06 },
+		{ center: 0.505, spread: 0.05, amp: 0.98, phase: 0.8, drift: 0.002, motion: 0.055 },
+		{ center: 0.63, spread: 0.052, amp: 0.48, phase: 1.75, drift: 0.0025, motion: 0.06 },
+		{ center: 0.695, spread: 0.05, amp: 0.64, phase: 2.85, drift: 0.003, motion: 0.07 },
+		{ center: 0.785, spread: 0.058, amp: 0.27, phase: 0.25, drift: 0.0025, motion: 0.06 },
+		{ center: 0.895, spread: 0.052, amp: 0.12, phase: 1.05, drift: 0.002, motion: 0.05 }
+	];
+
+	const FLOW_STRANDS: WaveStrand[] = [
+		{ end: 0.97, phaseShift: -1.12, scale: 0.98, start: 0.035, weave: 0.28, speed: 1 },
+		{ end: 0.95, phaseShift: -0.2, scale: 1.05, start: 0.085, weave: 0.2, speed: 1.18 },
+		{ end: 0.9, phaseShift: 0.74, scale: 0.86, start: 0.18, weave: 0.34, speed: 0.96 }
+	];
+
+	const FOREGROUND_STRANDS: WaveStrand[] = [
+		{ end: 0.96, phaseShift: -0.62, scale: 1.08, start: 0.055, weave: 0.15 },
+		{ end: 0.9, phaseShift: 0.26, scale: 0.94, start: 0.16, weave: 0.24 },
+		{ end: 0.86, phaseShift: 0.9, scale: 0.78, start: 0.235, weave: 0.35 }
+	];
+
 	function joinWhitelist() {
 		document.getElementById('join')?.scrollIntoView({ behavior: 'smooth' });
 	}
@@ -337,20 +389,11 @@
 		function currentAudioImpulse(time: number, seconds = currentAudioSeconds(time)) {
 			if (!audioWaveform || reducedMotion.matches) return 0;
 
-			const probes = [
-				{ progress: 0.2, weight: 0.72 },
-				{ progress: 0.3, weight: 1.05 },
-				{ progress: 0.42, weight: 1.18 },
-				{ progress: 0.5, weight: 1.36 },
-				{ progress: 0.64, weight: 1.08 },
-				{ progress: 0.72, weight: 0.92 },
-				{ progress: 0.84, weight: 0.62 }
-			];
 			let current = 0;
 			let previous = 0;
 			let totalWeight = 0;
 
-			for (const probe of probes) {
+			for (const probe of AUDIO_IMPULSE_PROBES) {
 				current += sampleAudioImpulseFrame(seconds, probe.progress) * probe.weight;
 				previous += sampleAudioImpulseFrame(seconds - 0.13, probe.progress) * probe.weight;
 				totalWeight += probe.weight;
@@ -364,11 +407,10 @@
 			return clamp(Math.pow(current, 0.86) * 0.5 + transient * 0.62, 0, 1);
 		}
 
-		function currentPulse(time: number) {
+		function currentPulse(time: number, audioPulse = currentAudioImpulse(time)) {
 			if (reducedMotion.matches) return 0.22;
 
 			const seconds = time * 0.001;
-			const audioPulse = currentAudioImpulse(time);
 			const pulse =
 				0.23 +
 				audioPulse * 0.31 +
@@ -378,8 +420,14 @@
 			return clamp(pulse, 0.18, 0.54);
 		}
 
-		function drawBackground(centerY: number, waveWidth: number, waveHeight: number, time: number) {
-			const pulse = currentPulse(time);
+		function drawBackground(
+			centerY: number,
+			waveWidth: number,
+			waveHeight: number,
+			time: number,
+			audioPulse: number
+		) {
+			const pulse = currentPulse(time, audioPulse);
 			const breathe = 0.18 + pulse * 0.82;
 			const bleed = Math.max(96, width * 0.14);
 			const cornerX = width;
@@ -460,36 +508,23 @@
 			context.fillRect(0, 0, width, centerY + waveHeight * 0.42);
 		}
 
-		function drawWaveform(centerY: number, time: number, waveWidth: number, waveHeight: number) {
+		function drawWaveform(
+			centerY: number,
+			time: number,
+			waveWidth: number,
+			waveHeight: number,
+			audioSeconds: number,
+			audioPulse: number
+		) {
 			const left = (width - waveWidth) / 2;
-			const sampleCount = width > 900 ? 720 : width > 560 ? 520 : 340;
+			const sampleCount = width > 900 ? 360 : width > 560 ? 280 : 220;
+			const flowSampleCount = Math.max(140, Math.floor(sampleCount * 0.72));
+			const centerSampleCount = width > 720 ? 180 : 120;
 			const lineCount = width > 720 ? 22 : 16;
 			const seconds = time * 0.001;
 			const motion = reducedMotion.matches ? 0 : 1;
 			const audioResponsive = !!audioWaveform && !reducedMotion.matches;
-			const audioSeconds = currentAudioSeconds(time);
-			const audioPulse = currentAudioImpulse(time, audioSeconds);
 			const pulse = 0.96 + Math.sin(seconds * 0.42) * 0.018 * motion + audioPulse * 0.085;
-			const lobes = [
-				{ center: 0.075, spread: 0.025, amp: 0.055, phase: 0.2, drift: 0.0015, motion: 0.05 },
-				{ center: 0.2, spread: 0.058, amp: 0.34, phase: 1.4, drift: 0.0025, motion: 0.06 },
-				{ center: 0.295, spread: 0.044, amp: 0.64, phase: 2.35, drift: 0.003, motion: 0.07 },
-				{ center: 0.405, spread: 0.041, amp: 0.78, phase: 3.15, drift: 0.0025, motion: 0.06 },
-				{ center: 0.505, spread: 0.05, amp: 0.98, phase: 0.8, drift: 0.002, motion: 0.055 },
-				{ center: 0.63, spread: 0.052, amp: 0.48, phase: 1.75, drift: 0.0025, motion: 0.06 },
-				{ center: 0.695, spread: 0.05, amp: 0.64, phase: 2.85, drift: 0.003, motion: 0.07 },
-				{ center: 0.785, spread: 0.058, amp: 0.27, phase: 0.25, drift: 0.0025, motion: 0.06 },
-				{ center: 0.895, spread: 0.052, amp: 0.12, phase: 1.05, drift: 0.002, motion: 0.05 }
-			];
-
-			type WavePoint = { x: number; y: number };
-			type Strand = {
-				end: number;
-				phaseShift: number;
-				scale: number;
-				start: number;
-				weave: number;
-			};
 
 			function gaussian(progress: number, center: number, spread: number, strength: number) {
 				return Math.exp(-Math.pow((progress - center) / spread, 2)) * strength;
@@ -506,16 +541,28 @@
 				);
 			const magnetAmount = reducedMotion.matches ? 0 : pointerIntensity * magnetVerticalFocus * 1.5;
 			const magnetRadius = Math.max(width > 720 ? 88 : 72, waveHeight * (width > 720 ? 1.35 : 1.55));
+			const magnetRadiusSquared = magnetRadius * magnetRadius;
 			const magnetMaxPull = Math.max(14, waveHeight * (width > 720 ? 0.23 : 0.27));
+			let pathX = 0;
+			let pathY = 0;
 
-			function magnetizePoint(x: number, y: number, progress: number, localFade = 1) {
-				if (magnetAmount <= 0.002) return { x, y };
+			function setMagnetizedPoint(x: number, y: number, progress: number, localFade = 1) {
+				if (magnetAmount <= 0.002) {
+					pathX = x;
+					pathY = y;
+					return;
+				}
 
 				const dxToMagnet = magnetX - x;
 				const dyToMagnet = magnetY - y;
-				const distance = Math.hypot(dxToMagnet, dyToMagnet);
-				if (distance <= 0.001 || distance >= magnetRadius) return { x, y };
+				const distanceSquared = dxToMagnet * dxToMagnet + dyToMagnet * dyToMagnet;
+				if (distanceSquared <= 0.000001 || distanceSquared >= magnetRadiusSquared) {
+					pathX = x;
+					pathY = y;
+					return;
+				}
 
+				const distance = Math.sqrt(distanceSquared);
 				const radialFalloff = Math.pow(
 					1 - smoothstep(magnetRadius * 0.1, magnetRadius, distance),
 					1.45
@@ -526,7 +573,8 @@
 				const dx = (dxToMagnet / distance) * pullDistance;
 				const dy = (dyToMagnet / distance) * pullDistance;
 
-				return { x: x - dx, y: y - dy };
+				pathX = x - dx;
+				pathY = y - dy;
 			}
 
 			function envelopeAt(progress: number) {
@@ -534,7 +582,7 @@
 				const fineRipple = Math.sin(progress * 82 + seconds * 0.2 * motion) * 0.004;
 				let shape = 0.01 + fineRipple;
 
-				for (const lobe of lobes) {
+				for (const lobe of WAVE_LOBES) {
 					const animatedCenter =
 						lobe.center + Math.sin(seconds * 0.23 + lobe.phase) * lobe.drift * motion;
 					const lobeAudio = audioResponsive
@@ -592,77 +640,102 @@
 				);
 			}
 
-			function traceSmooth(points: WavePoint[]) {
-				if (points.length < 2) return;
+			function setStrandPoint(
+				start: number,
+				end: number,
+				phaseShift: number,
+				scale: number,
+				weave: number,
+				sample: number,
+				samples: number
+			) {
+				const localProgress = sample / samples;
+				const progress = start + localProgress * (end - start);
+				const x = left + progress * waveWidth;
+				const localFade =
+					smoothstep(0, 0.085, localProgress) * (1 - smoothstep(0.915, 1, localProgress));
+				const envelope = envelopeAt(progress);
+				const phase = phaseAt(progress);
+				const carrier =
+					Math.sin(phase + phaseShift + seconds * 0.035 * motion) * 0.96 +
+					Math.sin(phase * 1.64 - phaseShift * 0.62 + seconds * 0.028 * motion) * 0.06 +
+					Math.sin(
+						progress * Math.PI * (18 + weave * 8) + phaseShift * 0.36 - seconds * 0.045 * motion
+					) *
+						0.008;
+				const crossingBias =
+					gaussian(progress, 0.3, 0.06, Math.sin(phaseShift * 0.72) * 0.08) -
+					gaussian(progress, 0.5, 0.052, Math.cos(phaseShift * 0.45) * 0.065) +
+					gaussian(progress, 0.68, 0.065, Math.sin(phaseShift * 0.55) * 0.062);
+				const baselineOffset = baselineCurve(progress);
+				const naturalOffset = (carrier + crossingBias) * envelope * scale * waveHeight * localFade;
+				const y = centerY + baselineOffset + naturalOffset;
 
+				setMagnetizedPoint(x, y, progress, localFade);
+			}
+
+			function traceStrand(
+				start: number,
+				end: number,
+				phaseShift: number,
+				scale: number,
+				weave: number,
+				samples = sampleCount
+			) {
+				setStrandPoint(start, end, phaseShift, scale, weave, 0, samples);
 				context.beginPath();
-				context.moveTo(points[0].x, points[0].y);
+				context.moveTo(pathX, pathY);
 
-				for (let index = 1; index < points.length - 1; index += 1) {
-					const current = points[index];
-					const next = points[index + 1];
-					const midX = (current.x + next.x) / 2;
-					const midY = (current.y + next.y) / 2;
-					context.quadraticCurveTo(current.x, current.y, midX, midY);
+				setStrandPoint(start, end, phaseShift, scale, weave, 1, samples);
+				let currentX = pathX;
+				let currentY = pathY;
+
+				for (let sample = 2; sample <= samples; sample += 1) {
+					setStrandPoint(start, end, phaseShift, scale, weave, sample, samples);
+					const nextX = pathX;
+					const nextY = pathY;
+
+					context.quadraticCurveTo(currentX, currentY, (currentX + nextX) / 2, (currentY + nextY) / 2);
+					currentX = nextX;
+					currentY = nextY;
 				}
 
-				const last = points[points.length - 1];
-				context.lineTo(last.x, last.y);
+				context.lineTo(currentX, currentY);
 			}
 
-			function makeCenterLine() {
-				const points: WavePoint[] = [];
-				const samples = width > 720 ? 280 : 180;
+			function traceCenterLine() {
+				let progress = 0;
+				setMagnetizedPoint(left, centerY + baselineCurve(progress), progress, 0.42);
+				context.beginPath();
+				context.moveTo(pathX, pathY);
 
-				for (let sample = 0; sample <= samples; sample += 1) {
-					const progress = sample / samples;
-					const x = left + progress * waveWidth;
-					const y = centerY + baselineCurve(progress);
+				progress = 1 / centerSampleCount;
+				setMagnetizedPoint(
+					left + progress * waveWidth,
+					centerY + baselineCurve(progress),
+					progress,
+					0.42
+				);
+				let currentX = pathX;
+				let currentY = pathY;
 
-					points.push(magnetizePoint(x, y, progress, 0.42));
+				for (let sample = 2; sample <= centerSampleCount; sample += 1) {
+					progress = sample / centerSampleCount;
+					setMagnetizedPoint(
+						left + progress * waveWidth,
+						centerY + baselineCurve(progress),
+						progress,
+						0.42
+					);
+					const nextX = pathX;
+					const nextY = pathY;
+
+					context.quadraticCurveTo(currentX, currentY, (currentX + nextX) / 2, (currentY + nextY) / 2);
+					currentX = nextX;
+					currentY = nextY;
 				}
 
-				return points;
-			}
-
-			function makeStrand(strand: Strand) {
-				const points: WavePoint[] = [];
-				const range = strand.end - strand.start;
-
-				for (let sample = 0; sample <= sampleCount; sample += 1) {
-					const localProgress = sample / sampleCount;
-					const progress = strand.start + localProgress * range;
-					const x = left + progress * waveWidth;
-					const localFade =
-						smoothstep(0, 0.085, localProgress) * (1 - smoothstep(0.915, 1, localProgress));
-					const envelope = envelopeAt(progress);
-					const phase = phaseAt(progress);
-					const carrier =
-						Math.sin(phase + strand.phaseShift + seconds * 0.035 * motion) * 0.96 +
-						Math.sin(phase * 1.64 - strand.phaseShift * 0.62 + seconds * 0.028 * motion) * 0.06 +
-						Math.sin(
-							progress * Math.PI * (18 + strand.weave * 8) +
-								strand.phaseShift * 0.36 -
-								seconds * 0.045 * motion
-						) *
-							0.008;
-					const crossingBias =
-						gaussian(progress, 0.3, 0.06, Math.sin(strand.phaseShift * 0.72) * 0.08) -
-						gaussian(progress, 0.5, 0.052, Math.cos(strand.phaseShift * 0.45) * 0.065) +
-						gaussian(progress, 0.68, 0.065, Math.sin(strand.phaseShift * 0.55) * 0.062);
-					const baselineOffset = baselineCurve(progress);
-					const naturalOffset =
-						(carrier + crossingBias) *
-						envelope *
-						strand.scale *
-						waveHeight *
-						localFade;
-					const y = centerY + baselineOffset + naturalOffset;
-
-					points.push(magnetizePoint(x, y, progress, localFade));
-				}
-
-				return points;
+				context.lineTo(currentX, currentY);
 			}
 
 			function drawFlowStrands() {
@@ -670,32 +743,6 @@
 
 				const dashLength = Math.max(22, waveWidth * 0.028);
 				const gapLength = Math.max(72, waveWidth * 0.105);
-				const strands = [
-					{
-						end: 0.97,
-						phaseShift: -1.12,
-						scale: 0.98,
-						start: 0.035,
-						weave: 0.28,
-						speed: 1.0
-					},
-					{
-						end: 0.95,
-						phaseShift: -0.2,
-						scale: 1.05,
-						start: 0.085,
-						weave: 0.2,
-						speed: 1.18
-					},
-					{
-						end: 0.9,
-						phaseShift: 0.74,
-						scale: 0.86,
-						start: 0.18,
-						weave: 0.34,
-						speed: 0.96
-					}
-				];
 
 				context.save();
 				context.filter = 'none';
@@ -703,7 +750,7 @@
 				context.lineJoin = 'round';
 				context.setLineDash([dashLength, gapLength]);
 
-				for (const strand of strands) {
+				for (const strand of FLOW_STRANDS) {
 					const stroke = context.createLinearGradient(left, centerY, left + waveWidth, centerY);
 					stroke.addColorStop(0, 'rgba(255, 223, 123, 0)');
 					stroke.addColorStop(0.22, `rgba(255, 225, 116, ${0.08 + audioPulse * 0.035})`);
@@ -711,16 +758,22 @@
 					stroke.addColorStop(0.78, `rgba(255, 200, 68, ${0.08 + audioPulse * 0.035})`);
 					stroke.addColorStop(1, 'rgba(255, 223, 123, 0)');
 
-					const points = makeStrand(strand);
 					context.strokeStyle = stroke;
 					context.lineWidth = 1.08 + audioPulse * 0.27;
 					context.shadowColor = 'rgba(255, 223, 123, 0.42)';
 					context.shadowBlur = 0;
 					context.lineDashOffset = -(
-						seconds * waveWidth * 0.045 * strand.speed +
+						seconds * waveWidth * 0.045 * (strand.speed ?? 1) +
 						strand.phaseShift * 42
 					);
-					traceSmooth(points);
+					traceStrand(
+						strand.start,
+						strand.end,
+						strand.phaseShift,
+						strand.scale,
+						strand.weave,
+						flowSampleCount
+					);
 					context.stroke();
 				}
 
@@ -762,13 +815,6 @@
 					(0.58 + (1 - distance) * 0.56 + Math.sin(line * 1.61) * 0.045) *
 					(line % 7 === 0 ? 0.86 : 1);
 				const lineWidth = distance > 0.94 ? 0.93 : 1.23 + (1 - distance) * 0.36;
-				const points = makeStrand({
-					end,
-					phaseShift,
-					scale,
-					start,
-					weave: distance
-				});
 				const stroke = context.createLinearGradient(left, centerY, left + waveWidth, centerY);
 				stroke.addColorStop(0, 'rgba(255, 223, 123, 0)');
 				stroke.addColorStop(0.1, `rgba(255, 223, 123, ${alpha * 0.5})`);
@@ -780,7 +826,7 @@
 				context.strokeStyle = stroke;
 				context.lineWidth = lineWidth;
 				context.globalAlpha = Math.min(1, alpha / 0.23);
-				traceSmooth(points);
+				traceStrand(start, end, phaseShift, scale, distance);
 				context.stroke();
 			}
 
@@ -794,25 +840,18 @@
 			foregroundStroke.addColorStop(1, 'rgba(255, 247, 204, 0)');
 			context.strokeStyle = foregroundStroke;
 			context.lineWidth = 1.62;
-			for (const strand of [
-				{ end: 0.96, phaseShift: -0.62, scale: 1.08, start: 0.055, weave: 0.15 },
-				{ end: 0.9, phaseShift: 0.26, scale: 0.94, start: 0.16, weave: 0.24 },
-				{ end: 0.86, phaseShift: 0.9, scale: 0.78, start: 0.235, weave: 0.35 }
-			]) {
-				const points = makeStrand(strand);
+			for (const strand of FOREGROUND_STRANDS) {
 				context.globalAlpha = 1;
-				traceSmooth(points);
+				traceStrand(strand.start, strand.end, strand.phaseShift, strand.scale, strand.weave);
 				context.stroke();
 			}
 
-			const centerLine = makeCenterLine();
-			context.beginPath();
 			context.strokeStyle = baseline;
 			context.shadowColor = 'rgba(255, 223, 123, 0.74)';
 			context.shadowBlur = 0;
 			context.lineWidth = 1.8 + audioPulse * 0.45;
 			context.globalAlpha = 1;
-			traceSmooth(centerLine);
+			traceCenterLine();
 			context.stroke();
 
 			context.restore();
@@ -833,12 +872,14 @@
 				width > 720
 					? Math.min(Math.max(height * 0.15, 88), 150)
 					: Math.min(Math.max(height * 0.11, 72), 118);
+			const audioSeconds = currentAudioSeconds(time);
+			const audioPulse = currentAudioImpulse(time, audioSeconds);
 
 			updatePointer();
-			drawBackground(centerY, waveWidth, waveHeight, time);
+			drawBackground(centerY, waveWidth, waveHeight, time, audioPulse);
 			updateSmoke(time);
 			drawSmoke(time, waveHeight);
-			drawWaveform(centerY, time, waveWidth, waveHeight);
+			drawWaveform(centerY, time, waveWidth, waveHeight, audioSeconds, audioPulse);
 
 			const elapsed = time - startedAt;
 			if (!reducedMotion.matches || elapsed < 900 || renderedFrames < 2) {

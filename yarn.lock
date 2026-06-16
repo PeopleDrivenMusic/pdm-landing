@@ -204,6 +204,11 @@
   resolved "https://registry.npmjs.org/@fontsource/playfair-display/-/playfair-display-5.2.8.tgz"
   integrity sha512-fUEhib70SszNhQVsGbUMSsWJhr7Je0rdeuZdtGpDNu0GKF1xJM8QhpI/y0pckU25GcChXm9TLOmeZupkvvZo2g==
 
+"@fontsource/sora@^5.2.8":
+  version "5.2.8"
+  resolved "https://registry.npmjs.org/@fontsource/sora/-/sora-5.2.8.tgz"
+  integrity sha512-1G6iTXUx8rcCKzi3mjaTQ1DE8PQz0OmW3Qnku+64S+bqRr1o/gGeiw8fxIQhhBU9ZP8ZofIqai7o00DNOPnlDw==
+
 "@humanfs/core@^0.19.1":
   version "0.19.1"
   resolved "https://registry.npmjs.org/@humanfs/core/-/core-0.19.1.tgz"

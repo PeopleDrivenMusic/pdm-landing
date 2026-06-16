@@ -3,13 +3,26 @@ import type { Audience } from './stores/audience.svelte';
 export const hero: Record<Audience, { kicker: string; heading: string[]; sub: string }> = {
 	fan: {
 		kicker: 'People Driving Music',
-		heading: ['Where fans', "don't just listen —", 'they lead.'],
-		sub: 'Back the artists you love for $1 a month. Get closer than ever — and put your money where the music is.'
+		heading: ["Don't just stream it.", 'Start belonging.'],
+		sub: 'You decide who to back — and how close you get.'
 	},
 	artist: {
 		kicker: 'People Driving Music',
-		heading: ['Your music.', 'Your fans.', 'Your income.'],
-		sub: 'Earn directly from the people who love your work. No labels skimming, no algorithm tax — just you and your fans.'
+		heading: ["Don't just reach listeners.", 'Build real fans.'],
+		sub: 'Streams are noise. Loyal fans are power.'
+	}
+};
+
+export const heroBadge = 'Early access — waitlist open';
+
+export const heroPerks: Record<Audience, { title: string; items: string[] }> = {
+	fan: {
+		title: 'Paid subscription unlocks',
+		items: ['Exclusive content', 'Fanbase community chat', 'Early access to presales']
+	},
+	artist: {
+		title: 'Your artist toolkit',
+		items: ['Direct fan income', 'Your community & feed', 'Presales, merch & tickets']
 	}
 };
 

@@ -1,33 +1,33 @@
 <svelte:head>
-	<title>PDM | People Driving Music - Fan-Powered Web3 Music Platform</title>
+	<title>PDM — People Driving Music | Back artists for $1/month</title>
 	<meta
 		name="description"
-		content="PDM is a fan-powered Web3 music platform where listeners earn PDM tokens, artists connect directly with fans, and fair ticketing helps real audiences get access first."
+		content="PDM is a music platform where fans get closer to the artists they love and artists earn directly. Subscribe to an artist for $1/month — no labels skimming, no algorithm tax. Join the waitlist."
 	/>
 	<meta name="robots" content="index, follow, max-image-preview:large" />
 	<meta
 		name="keywords"
-		content="PDM, People Driving Music, Web3 music platform, listen to earn, fan-powered music, fair ticketing, music marketplace, artist community"
+		content="PDM, People Driving Music, music platform, support artists, fan community, direct artist support, music streaming, artist subscriptions"
 	/>
 	<link rel="canonical" href="https://pdm.live/" />
 
 	<meta property="og:site_name" content="PDM" />
-	<meta property="og:title" content="PDM | People Driving Music" />
+	<meta property="og:title" content="PDM — People Driving Music" />
 	<meta
 		property="og:description"
-		content="A fan-powered Web3 music platform for listeners, artists, fair ticketing, rewards, and direct music communities."
+		content="Back the artists you love for $1/month and get closer than ever. Fans lead, artists earn directly. Join the waitlist."
 	/>
 	<meta property="og:url" content="https://pdm.live/" />
 	<meta property="og:type" content="website" />
 	<meta property="og:image" content="https://pdm.live/concert-bg.webp" />
-	<meta property="og:image:alt" content="PDM fan-powered music platform" />
+	<meta property="og:image:alt" content="PDM — People Driving Music" />
 	<meta property="og:locale" content="en_US" />
 
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="PDM | People Driving Music" />
+	<meta name="twitter:title" content="PDM — People Driving Music" />
 	<meta
 		name="twitter:description"
-		content="Listeners earn, artists grow, and real fans get fair access through PDM's Web3 music platform."
+		content="Back the artists you love for $1/month. Fans get closer, artists earn directly. Join the waitlist."
 	/>
 	<meta name="twitter:image" content="https://pdm.live/concert-bg.webp" />
 
@@ -59,16 +59,11 @@
 					"name": "PDM",
 					"alternateName": "People Driving Music",
 					"url": "https://pdm.live/",
-					"applicationCategory": "EntertainmentApplication",
+					"applicationCategory": "MusicApplication",
 					"operatingSystem": "Web",
-					"description": "PDM is a fan-powered Web3 music platform where listeners earn PDM tokens, artists connect directly with fans, and fair ticketing helps real audiences get access first.",
+					"description": "PDM is a music platform where fans back the artists they love for $1/month and get closer than ever, while artists earn directly.",
 					"publisher": {
 						"@id": "https://pdm.live/#organization"
-					},
-					"offers": {
-						"@type": "Offer",
-						"price": "0",
-						"priceCurrency": "USD"
 					}
 				}
 			]

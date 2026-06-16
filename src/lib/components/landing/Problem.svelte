@@ -13,7 +13,7 @@
 		</p>
 
 		<div class="stats">
-			{#each problemStats as s, i}
+			{#each problemStats as s, i (s.label)}
 				<div class="stat" use:reveal={{ delay: 200 + i * 120 }}>
 					<StatCounter
 						value={s.value}

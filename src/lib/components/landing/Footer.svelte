@@ -23,7 +23,7 @@
 
 		<nav class="col" aria-label="Social">
 			<span class="head">Follow</span>
-			{#each social as s}
+			{#each social as s (s.label)}
 				<a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
 			{/each}
 		</nav>

@@ -56,7 +56,13 @@
 			<AudienceToggle />
 			<label class="field">
 				<span>Email</span>
-				<input type="email" autocomplete="email" bind:value={email} placeholder="you@email.com" required />
+				<input
+					type="email"
+					autocomplete="email"
+					bind:value={email}
+					placeholder="you@email.com"
+					required
+				/>
 			</label>
 			{#if errorMsg}<p class="error" role="alert">{errorMsg}</p>{/if}
 			<button type="submit" disabled={loading}>{loading ? 'Joining…' : 'Join the waitlist'}</button>

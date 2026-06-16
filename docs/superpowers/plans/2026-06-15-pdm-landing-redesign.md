@@ -13,6 +13,7 @@
 ## File Structure
 
 **Create:**
+
 - `src/lib/styles/tokens.scss` — CSS custom properties (color, type scale, motion, z-index, spacing).
 - `src/lib/styles/global.scss` — resets, base element styles, scrollbar, fonts wiring.
 - `src/routes/+layout.svelte` — imports fonts + global styles, mounts smooth-scroll, sets `<html lang>`.
@@ -43,12 +44,14 @@
 - `vitest.config.ts`, `src/lib/test-setup.ts`.
 
 **Modify:**
+
 - `package.json` — add deps + `test` script.
 - `src/routes/+page.svelte` — compose new sections.
 - `src/routes/SEO.svelte` — rewrite metadata (drop all Web3/token/"listen-to-earn" language).
 - `src/routes/Button.svelte` — reuse; restyle to tokens if needed.
 
 **Delete (after replacement):**
+
 - `src/routes/Intro.svelte`, `Problems.svelte`, `CoreFeatures.svelte`, `How.svelte`, `Join.svelte`, `Animate.svelte`, `src/lib/scroll.ts` (superseded by `reveal.ts`).
 
 **Keep:** `src/routes/api/whitelist/+server.js`, `canvas-confetti`, icon components that fit, `static/*.webp` (may reuse).
@@ -64,15 +67,18 @@
 - [ ] **Step 1: Install runtime + dev deps**
 
 Run:
+
 ```bash
 npm install lenis@1.3.23 gsap@3.15.0 @fontsource/playfair-display@5.2.8 @fontsource/dm-sans@5.2.8
 npm install -D vitest@4.1.9 jsdom @testing-library/svelte
 ```
+
 Expected: installs succeed, `package.json` updated.
 
 - [ ] **Step 2: Add test script**
 
 In `package.json` `"scripts"`, add:
+
 ```json
 "test": "vitest run",
 "test:watch": "vitest"
@@ -85,13 +91,13 @@ import { defineConfig } from 'vitest/config';
 import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
-  plugins: [svelte({ hot: false })],
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: ['src/lib/test-setup.ts'],
-    include: ['src/**/*.{test,spec}.{js,ts}']
-  }
+	plugins: [svelte({ hot: false })],
+	test: {
+		environment: 'jsdom',
+		globals: true,
+		setupFiles: ['src/lib/test-setup.ts'],
+		include: ['src/**/*.{test,spec}.{js,ts}']
+	}
 });
 ```
 
@@ -100,17 +106,17 @@ export default defineConfig({
 ```ts
 // Provide a default matchMedia in jsdom (overridden per-test as needed).
 if (!window.matchMedia) {
-  window.matchMedia = (query: string) =>
-    ({
-      matches: false,
-      media: query,
-      onchange: null,
-      addEventListener: () => {},
-      removeEventListener: () => {},
-      addListener: () => {},
-      removeListener: () => {},
-      dispatchEvent: () => false
-    }) as unknown as MediaQueryList;
+	window.matchMedia = (query: string) =>
+		({
+			matches: false,
+			media: query,
+			onchange: null,
+			addEventListener: () => {},
+			removeEventListener: () => {},
+			addListener: () => {},
+			removeListener: () => {},
+			dispatchEvent: () => false
+		}) as unknown as MediaQueryList;
 }
 ```
 
@@ -136,34 +142,34 @@ git commit -m "chore: add motion/font deps and vitest harness"
 
 ```scss
 :root {
-  /* color */
-  --bg: #0a0a0b;
-  --bg-elev: #15151a;
-  --bg-elev-2: #1e1e25;
-  --gold: #ffd877;
-  --gold-deep: #e0b23a;
-  --text: #f4ece0;
-  --text-muted: rgba(244, 236, 224, 0.62);
-  --line: rgba(244, 236, 224, 0.1);
-  --glow: rgba(255, 216, 119, 0.3);
+	/* color */
+	--bg: #0a0a0b;
+	--bg-elev: #15151a;
+	--bg-elev-2: #1e1e25;
+	--gold: #ffd877;
+	--gold-deep: #e0b23a;
+	--text: #f4ece0;
+	--text-muted: rgba(244, 236, 224, 0.62);
+	--line: rgba(244, 236, 224, 0.1);
+	--glow: rgba(255, 216, 119, 0.3);
 
-  /* type */
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-sans: 'DM Sans', system-ui, sans-serif;
+	/* type */
+	--font-display: 'Playfair Display', Georgia, serif;
+	--font-sans: 'DM Sans', system-ui, sans-serif;
 
-  /* motion */
-  --dur-micro: 180ms;
-  --dur-base: 280ms;
-  --dur-slow: 600ms;
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-in: cubic-bezier(0.55, 0, 0.55, 0.2);
+	/* motion */
+	--dur-micro: 180ms;
+	--dur-base: 280ms;
+	--dur-slow: 600ms;
+	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+	--ease-in: cubic-bezier(0.55, 0, 0.55, 0.2);
 
-  /* layout */
-  --maxw: 1200px;
-  --z-base: 0;
-  --z-content: 10;
-  --z-nav: 40;
-  --z-overlay: 100;
+	/* layout */
+	--maxw: 1200px;
+	--z-base: 0;
+	--z-content: 10;
+	--z-nav: 40;
+	--z-overlay: 100;
 }
 ```
 
@@ -172,48 +178,76 @@ git commit -m "chore: add motion/font deps and vitest harness"
 ```scss
 @import './tokens.scss';
 
-* { box-sizing: border-box; }
+* {
+	box-sizing: border-box;
+}
 
 html {
-  background: var(--bg);
-  color: var(--text);
-  scroll-behavior: smooth;
-  -webkit-text-size-adjust: 100%;
+	background: var(--bg);
+	color: var(--text);
+	scroll-behavior: smooth;
+	-webkit-text-size-adjust: 100%;
 }
 body {
-  margin: 0;
-  font-family: var(--font-sans);
-  font-size: 16px;
-  line-height: 1.6;
-  overflow-x: hidden;
-  min-height: 100dvh;
+	margin: 0;
+	font-family: var(--font-sans);
+	font-size: 16px;
+	line-height: 1.6;
+	overflow-x: hidden;
+	min-height: 100dvh;
 }
-h1, h2, h3 { font-family: var(--font-display); line-height: 1.1; margin: 0; }
-p { margin: 0; }
-a { color: inherit; text-decoration: none; }
-img { max-width: 100%; display: block; }
+h1,
+h2,
+h3 {
+	font-family: var(--font-display);
+	line-height: 1.1;
+	margin: 0;
+}
+p {
+	margin: 0;
+}
+a {
+	color: inherit;
+	text-decoration: none;
+}
+img {
+	max-width: 100%;
+	display: block;
+}
 
 :focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
-  border-radius: 2px;
+	outline: 2px solid var(--gold);
+	outline-offset: 3px;
+	border-radius: 2px;
 }
 
-::selection { background: var(--gold); color: #1a1a1a; }
+::selection {
+	background: var(--gold);
+	color: #1a1a1a;
+}
 
 /* When the user prefers reduced motion, neutralize smooth scroll. */
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+	html {
+		scroll-behavior: auto;
+	}
 }
 
 /* Custom scrollbar */
 * {
-  scrollbar-width: thin;
-  scrollbar-color: var(--gold) var(--bg);
+	scrollbar-width: thin;
+	scrollbar-color: var(--gold) var(--bg);
 }
-*::-webkit-scrollbar { width: 8px; }
-*::-webkit-scrollbar-track { background: var(--bg); }
-*::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+*::-webkit-scrollbar {
+	width: 8px;
+}
+*::-webkit-scrollbar-track {
+	background: var(--bg);
+}
+*::-webkit-scrollbar-thumb {
+	background: var(--gold);
+	border-radius: 4px;
+}
 ```
 
 - [ ] **Step 3: Commit**
@@ -233,18 +267,18 @@ git commit -m "feat: add design tokens and global styles"
 
 ```svelte
 <script lang="ts">
-  import '@fontsource/playfair-display/latin-500-italic.css';
-  import '@fontsource/playfair-display/latin-600.css';
-  import '@fontsource/dm-sans/latin-400.css';
-  import '@fontsource/dm-sans/latin-500.css';
-  import '@fontsource/dm-sans/latin-700.css';
-  import '$lib/styles/global.scss';
-  import { onMount } from 'svelte';
-  import { initSmoothScroll } from '$lib/motion/smoothScroll';
+	import '@fontsource/playfair-display/latin-500-italic.css';
+	import '@fontsource/playfair-display/latin-600.css';
+	import '@fontsource/dm-sans/latin-400.css';
+	import '@fontsource/dm-sans/latin-500.css';
+	import '@fontsource/dm-sans/latin-700.css';
+	import '$lib/styles/global.scss';
+	import { onMount } from 'svelte';
+	import { initSmoothScroll } from '$lib/motion/smoothScroll';
 
-  let { children } = $props();
+	let { children } = $props();
 
-  onMount(() => initSmoothScroll());
+	onMount(() => initSmoothScroll());
 </script>
 
 {@render children()}
@@ -276,22 +310,22 @@ import { describe, it, expect, vi } from 'vitest';
 import { prefersReducedMotion } from './prefersReducedMotion';
 
 function mockMatch(matches: boolean) {
-  window.matchMedia = vi.fn().mockReturnValue({
-    matches,
-    addEventListener: () => {},
-    removeEventListener: () => {}
-  }) as unknown as typeof window.matchMedia;
+	window.matchMedia = vi.fn().mockReturnValue({
+		matches,
+		addEventListener: () => {},
+		removeEventListener: () => {}
+	}) as unknown as typeof window.matchMedia;
 }
 
 describe('prefersReducedMotion', () => {
-  it('returns true when the media query matches', () => {
-    mockMatch(true);
-    expect(prefersReducedMotion()).toBe(true);
-  });
-  it('returns false when it does not match', () => {
-    mockMatch(false);
-    expect(prefersReducedMotion()).toBe(false);
-  });
+	it('returns true when the media query matches', () => {
+		mockMatch(true);
+		expect(prefersReducedMotion()).toBe(true);
+	});
+	it('returns false when it does not match', () => {
+		mockMatch(false);
+		expect(prefersReducedMotion()).toBe(false);
+	});
 });
 ```
 
@@ -305,8 +339,8 @@ Expected: FAIL — module/function not found.
 ```ts
 // src/lib/motion/prefersReducedMotion.ts
 export function prefersReducedMotion(): boolean {
-  if (typeof window === 'undefined' || !window.matchMedia) return false;
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	if (typeof window === 'undefined' || !window.matchMedia) return false;
+	return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 ```
 
@@ -342,31 +376,31 @@ let lenis: Lenis | null = null;
 /** Initialise inertial smooth scroll + GSAP ScrollTrigger sync.
  *  No-op (and returns a no-op cleanup) when reduced motion is requested. */
 export function initSmoothScroll(): () => void {
-  if (typeof window === 'undefined') return () => {};
-  gsap.registerPlugin(ScrollTrigger);
+	if (typeof window === 'undefined') return () => {};
+	gsap.registerPlugin(ScrollTrigger);
 
-  if (prefersReducedMotion()) {
-    return () => {};
-  }
+	if (prefersReducedMotion()) {
+		return () => {};
+	}
 
-  lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-  lenis.on('scroll', ScrollTrigger.update);
+	lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+	lenis.on('scroll', ScrollTrigger.update);
 
-  const raf = (time: number) => {
-    lenis?.raf(time * 1000);
-  };
-  gsap.ticker.add(raf);
-  gsap.ticker.lagSmoothing(0);
+	const raf = (time: number) => {
+		lenis?.raf(time * 1000);
+	};
+	gsap.ticker.add(raf);
+	gsap.ticker.lagSmoothing(0);
 
-  return () => {
-    gsap.ticker.remove(raf);
-    lenis?.destroy();
-    lenis = null;
-  };
+	return () => {
+		gsap.ticker.remove(raf);
+		lenis?.destroy();
+		lenis = null;
+	};
 }
 
 export function getLenis(): Lenis | null {
-  return lenis;
+	return lenis;
 }
 ```
 
@@ -396,51 +430,51 @@ import type { Action } from 'svelte/action';
 import { prefersReducedMotion } from '$lib/motion/prefersReducedMotion';
 
 interface RevealOptions {
-  delay?: number; // ms
-  y?: number; // px translateY start offset
-  once?: boolean;
+	delay?: number; // ms
+	y?: number; // px translateY start offset
+	once?: boolean;
 }
 
 /** Fades + slides an element into view on scroll. Respects reduced motion
  *  (shows immediately, no transform). Uses transform/opacity only. */
 export const reveal: Action<HTMLElement, RevealOptions | undefined> = (node, options) => {
-  const { delay = 0, y = 24, once = true } = options ?? {};
+	const { delay = 0, y = 24, once = true } = options ?? {};
 
-  if (prefersReducedMotion()) {
-    node.style.opacity = '1';
-    return {};
-  }
+	if (prefersReducedMotion()) {
+		node.style.opacity = '1';
+		return {};
+	}
 
-  node.style.opacity = '0';
-  node.style.transform = `translateY(${y}px)`;
-  node.style.transition = `opacity var(--dur-slow) var(--ease-out) ${delay}ms, transform var(--dur-slow) var(--ease-out) ${delay}ms`;
-  node.style.willChange = 'opacity, transform';
+	node.style.opacity = '0';
+	node.style.transform = `translateY(${y}px)`;
+	node.style.transition = `opacity var(--dur-slow) var(--ease-out) ${delay}ms, transform var(--dur-slow) var(--ease-out) ${delay}ms`;
+	node.style.willChange = 'opacity, transform';
 
-  const show = () => {
-    node.style.opacity = '1';
-    node.style.transform = 'translateY(0)';
-  };
-  const hide = () => {
-    node.style.opacity = '0';
-    node.style.transform = `translateY(${y}px)`;
-  };
+	const show = () => {
+		node.style.opacity = '1';
+		node.style.transform = 'translateY(0)';
+	};
+	const hide = () => {
+		node.style.opacity = '0';
+		node.style.transform = `translateY(${y}px)`;
+	};
 
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          show();
-          if (once) io.unobserve(node);
-        } else if (!once) {
-          hide();
-        }
-      }
-    },
-    { threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
-  );
-  io.observe(node);
+	const io = new IntersectionObserver(
+		(entries) => {
+			for (const e of entries) {
+				if (e.isIntersecting) {
+					show();
+					if (once) io.unobserve(node);
+				} else if (!once) {
+					hide();
+				}
+			}
+		},
+		{ threshold: 0.15, rootMargin: '0px 0px -10% 0px' }
+	);
+	io.observe(node);
 
-  return { destroy: () => io.disconnect() };
+	return { destroy: () => io.disconnect() };
 };
 ```
 
@@ -470,21 +504,21 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { audience } from './audience.svelte';
 
 describe('audience store', () => {
-  beforeEach(() => audience.set('fan'));
+	beforeEach(() => audience.set('fan'));
 
-  it('defaults to fan', () => {
-    expect(audience.value).toBe('fan');
-  });
-  it('set switches role', () => {
-    audience.set('artist');
-    expect(audience.value).toBe('artist');
-  });
-  it('toggle flips between fan and artist', () => {
-    audience.toggle();
-    expect(audience.value).toBe('artist');
-    audience.toggle();
-    expect(audience.value).toBe('fan');
-  });
+	it('defaults to fan', () => {
+		expect(audience.value).toBe('fan');
+	});
+	it('set switches role', () => {
+		audience.set('artist');
+		expect(audience.value).toBe('artist');
+	});
+	it('toggle flips between fan and artist', () => {
+		audience.toggle();
+		expect(audience.value).toBe('artist');
+		audience.toggle();
+		expect(audience.value).toBe('fan');
+	});
 });
 ```
 
@@ -502,15 +536,15 @@ export type Audience = 'fan' | 'artist';
 let current = $state<Audience>('fan');
 
 export const audience = {
-  get value(): Audience {
-    return current;
-  },
-  set(next: Audience) {
-    current = next;
-  },
-  toggle() {
-    current = current === 'fan' ? 'artist' : 'fan';
-  }
+	get value(): Audience {
+		return current;
+	},
+	set(next: Audience) {
+		current = next;
+	},
+	toggle() {
+		current = current === 'fan' ? 'artist' : 'fan';
+	}
 };
 ```
 
@@ -540,28 +574,28 @@ import { describe, it, expect, vi } from 'vitest';
 import { submitWaitlist } from './waitlist';
 
 describe('submitWaitlist', () => {
-  it('rejects empty email', async () => {
-    const res = await submitWaitlist({ email: '', role: 'fan' }, vi.fn());
-    expect(res.ok).toBe(false);
-    expect(res.error).toBe('email-required');
-  });
+	it('rejects empty email', async () => {
+		const res = await submitWaitlist({ email: '', role: 'fan' }, vi.fn());
+		expect(res.ok).toBe(false);
+		expect(res.error).toBe('email-required');
+	});
 
-  it('posts to /api/whitelist and returns ok on 200', async () => {
-    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
-    const res = await submitWaitlist({ email: 'a@b.com', role: 'artist' }, fetchMock);
-    expect(fetchMock).toHaveBeenCalledWith(
-      '/api/whitelist',
-      expect.objectContaining({ method: 'POST' })
-    );
-    expect(res.ok).toBe(true);
-  });
+	it('posts to /api/whitelist and returns ok on 200', async () => {
+		const fetchMock = vi.fn().mockResolvedValue({ ok: true });
+		const res = await submitWaitlist({ email: 'a@b.com', role: 'artist' }, fetchMock);
+		expect(fetchMock).toHaveBeenCalledWith(
+			'/api/whitelist',
+			expect.objectContaining({ method: 'POST' })
+		);
+		expect(res.ok).toBe(true);
+	});
 
-  it('returns error on non-ok response', async () => {
-    const fetchMock = vi.fn().mockResolvedValue({ ok: false });
-    const res = await submitWaitlist({ email: 'a@b.com', role: 'fan' }, fetchMock);
-    expect(res.ok).toBe(false);
-    expect(res.error).toBe('request-failed');
-  });
+	it('returns error on non-ok response', async () => {
+		const fetchMock = vi.fn().mockResolvedValue({ ok: false });
+		const res = await submitWaitlist({ email: 'a@b.com', role: 'fan' }, fetchMock);
+		expect(res.ok).toBe(false);
+		expect(res.error).toBe('request-failed');
+	});
 });
 ```
 
@@ -577,53 +611,53 @@ Expected: FAIL — module not found.
 import type { Audience } from './stores/audience.svelte';
 
 export interface JoinInput {
-  email: string;
-  role: Audience;
+	email: string;
+	role: Audience;
 }
 export interface JoinResult {
-  ok: boolean;
-  error?: 'email-required' | 'request-failed' | 'network-error';
+	ok: boolean;
+	error?: 'email-required' | 'request-failed' | 'network-error';
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function submitWaitlist(
-  input: JoinInput,
-  fetchFn: typeof fetch = fetch
+	input: JoinInput,
+	fetchFn: typeof fetch = fetch
 ): Promise<JoinResult> {
-  if (!input.email || !EMAIL_RE.test(input.email)) {
-    return { ok: false, error: 'email-required' };
-  }
-  try {
-    const res = await fetchFn('/api/whitelist', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(input)
-    });
-    if (!res.ok) return { ok: false, error: 'request-failed' };
-    return { ok: true };
-  } catch {
-    return { ok: false, error: 'network-error' };
-  }
+	if (!input.email || !EMAIL_RE.test(input.email)) {
+		return { ok: false, error: 'email-required' };
+	}
+	try {
+		const res = await fetchFn('/api/whitelist', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(input)
+		});
+		if (!res.ok) return { ok: false, error: 'request-failed' };
+		return { ok: true };
+	} catch {
+		return { ok: false, error: 'network-error' };
+	}
 }
 
 const STORAGE_KEY = 'pdm-join';
 
 export function persistJoin(input: JoinInput): void {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(input));
-  } catch {
-    /* ignore */
-  }
+	try {
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(input));
+	} catch {
+		/* ignore */
+	}
 }
 
 export function loadStoredJoin(): JoinInput | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as JoinInput) : null;
-  } catch {
-    return null;
-  }
+	try {
+		const raw = localStorage.getItem(STORAGE_KEY);
+		return raw ? (JSON.parse(raw) as JoinInput) : null;
+	} catch {
+		return null;
+	}
 }
 ```
 
@@ -652,58 +686,81 @@ git commit -m "feat: add waitlist submit/persist helpers with tests"
 import type { Audience } from './stores/audience.svelte';
 
 export const hero: Record<Audience, { kicker: string; heading: string[]; sub: string }> = {
-  fan: {
-    kicker: 'People Driving Music',
-    heading: ['Where fans', "don't just listen —", 'they lead.'],
-    sub: 'Back the artists you love for $1 a month. Get closer than ever — and put your money where the music is.'
-  },
-  artist: {
-    kicker: 'People Driving Music',
-    heading: ['Your music.', 'Your fans.', 'Your income.'],
-    sub: 'Earn directly from the people who love your work. No labels skimming, no algorithm tax — just you and your fans.'
-  }
+	fan: {
+		kicker: 'People Driving Music',
+		heading: ['Where fans', "don't just listen —", 'they lead.'],
+		sub: 'Back the artists you love for $1 a month. Get closer than ever — and put your money where the music is.'
+	},
+	artist: {
+		kicker: 'People Driving Music',
+		heading: ['Your music.', 'Your fans.', 'Your income.'],
+		sub: 'Earn directly from the people who love your work. No labels skimming, no algorithm tax — just you and your fans.'
+	}
 };
 
 export const problemStats = [
-  { value: 0.003, prefix: '$', decimals: 3, label: 'paid to artists per stream' },
-  { value: 100, suffix: '%', decimals: 0, label: 'of fans reduced to a play-count' }
+	{ value: 0.003, prefix: '$', decimals: 3, label: 'paid to artists per stream' },
+	{ value: 100, suffix: '%', decimals: 0, label: 'of fans reduced to a play-count' }
 ];
 
 export const shift = {
-  heading: 'One dollar. Straight to the artist.',
-  body: '$1/month per artist — 80% goes directly to them. No middlemen, no noise. Just real support for the music you believe in.',
-  artistShare: 80
+	heading: 'One dollar. Straight to the artist.',
+	body: '$1/month per artist — 80% goes directly to them. No middlemen, no noise. Just real support for the music you believe in.',
+	artistShare: 80
 };
 
 export const benefits: Record<Audience, { title: string; desc: string }[]> = {
-  fan: [
-    { title: 'Exclusive drops', desc: 'Private posts, demos and behind-the-scenes from the artists you back.' },
-    { title: 'Community chat', desc: 'A real room with the artist and fellow fans — paid-only, no spam.' },
-    { title: 'Comment & connect', desc: 'Your voice on every track and post. Be heard, not counted.' },
-    { title: 'Offline & ad-free', desc: 'Cache your artist and listen with zero ads.' },
-    { title: 'Be early', desc: 'First access to tickets, merch and releases.' }
-  ],
-  artist: [
-    { title: 'Direct income', desc: 'Subscriptions land in your pocket — paid out fast.' },
-    { title: 'Your community', desc: 'A private space to talk to the fans who fund you.' },
-    { title: 'Your feed & store', desc: 'Post exclusives, sell merch and tickets, your way.' },
-    { title: 'Loyal superfans', desc: 'Reward the people who show up — and turn listeners into backers.' },
-    { title: 'Real growth', desc: 'Reach new fans and build a base that actually pays.' }
-  ]
+	fan: [
+		{
+			title: 'Exclusive drops',
+			desc: 'Private posts, demos and behind-the-scenes from the artists you back.'
+		},
+		{
+			title: 'Community chat',
+			desc: 'A real room with the artist and fellow fans — paid-only, no spam.'
+		},
+		{
+			title: 'Comment & connect',
+			desc: 'Your voice on every track and post. Be heard, not counted.'
+		},
+		{ title: 'Offline & ad-free', desc: 'Cache your artist and listen with zero ads.' },
+		{ title: 'Be early', desc: 'First access to tickets, merch and releases.' }
+	],
+	artist: [
+		{ title: 'Direct income', desc: 'Subscriptions land in your pocket — paid out fast.' },
+		{ title: 'Your community', desc: 'A private space to talk to the fans who fund you.' },
+		{ title: 'Your feed & store', desc: 'Post exclusives, sell merch and tickets, your way.' },
+		{
+			title: 'Loyal superfans',
+			desc: 'Reward the people who show up — and turn listeners into backers.'
+		},
+		{ title: 'Real growth', desc: 'Reach new fans and build a base that actually pays.' }
+	]
 };
 
 export const steps = [
-  { n: 1, title: 'Discover & listen', desc: 'Stream freely and find artists you love.' },
-  { n: 2, title: 'Subscribe for $1', desc: 'Back an artist — 80% goes straight to them.' },
-  { n: 3, title: 'Unlock & grow', desc: 'Get exclusives, join the community, grow together.' }
+	{ n: 1, title: 'Discover & listen', desc: 'Stream freely and find artists you love.' },
+	{ n: 2, title: 'Subscribe for $1', desc: 'Back an artist — 80% goes straight to them.' },
+	{ n: 3, title: 'Unlock & grow', desc: 'Get exclusives, join the community, grow together.' }
 ];
 
 export const vision = {
-  heading: 'And this is just the first verse.',
-  body: 'Today you back the music. Tomorrow you grow with it — as the artists you championed rise.'
+	heading: 'And this is just the first verse.',
+	body: 'Today you back the music. Tomorrow you grow with it — as the artists you championed rise.'
 };
 
-export const genres = ['Hip-Hop', 'Indie', 'Electronic', 'R&B', 'Pop', 'Jazz', 'Metal', 'Lo-fi', 'Afrobeats', 'Classical'];
+export const genres = [
+	'Hip-Hop',
+	'Indie',
+	'Electronic',
+	'R&B',
+	'Pop',
+	'Jazz',
+	'Metal',
+	'Lo-fi',
+	'Afrobeats',
+	'Classical'
+];
 ```
 
 - [ ] **Step 2: Typecheck**
@@ -730,63 +787,68 @@ git commit -m "feat: add landing copy/content module"
 
 ```svelte
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { prefersReducedMotion } from '$lib/motion/prefersReducedMotion';
+	import { onMount } from 'svelte';
+	import { prefersReducedMotion } from '$lib/motion/prefersReducedMotion';
 
-  let { bars = 64, height = 120 }: { bars?: number; height?: number } = $props();
-  let canvas: HTMLCanvasElement;
+	let { bars = 64, height = 120 }: { bars?: number; height?: number } = $props();
+	let canvas: HTMLCanvasElement;
 
-  onMount(() => {
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    const reduce = prefersReducedMotion();
-    let raf = 0;
-    let pointerX = 0.5;
-    let w = 0, h = 0, dpr = 1;
+	onMount(() => {
+		const ctx = canvas.getContext('2d');
+		if (!ctx) return;
+		const reduce = prefersReducedMotion();
+		let raf = 0;
+		let pointerX = 0.5;
+		let w = 0,
+			h = 0,
+			dpr = 1;
 
-    const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = canvas.clientWidth; h = canvas.clientHeight;
-      canvas.width = w * dpr; canvas.height = h * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-    const onMove = (e: PointerEvent) => {
-      const r = canvas.getBoundingClientRect();
-      pointerX = (e.clientX - r.left) / r.width;
-    };
+		const resize = () => {
+			dpr = Math.min(window.devicePixelRatio || 1, 2);
+			w = canvas.clientWidth;
+			h = canvas.clientHeight;
+			canvas.width = w * dpr;
+			canvas.height = h * dpr;
+			ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+		};
+		const onMove = (e: PointerEvent) => {
+			const r = canvas.getBoundingClientRect();
+			pointerX = (e.clientX - r.left) / r.width;
+		};
 
-    const draw = (t: number) => {
-      ctx.clearRect(0, 0, w, h);
-      const gap = w / bars;
-      for (let i = 0; i < bars; i++) {
-        const x = i / bars;
-        const wave = reduce ? 0.4 : (Math.sin(x * 12 + t / 600) * 0.5 + 0.5);
-        const focus = 1 - Math.min(Math.abs(x - pointerX) * 2.2, 1);
-        const amp = 0.12 + wave * 0.55 + focus * 0.33;
-        const barH = amp * h;
-        ctx.fillStyle = `rgba(255,216,119,${0.35 + focus * 0.5})`;
-        ctx.fillRect(i * gap + gap * 0.2, h - barH, gap * 0.5, barH);
-      }
-      if (!reduce) raf = requestAnimationFrame(draw);
-    };
+		const draw = (t: number) => {
+			ctx.clearRect(0, 0, w, h);
+			const gap = w / bars;
+			for (let i = 0; i < bars; i++) {
+				const x = i / bars;
+				const wave = reduce ? 0.4 : Math.sin(x * 12 + t / 600) * 0.5 + 0.5;
+				const focus = 1 - Math.min(Math.abs(x - pointerX) * 2.2, 1);
+				const amp = 0.12 + wave * 0.55 + focus * 0.33;
+				const barH = amp * h;
+				ctx.fillStyle = `rgba(255,216,119,${0.35 + focus * 0.5})`;
+				ctx.fillRect(i * gap + gap * 0.2, h - barH, gap * 0.5, barH);
+			}
+			if (!reduce) raf = requestAnimationFrame(draw);
+		};
 
-    resize();
-    window.addEventListener('resize', resize);
-    if (!reduce) {
-      canvas.addEventListener('pointermove', onMove);
-      raf = requestAnimationFrame(draw);
-    } else {
-      draw(0);
-    }
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('resize', resize);
-      canvas.removeEventListener('pointermove', onMove);
-    };
-  });
+		resize();
+		window.addEventListener('resize', resize);
+		if (!reduce) {
+			canvas.addEventListener('pointermove', onMove);
+			raf = requestAnimationFrame(draw);
+		} else {
+			draw(0);
+		}
+		return () => {
+			cancelAnimationFrame(raf);
+			window.removeEventListener('resize', resize);
+			canvas.removeEventListener('pointermove', onMove);
+		};
+	});
 </script>
 
-<canvas bind:this={canvas} style="width:100%;height:{height}px;display:block" aria-hidden="true"></canvas>
+<canvas bind:this={canvas} style="width:100%;height:{height}px;display:block" aria-hidden="true"
+></canvas>
 ```
 
 - [ ] **Step 2: Typecheck**
@@ -811,50 +873,60 @@ git commit -m "feat: add pointer-reactive soundwave canvas"
 
 ```svelte
 <script lang="ts">
-  import { audience, type Audience } from '$lib/stores/audience.svelte';
-  let { size = 'md' }: { size?: 'sm' | 'md' } = $props();
-  const options: { value: Audience; label: string }[] = [
-    { value: 'fan', label: "I'm a fan" },
-    { value: 'artist', label: "I'm an artist" }
-  ];
+	import { audience, type Audience } from '$lib/stores/audience.svelte';
+	let { size = 'md' }: { size?: 'sm' | 'md' } = $props();
+	const options: { value: Audience; label: string }[] = [
+		{ value: 'fan', label: "I'm a fan" },
+		{ value: 'artist', label: "I'm an artist" }
+	];
 </script>
 
 <div class="toggle {size}" role="radiogroup" aria-label="Choose your role">
-  {#each options as opt}
-    <button
-      type="button"
-      role="radio"
-      aria-checked={audience.value === opt.value}
-      class:on={audience.value === opt.value}
-      onclick={() => audience.set(opt.value)}
-    >
-      {opt.label}
-    </button>
-  {/each}
+	{#each options as opt}
+		<button
+			type="button"
+			role="radio"
+			aria-checked={audience.value === opt.value}
+			class:on={audience.value === opt.value}
+			onclick={() => audience.set(opt.value)}
+		>
+			{opt.label}
+		</button>
+	{/each}
 </div>
 
 <style lang="scss">
-  .toggle {
-    display: inline-flex;
-    gap: 2px;
-    padding: 4px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid var(--line);
-    button {
-      cursor: pointer;
-      border: 0;
-      background: transparent;
-      color: var(--text-muted);
-      font: 500 0.95rem var(--font-sans);
-      padding: 10px 18px;
-      min-height: 44px;
-      border-radius: 999px;
-      transition: color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
-      &.on { background: var(--gold); color: #1a1a1a; font-weight: 700; }
-    }
-    &.sm button { padding: 6px 12px; min-height: 36px; font-size: 0.8rem; }
-  }
+	.toggle {
+		display: inline-flex;
+		gap: 2px;
+		padding: 4px;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.07);
+		border: 1px solid var(--line);
+		button {
+			cursor: pointer;
+			border: 0;
+			background: transparent;
+			color: var(--text-muted);
+			font: 500 0.95rem var(--font-sans);
+			padding: 10px 18px;
+			min-height: 44px;
+			border-radius: 999px;
+			transition:
+				color var(--dur-base) var(--ease-out),
+				background var(--dur-base) var(--ease-out);
+			&.on {
+				background: var(--gold);
+				color: #1a1a1a;
+				font-weight: 700;
+			}
+		}
+		&.sm button {
+			padding: 6px 12px;
+			min-height: 36px;
+			font-size: 0.8rem;
+		}
+	}
 </style>
 ```
 
@@ -880,25 +952,39 @@ git commit -m "feat: add accessible fan/artist toggle"
 
 ```svelte
 <script lang="ts">
-  import { reveal } from '$lib/actions/reveal';
-  let { lines = [] as string[] }: { lines?: string[] } = $props();
+	import { reveal } from '$lib/actions/reveal';
+	let { lines = [] as string[] }: { lines?: string[] } = $props();
 </script>
 
 <h1 class="kinetic">
-  {#each lines as line, li}
-    <span class="line">
-      {#each line.split(' ') as word, wi}
-        <span class="word-wrap"><span class="word" use:reveal={{ delay: (li * 3 + wi) * 60, y: 30 }}>{word}</span></span>
-      {/each}
-    </span>
-  {/each}
+	{#each lines as line, li}
+		<span class="line">
+			{#each line.split(' ') as word, wi}
+				<span class="word-wrap"
+					><span class="word" use:reveal={{ delay: (li * 3 + wi) * 60, y: 30 }}>{word}</span></span
+				>
+			{/each}
+		</span>
+	{/each}
 </h1>
 
 <style lang="scss">
-  .kinetic { font-style: italic; font-weight: 600; font-size: clamp(2.5rem, 7vw, 5.5rem); }
-  .line { display: block; }
-  .word-wrap { display: inline-block; overflow: hidden; padding: 0 0.12em 0.08em 0; }
-  .word { display: inline-block; }
+	.kinetic {
+		font-style: italic;
+		font-weight: 600;
+		font-size: clamp(2.5rem, 7vw, 5.5rem);
+	}
+	.line {
+		display: block;
+	}
+	.word-wrap {
+		display: inline-block;
+		overflow: hidden;
+		padding: 0 0.12em 0.08em 0;
+	}
+	.word {
+		display: inline-block;
+	}
 </style>
 ```
 
@@ -906,38 +992,61 @@ git commit -m "feat: add accessible fan/artist toggle"
 
 ```svelte
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { prefersReducedMotion } from '$lib/motion/prefersReducedMotion';
-  let { value = 0, decimals = 0, prefix = '', suffix = '', duration = 1400 }:
-    { value?: number; decimals?: number; prefix?: string; suffix?: string; duration?: number } = $props();
-  let el: HTMLSpanElement;
-  let display = $state('0');
+	import { onMount } from 'svelte';
+	import { prefersReducedMotion } from '$lib/motion/prefersReducedMotion';
+	let {
+		value = 0,
+		decimals = 0,
+		prefix = '',
+		suffix = '',
+		duration = 1400
+	}: {
+		value?: number;
+		decimals?: number;
+		prefix?: string;
+		suffix?: string;
+		duration?: number;
+	} = $props();
+	let el: HTMLSpanElement;
+	let display = $state('0');
 
-  const fmt = (n: number) => prefix + n.toFixed(decimals) + suffix;
+	const fmt = (n: number) => prefix + n.toFixed(decimals) + suffix;
 
-  onMount(() => {
-    if (prefersReducedMotion()) { display = fmt(value); return; }
-    const io = new IntersectionObserver((entries) => {
-      if (!entries[0].isIntersecting) return;
-      io.disconnect();
-      const start = performance.now();
-      const tick = (t: number) => {
-        const p = Math.min((t - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        display = fmt(value * eased);
-        if (p < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    }, { threshold: 0.5 });
-    io.observe(el);
-    return () => io.disconnect();
-  });
+	onMount(() => {
+		if (prefersReducedMotion()) {
+			display = fmt(value);
+			return;
+		}
+		const io = new IntersectionObserver(
+			(entries) => {
+				if (!entries[0].isIntersecting) return;
+				io.disconnect();
+				const start = performance.now();
+				const tick = (t: number) => {
+					const p = Math.min((t - start) / duration, 1);
+					const eased = 1 - Math.pow(1 - p, 3);
+					display = fmt(value * eased);
+					if (p < 1) requestAnimationFrame(tick);
+				};
+				requestAnimationFrame(tick);
+			},
+			{ threshold: 0.5 }
+		);
+		io.observe(el);
+		return () => io.disconnect();
+	});
 </script>
 
 <span bind:this={el} class="stat">{display}</span>
 
 <style lang="scss">
-  .stat { font-family: var(--font-display); font-weight: 600; color: var(--gold); font-size: clamp(3rem, 9vw, 6rem); display: inline-block; }
+	.stat {
+		font-family: var(--font-display);
+		font-weight: 600;
+		color: var(--gold);
+		font-size: clamp(3rem, 9vw, 6rem);
+		display: inline-block;
+	}
 </style>
 ```
 
@@ -945,23 +1054,44 @@ git commit -m "feat: add accessible fan/artist toggle"
 
 ```svelte
 <script lang="ts">
-  let { items = [] as string[], speed = 30 }: { items?: string[]; speed?: number } = $props();
+	let { items = [] as string[], speed = 30 }: { items?: string[]; speed?: number } = $props();
 </script>
 
 <div class="marquee" aria-hidden="true">
-  <div class="track" style="--speed:{speed}s">
-    {#each [...items, ...items] as item}
-      <span class="item">{item}</span>
-    {/each}
-  </div>
+	<div class="track" style="--speed:{speed}s">
+		{#each [...items, ...items] as item}
+			<span class="item">{item}</span>
+		{/each}
+	</div>
 </div>
 
 <style lang="scss">
-  .marquee { overflow: hidden; width: 100%; mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-  .track { display: inline-flex; gap: 3rem; white-space: nowrap; animation: scroll var(--speed) linear infinite; }
-  .item { color: var(--text-muted); font: 500 1.1rem var(--font-sans); letter-spacing: 1px; }
-  @keyframes scroll { to { transform: translateX(-50%); } }
-  @media (prefers-reduced-motion: reduce) { .track { animation: none; } }
+	.marquee {
+		overflow: hidden;
+		width: 100%;
+		mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+	}
+	.track {
+		display: inline-flex;
+		gap: 3rem;
+		white-space: nowrap;
+		animation: scroll var(--speed) linear infinite;
+	}
+	.item {
+		color: var(--text-muted);
+		font: 500 1.1rem var(--font-sans);
+		letter-spacing: 1px;
+	}
+	@keyframes scroll {
+		to {
+			transform: translateX(-50%);
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.track {
+			animation: none;
+		}
+	}
 </style>
 ```
 
@@ -969,28 +1099,35 @@ git commit -m "feat: add accessible fan/artist toggle"
 
 ```svelte
 <script lang="ts">
-  import { prefersReducedMotion } from '$lib/motion/prefersReducedMotion';
-  let { max = 8, children }: { max?: number; children?: any } = $props();
-  let el: HTMLDivElement;
-  let enabled = false;
+	import { prefersReducedMotion } from '$lib/motion/prefersReducedMotion';
+	let { max = 8, children }: { max?: number; children?: any } = $props();
+	let el: HTMLDivElement;
+	let enabled = false;
 
-  function onMove(e: PointerEvent) {
-    if (!enabled) return;
-    const r = el.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width - 0.5;
-    const py = (e.clientY - r.top) / r.height - 0.5;
-    el.style.transform = `perspective(800px) rotateY(${px * max}deg) rotateX(${-py * max}deg)`;
-  }
-  function reset() { el.style.transform = ''; }
-  $effect(() => { enabled = !prefersReducedMotion() && window.matchMedia('(pointer:fine)').matches; });
+	function onMove(e: PointerEvent) {
+		if (!enabled) return;
+		const r = el.getBoundingClientRect();
+		const px = (e.clientX - r.left) / r.width - 0.5;
+		const py = (e.clientY - r.top) / r.height - 0.5;
+		el.style.transform = `perspective(800px) rotateY(${px * max}deg) rotateX(${-py * max}deg)`;
+	}
+	function reset() {
+		el.style.transform = '';
+	}
+	$effect(() => {
+		enabled = !prefersReducedMotion() && window.matchMedia('(pointer:fine)').matches;
+	});
 </script>
 
 <div bind:this={el} class="tilt" onpointermove={onMove} onpointerleave={reset}>
-  {@render children?.()}
+	{@render children?.()}
 </div>
 
 <style lang="scss">
-  .tilt { transition: transform var(--dur-base) var(--ease-out); will-change: transform; }
+	.tilt {
+		transition: transform var(--dur-base) var(--ease-out);
+		will-change: transform;
+	}
 </style>
 ```
 
@@ -1074,7 +1211,7 @@ git commit -m "feat: add kinetic heading, stat counter, marquee, tilt-card primi
 - [ ] **Step 1: Implement**
   - `<section>` heading "What you unlock." with an `<AudienceToggle />` beneath it.
   - Grid of benefit cards from `benefits[audience.value]` (`repeat(auto-fit, minmax(240px, 1fr))`). Each card: title (gold), description (muted), thin left gold border or small SVG icon.
-  - On `audience.value` change, re-render cards inside `{#key audience.value}` with staggered `use:reveal` (delay = index * 50ms). Cards use `transform/opacity` only.
+  - On `audience.value` change, re-render cards inside `{#key audience.value}` with staggered `use:reveal` (delay = index \* 50ms). Cards use `transform/opacity` only.
   - Card hover: `background: var(--bg-elev-2)`, border lightens (no layout-shifting scale; subtle translateY allowed).
 - [ ] **Step 2: Verify** — toggling swaps the 5 cards with stagger; keyboard toggle works; reduced motion = instant swap.
 - [ ] **Step 3: Commit** — `git commit -m "feat: add two-sides toggle benefits section"`
@@ -1126,7 +1263,7 @@ git commit -m "feat: add kinetic heading, stat counter, marquee, tilt-card primi
 - [ ] **Step 1: Implement**
   - `<section>` momentum framing **without invented numbers**: heading like "Join the founding wave." + early-access framing (e.g. three value chips: "Founding-member perks", "First access to artists", "Shape the product").
   - `<Marquee items={genres} />` band of genres for texture.
-  - Optional founder/artist quote block (use a clearly placeholder-but-neutral quote, attributed to "— The PDM team"; no fake person). 
+  - Optional founder/artist quote block (use a clearly placeholder-but-neutral quote, attributed to "— The PDM team"; no fake person).
   - (No live counter unless a real count source is provided later — see spec §9.)
 - [ ] **Step 2: Verify** — marquee scrolls, pauses under reduced motion; no fabricated stats.
 - [ ] **Step 3: Commit** — `git commit -m "feat: add proof/momentum section with genre marquee"`
@@ -1141,72 +1278,169 @@ git commit -m "feat: add kinetic heading, stat counter, marquee, tilt-card primi
 
 ```svelte
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import confetti from 'canvas-confetti';
-  import { audience } from '$lib/stores/audience.svelte';
-  import { submitWaitlist, persistJoin, loadStoredJoin } from '$lib/waitlist';
-  import AudienceToggle from '$lib/components/AudienceToggle.svelte';
-  import Soundwave from '$lib/components/Soundwave.svelte';
+	import { onMount } from 'svelte';
+	import confetti from 'canvas-confetti';
+	import { audience } from '$lib/stores/audience.svelte';
+	import { submitWaitlist, persistJoin, loadStoredJoin } from '$lib/waitlist';
+	import AudienceToggle from '$lib/components/AudienceToggle.svelte';
+	import Soundwave from '$lib/components/Soundwave.svelte';
 
-  let email = $state('');
-  let loading = $state(false);
-  let submitted = $state(false);
-  let errorMsg = $state('');
+	let email = $state('');
+	let loading = $state(false);
+	let submitted = $state(false);
+	let errorMsg = $state('');
 
-  async function onSubmit(e: Event) {
-    e.preventDefault();
-    errorMsg = '';
-    loading = true;
-    const res = await submitWaitlist({ email, role: audience.value });
-    loading = false;
-    if (!res.ok) {
-      errorMsg = res.error === 'email-required' ? 'Enter a valid email.' : 'Something went wrong — try again.';
-      return;
-    }
-    persistJoin({ email, role: audience.value });
-    submitted = true;
-    confetti({ particleCount: 120, spread: 70, origin: { y: 0.6 }, colors: ['#FFD877', '#E0B23A', '#F4ECE0'] });
-  }
+	async function onSubmit(e: Event) {
+		e.preventDefault();
+		errorMsg = '';
+		loading = true;
+		const res = await submitWaitlist({ email, role: audience.value });
+		loading = false;
+		if (!res.ok) {
+			errorMsg =
+				res.error === 'email-required'
+					? 'Enter a valid email.'
+					: 'Something went wrong — try again.';
+			return;
+		}
+		persistJoin({ email, role: audience.value });
+		submitted = true;
+		confetti({
+			particleCount: 120,
+			spread: 70,
+			origin: { y: 0.6 },
+			colors: ['#FFD877', '#E0B23A', '#F4ECE0']
+		});
+	}
 
-  onMount(() => {
-    const stored = loadStoredJoin();
-    if (stored) { email = stored.email; audience.set(stored.role); submitted = true; }
-  });
+	onMount(() => {
+		const stored = loadStoredJoin();
+		if (stored) {
+			email = stored.email;
+			audience.set(stored.role);
+			submitted = true;
+		}
+	});
 </script>
 
 <section id="waitlist" class="waitlist">
-  <div class="glow" aria-hidden="true"></div>
-  <h2>Be there from the first note.</h2>
-  <p class="sub">Join the waitlist for early access. Fans and artists welcome.</p>
+	<div class="glow" aria-hidden="true"></div>
+	<h2>Be there from the first note.</h2>
+	<p class="sub">Join the waitlist for early access. Fans and artists welcome.</p>
 
-  {#if submitted}
-    <p class="success" role="status">You're on the list. We'll be in touch. 🎶</p>
-  {:else}
-    <form onsubmit={onSubmit} novalidate>
-      <AudienceToggle />
-      <label class="field">
-        <span>Email</span>
-        <input type="email" autocomplete="email" bind:value={email} placeholder="you@email.com" required />
-      </label>
-      {#if errorMsg}<p class="error" role="alert">{errorMsg}</p>{/if}
-      <button type="submit" disabled={loading}>{loading ? 'Joining…' : 'Join the waitlist'}</button>
-    </form>
-  {/if}
-  <div class="wave"><Soundwave height={90} /></div>
+	{#if submitted}
+		<p class="success" role="status">You're on the list. We'll be in touch. 🎶</p>
+	{:else}
+		<form onsubmit={onSubmit} novalidate>
+			<AudienceToggle />
+			<label class="field">
+				<span>Email</span>
+				<input
+					type="email"
+					autocomplete="email"
+					bind:value={email}
+					placeholder="you@email.com"
+					required
+				/>
+			</label>
+			{#if errorMsg}<p class="error" role="alert">{errorMsg}</p>{/if}
+			<button type="submit" disabled={loading}>{loading ? 'Joining…' : 'Join the waitlist'}</button>
+		</form>
+	{/if}
+	<div class="wave"><Soundwave height={90} /></div>
 </section>
 
 <style lang="scss">
-  .waitlist { position: relative; text-align: center; padding: clamp(6rem, 14vh, 11rem) 1.5rem; overflow: hidden; }
-  .glow { position: absolute; inset: 0; background: radial-gradient(closest-side, var(--glow), transparent 70%); filter: blur(40px); z-index: 0; }
-  h2 { position: relative; z-index: 1; font-style: italic; font-size: clamp(2.2rem, 6vw, 4rem); }
-  .sub { position: relative; z-index: 1; color: var(--text-muted); margin: 1rem auto 2rem; max-width: 48ch; }
-  form { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 1rem; max-width: 440px; margin: 0 auto; align-items: stretch; }
-  .field { display: flex; flex-direction: column; gap: 0.4rem; text-align: left; span { color: var(--gold); font-size: 0.9rem; } }
-  input { padding: 0.9rem 1rem; min-height: 48px; border-radius: 10px; border: 1px solid var(--line); background: rgba(255,255,255,0.04); color: var(--text); font-size: 1rem; &:focus-visible { border-color: var(--gold); } }
-  button { min-height: 48px; border-radius: 10px; border: 0; background: var(--gold); color: #1a1a1a; font: 700 1.05rem var(--font-sans); cursor: pointer; transition: filter var(--dur-base) var(--ease-out); &:hover { filter: brightness(1.06); } &:disabled { opacity: 0.6; cursor: not-allowed; } }
-  .error { color: #ff8a8a; }
-  .success { position: relative; z-index: 1; color: var(--gold); font-size: 1.2rem; }
-  .wave { position: relative; z-index: 1; margin-top: 2.5rem; opacity: 0.7; }
+	.waitlist {
+		position: relative;
+		text-align: center;
+		padding: clamp(6rem, 14vh, 11rem) 1.5rem;
+		overflow: hidden;
+	}
+	.glow {
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(closest-side, var(--glow), transparent 70%);
+		filter: blur(40px);
+		z-index: 0;
+	}
+	h2 {
+		position: relative;
+		z-index: 1;
+		font-style: italic;
+		font-size: clamp(2.2rem, 6vw, 4rem);
+	}
+	.sub {
+		position: relative;
+		z-index: 1;
+		color: var(--text-muted);
+		margin: 1rem auto 2rem;
+		max-width: 48ch;
+	}
+	form {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		max-width: 440px;
+		margin: 0 auto;
+		align-items: stretch;
+	}
+	.field {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		text-align: left;
+		span {
+			color: var(--gold);
+			font-size: 0.9rem;
+		}
+	}
+	input {
+		padding: 0.9rem 1rem;
+		min-height: 48px;
+		border-radius: 10px;
+		border: 1px solid var(--line);
+		background: rgba(255, 255, 255, 0.04);
+		color: var(--text);
+		font-size: 1rem;
+		&:focus-visible {
+			border-color: var(--gold);
+		}
+	}
+	button {
+		min-height: 48px;
+		border-radius: 10px;
+		border: 0;
+		background: var(--gold);
+		color: #1a1a1a;
+		font: 700 1.05rem var(--font-sans);
+		cursor: pointer;
+		transition: filter var(--dur-base) var(--ease-out);
+		&:hover {
+			filter: brightness(1.06);
+		}
+		&:disabled {
+			opacity: 0.6;
+			cursor: not-allowed;
+		}
+	}
+	.error {
+		color: #ff8a8a;
+	}
+	.success {
+		position: relative;
+		z-index: 1;
+		color: var(--gold);
+		font-size: 1.2rem;
+	}
+	.wave {
+		position: relative;
+		z-index: 1;
+		margin-top: 2.5rem;
+		opacity: 0.7;
+	}
 </style>
 ```
 
@@ -1235,32 +1469,32 @@ git commit -m "feat: add kinetic heading, stat counter, marquee, tilt-card primi
 
 ```svelte
 <script lang="ts">
-  import SEO from './SEO.svelte';
-  import Nav from '$lib/components/landing/Nav.svelte';
-  import Hero from '$lib/components/landing/Hero.svelte';
-  import Problem from '$lib/components/landing/Problem.svelte';
-  import Shift from '$lib/components/landing/Shift.svelte';
-  import TwoSides from '$lib/components/landing/TwoSides.svelte';
-  import Product from '$lib/components/landing/Product.svelte';
-  import HowItWorks from '$lib/components/landing/HowItWorks.svelte';
-  import Vision from '$lib/components/landing/Vision.svelte';
-  import Proof from '$lib/components/landing/Proof.svelte';
-  import Waitlist from '$lib/components/landing/Waitlist.svelte';
-  import Footer from '$lib/components/landing/Footer.svelte';
+	import SEO from './SEO.svelte';
+	import Nav from '$lib/components/landing/Nav.svelte';
+	import Hero from '$lib/components/landing/Hero.svelte';
+	import Problem from '$lib/components/landing/Problem.svelte';
+	import Shift from '$lib/components/landing/Shift.svelte';
+	import TwoSides from '$lib/components/landing/TwoSides.svelte';
+	import Product from '$lib/components/landing/Product.svelte';
+	import HowItWorks from '$lib/components/landing/HowItWorks.svelte';
+	import Vision from '$lib/components/landing/Vision.svelte';
+	import Proof from '$lib/components/landing/Proof.svelte';
+	import Waitlist from '$lib/components/landing/Waitlist.svelte';
+	import Footer from '$lib/components/landing/Footer.svelte';
 </script>
 
 <SEO />
 <Nav />
 <main>
-  <Hero />
-  <Problem />
-  <Shift />
-  <TwoSides />
-  <Product />
-  <HowItWorks />
-  <Vision />
-  <Proof />
-  <Waitlist />
+	<Hero />
+	<Problem />
+	<Shift />
+	<TwoSides />
+	<Product />
+	<HowItWorks />
+	<Vision />
+	<Proof />
+	<Waitlist />
 </main>
 <Footer />
 ```
@@ -1287,7 +1521,7 @@ git commit -m "feat: add kinetic heading, stat counter, marquee, tilt-card primi
 **Files:** Delete `src/routes/Intro.svelte`, `Problems.svelte`, `CoreFeatures.svelte`, `How.svelte`, `Join.svelte`, `Animate.svelte`, `src/lib/scroll.ts`. Remove unused icons only if confirmed unreferenced.
 
 - [ ] **Step 1:** Grep for imports of each file to confirm no remaining references:
-  Run: `grep -rn "Intro\|Problems\|CoreFeatures\|How\.svelte\|Join\.svelte\|Animate\|lib/scroll" src/` — expect only the files themselves.
+      Run: `grep -rn "Intro\|Problems\|CoreFeatures\|How\.svelte\|Join\.svelte\|Animate\|lib/scroll" src/` — expect only the files themselves.
 - [ ] **Step 2:** Delete the files.
 - [ ] **Step 3: Verify** — `npm run check` and `npm run build` succeed.
 - [ ] **Step 4: Commit** — `git commit -m "chore: remove superseded landing components"`

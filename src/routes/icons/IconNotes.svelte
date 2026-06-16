@@ -1,12 +1,17 @@
-<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
- viewBox="0 0 2600.000000 2604.000000"
- preserveAspectRatio="xMidYMid meet">
-<metadata>
-Created by potrace 1.13, written by Peter Selinger 2001-2015
-</metadata>
-<g transform="translate(0.000000,2604.000000) scale(0.100000,-0.100000)"
-fill="currentColor" stroke="none">
-<path d="M21705 22723 c-148 -21 -11247 -2240 -11300 -2259 -182 -62 -329
+<svg
+	version="1.0"
+	xmlns="http://www.w3.org/2000/svg"
+	viewBox="0 0 2600.000000 2604.000000"
+	preserveAspectRatio="xMidYMid meet"
+>
+	<metadata> Created by potrace 1.13, written by Peter Selinger 2001-2015 </metadata>
+	<g
+		transform="translate(0.000000,2604.000000) scale(0.100000,-0.100000)"
+		fill="currentColor"
+		stroke="none"
+	>
+		<path
+			d="M21705 22723 c-148 -21 -11247 -2240 -11300 -2259 -182 -62 -329
 -223 -392 -429 -17 -58 -18 -280 -20 -5597 -2 -3046 -5 -5538 -8 -5538 -2 0
 -42 24 -87 54 -604 392 -1357 633 -2177 696 -174 13 -596 13 -776 -1 -1289
 -96 -2390 -630 -3019 -1465 -255 -340 -417 -720 -482 -1134 -26 -161 -26 -520
@@ -19,6 +24,7 @@ fill="currentColor" stroke="none">
 -464 241 -921 557 -1319 154 -194 452 -468 689 -632 920 -639 2260 -905 3520
 -697 1074 176 1997 684 2537 1395 143 187 297 467 372 674 48 135 99 334 123
 480 17 111 18 365 18 6865 l0 6750 -28 82 c-53 157 -172 291 -320 362 -45 21
--102 43 -127 49 -57 13 -166 21 -205 15z"/>
-</g>
+-102 43 -127 49 -57 13 -166 21 -205 15z"
+		/>
+	</g>
 </svg>

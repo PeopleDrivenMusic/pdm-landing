@@ -2,13 +2,13 @@
 
 **Date:** 2026-06-15
 **Concept:** "Spotlight" — cinematic editorial, music-first, premium dark.
-**Goal:** A high-conversion marketing site that makes visitors *want* to join the waitlist; must read as a "$10k" premium site.
+**Goal:** A high-conversion marketing site that makes visitors _want_ to join the waitlist; must read as a "$10k" premium site.
 
 ---
 
 ## 1. Positioning & messaging
 
-- **Big idea:** *Where fans don't just listen — they lead.* A direct fan↔artist economy: subscribe to an artist for **$1/mo**, 80% goes straight to them. Fans get closer (exclusives, community, comment, offline, no ads); artists get direct income + a loyal fanbase.
+- **Big idea:** _Where fans don't just listen — they lead._ A direct fan↔artist economy: subscribe to an artist for **$1/mo**, 80% goes straight to them. Fans get closer (exclusives, community, comment, offline, no ads); artists get direct income + a loyal fanbase.
 - **Music-first, emotional.** Lead with feeling and the music, not mechanics.
 - **No crypto / no Web3 / no tokens.** Phase 1 is pure Web2, focused on user acquisition. Remove all token/Web3/"listen-to-earn" language and SEO that exists in the current site.
 - **Dual audience via a Fan/Artist toggle** that re-frames the narrative (headline, benefits) without separate pages.
@@ -21,6 +21,7 @@
 ## 2. Visual system
 
 ### Color tokens (dark, near-black + warm gold)
+
 ```
 --bg            #0A0A0B   /* page base, near-black */
 --bg-elev       #15151A   /* elevated surfaces, cards */
@@ -32,15 +33,18 @@
 --line          rgba(244,236,224,0.10)  /* borders/dividers */
 --glow          rgba(255,216,119,0.30)  /* spotlight / soundwave glow */
 ```
+
 Contrast: body text `--text` on `--bg` ≈ 15:1; muted text meets ≥4.5:1. Gold is used for accents/large type only, not small body text on dark (it would be ~9:1 — fine, but keep body in `--text`).
 
 ### Typography
+
 - **Headlines:** Playfair Display (italic 500/600) — emotional, editorial.
 - **Body / UI:** DM Sans (400/500/700). (Satoshi via Fontshare is an optional upgrade; DM Sans is the Google-hosted default.)
 - Self-host or `@fontsource` for performance; `font-display: swap`; preload the two critical weights.
 - **Type scale (clamp, responsive):** display 3–6rem, h2 2–3.5rem, h3 1.5–2rem, body 1–1.25rem, small 0.85rem. Line-height 1.5–1.7 body, 1.05–1.15 headlines. Body measure 60–75ch.
 
 ### Motion system
+
 - **Tokens:** micro 180ms, base 280ms, slow 600ms; ease-out on enter, ease-in on exit; spring for interactive press/toggle.
 - **Principles (from ui-ux-pro-max):** animate 1–2 key elements per view; transform/opacity only; stagger lists 30–50ms; exit faster than enter; every animation conveys meaning.
 - **Signature effects:** spotlight/lamp glow behind hero headline; subtle aurora gradient in dark bg; word-by-word kinetic headline reveal; canvas soundwave visualizer (mouse-reactive); 3D tilt on bento cards; marquee; scroll-linked parallax/reveal; Lenis inertia smooth-scroll.
@@ -59,7 +63,7 @@ Flow: **hook → tension → solution → benefits (toggle) → product → how 
 5. **Two Sides (toggle):** "What you unlock." Fan/Artist toggle morphs the benefit card set with staggered reveal. Fan: exclusive posts/demos, community chat, comment & connect, offline + no ads, be early. Artist: direct income, your community, your feed/store, loyal superfans, grow.
 6. **Product (bento):** "It's a real product." Bento grid of UI mockups — player, artist page, exclusives feed, community chat — with 3D tilt + light parallax. Mockups are built in-markup (no real app yet).
 7. **How it works:** 3 steps with connecting progress line — Discover & listen free → Subscribe $1 → Unlock & grow together. Stepped scroll reveal.
-8. **Vision (tease, slim):** "And this is just the first verse." One emotional line hinting fans growing *with* artists in the future — **no crypto specifics**. Calm full-width breather.
+8. **Vision (tease, slim):** "And this is just the first verse." One emotional line hinting fans growing _with_ artists in the future — **no crypto specifics**. Calm full-width breather.
 9. **Proof:** momentum/scarcity. **No invented numbers and no new backend.** Default to qualitative "founding members / early access" framing + optional founder/artist quote + genre marquee. A live waitlist counter is only added if the user later supplies a count source; not built speculatively.
 10. **Waitlist CTA:** "Be there from the first note." Email + Fan/Artist role + Join button (reuses `/api/whitelist`). Gold glow + soundwave; reuse existing canvas-confetti on success; localStorage "already joined" state (existing behavior).
 11. **Footer:** wordmark, tagline, social links, contact, legal.
@@ -101,4 +105,4 @@ Flow: **hook → tension → solution → benefits (toggle) → product → how 
 
 ## 7. Out of scope
 
-Investment/crowdfunding/royalty UI, pricing, auth, real product app, multi-page routing, i18n, CMS. (Vision section only *teases* phase 2.)
+Investment/crowdfunding/royalty UI, pricing, auth, real product app, multi-page routing, i18n, CMS. (Vision section only _teases_ phase 2.)

@@ -34,7 +34,10 @@ export const benefits: Record<Audience, { title: string; desc: string }[]> = {
 			title: 'Community chat',
 			desc: 'A real room with the artist and fellow fans — paid-only, no spam.'
 		},
-		{ title: 'Comment & connect', desc: 'Your voice on every track and post. Be heard, not counted.' },
+		{
+			title: 'Comment & connect',
+			desc: 'Your voice on every track and post. Be heard, not counted.'
+		},
 		{ title: 'Offline & ad-free', desc: 'Cache your artist and listen with zero ads.' },
 		{ title: 'Be early', desc: 'First access to tickets, merch and releases.' }
 	],

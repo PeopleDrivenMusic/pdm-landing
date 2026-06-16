@@ -5,16 +5,30 @@
 		{ value: 'fan', label: "I'm a fan" },
 		{ value: 'artist', label: "I'm an artist" }
 	];
+
+	function onKeydown(e: KeyboardEvent) {
+		if (
+			e.key === 'ArrowLeft' ||
+			e.key === 'ArrowRight' ||
+			e.key === 'ArrowUp' ||
+			e.key === 'ArrowDown'
+		) {
+			e.preventDefault();
+			audience.toggle();
+		}
+	}
 </script>
 
 <div class="toggle {size}" role="radiogroup" aria-label="Choose your role">
-	{#each options as opt}
+	{#each options as opt (opt.value)}
 		<button
 			type="button"
 			role="radio"
 			aria-checked={audience.value === opt.value}
+			tabindex={audience.value === opt.value ? 0 : -1}
 			class:on={audience.value === opt.value}
 			onclick={() => audience.set(opt.value)}
+			onkeydown={onKeydown}
 		>
 			{opt.label}
 		</button>

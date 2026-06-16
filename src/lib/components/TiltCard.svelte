@@ -1,6 +1,7 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { prefersReducedMotion } from '$lib/motion/prefersReducedMotion';
-	let { max = 8, children }: { max?: number; children?: any } = $props();
+	let { max = 8, children }: { max?: number; children?: Snippet } = $props();
 	let el: HTMLDivElement;
 	let enabled = false;
 

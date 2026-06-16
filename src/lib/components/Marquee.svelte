@@ -4,7 +4,7 @@
 
 <div class="marquee" aria-hidden="true">
 	<div class="track" style="--speed:{speed}s">
-		{#each [...items, ...items] as item}
+		{#each [...items, ...items] as item, i (i)}
 			<span class="item">{item}</span>
 		{/each}
 	</div>

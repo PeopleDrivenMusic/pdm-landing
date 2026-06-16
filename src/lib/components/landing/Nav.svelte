@@ -49,7 +49,7 @@
 	<a class="brand" href="#top" onclick={(e) => nav(e, '#top')}>PDM</a>
 
 	<nav class="links" aria-label="Primary">
-		{#each links as link}
+		{#each links as link (link.href)}
 			<a href={link.href} onclick={(e) => nav(e, link.href)}>{link.label}</a>
 		{/each}
 	</nav>
@@ -72,7 +72,7 @@
 {#if menuOpen}
 	<div id="mobile-sheet" class="sheet">
 		<nav aria-label="Mobile">
-			{#each links as link}
+			{#each links as link (link.href)}
 				<a href={link.href} onclick={(e) => nav(e, link.href)}>{link.label}</a>
 			{/each}
 		</nav>

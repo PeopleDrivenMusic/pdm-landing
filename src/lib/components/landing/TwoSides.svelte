@@ -13,7 +13,7 @@
 
 		{#key audience.value}
 			<div class="grid">
-				{#each benefits[audience.value] as b, i}
+				{#each benefits[audience.value] as b, i (b.title)}
 					<article class="card" use:reveal={{ delay: i * 60, y: 28 }}>
 						<h3>{b.title}</h3>
 						<p>{b.desc}</p>

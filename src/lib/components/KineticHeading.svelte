@@ -4,9 +4,9 @@
 </script>
 
 <h1 class="kinetic">
-	{#each lines as line, li}
+	{#each lines as line, li (li)}
 		<span class="line">
-			{#each line.split(' ') as word, wi}
+			{#each line.split(' ') as word, wi (wi)}
 				<span class="word-wrap"
 					><span class="word" use:reveal={{ delay: (li * 3 + wi) * 60, y: 30 }}>{word}</span></span
 				>

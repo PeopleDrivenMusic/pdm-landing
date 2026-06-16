@@ -4,8 +4,14 @@
 	import { genres } from '$lib/content';
 
 	const perks = [
-		{ title: 'Founding-member perks', desc: 'Lifetime badge and early-supporter status on your favourite artists.' },
-		{ title: 'First access', desc: 'Be first into the app, first to back artists, first to the drops.' },
+		{
+			title: 'Founding-member perks',
+			desc: 'Lifetime badge and early-supporter status on your favourite artists.'
+		},
+		{
+			title: 'First access',
+			desc: 'Be first into the app, first to back artists, first to the drops.'
+		},
 		{ title: 'Shape the product', desc: 'Early members help decide what PDM becomes.' }
 	];
 </script>
@@ -19,7 +25,7 @@
 		</p>
 
 		<div class="perks">
-			{#each perks as perk, i}
+			{#each perks as perk, i (perk.title)}
 				<article class="perk" use:reveal={{ delay: 200 + i * 80, y: 28 }}>
 					<h3>{perk.title}</h3>
 					<p>{perk.desc}</p>

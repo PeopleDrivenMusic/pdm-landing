@@ -59,8 +59,5 @@
 	});
 </script>
 
-<canvas
-	bind:this={canvas}
-	style="width:100%;height:{height}px;display:block"
-	aria-hidden="true"
+<canvas bind:this={canvas} style="width:100%;height:{height}px;display:block" aria-hidden="true"
 ></canvas>

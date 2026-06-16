@@ -10,7 +10,7 @@
 
 		<div class="steps">
 			<div class="line" use:reveal={{ delay: 120 }}></div>
-			{#each steps as step, i}
+			{#each steps as step, i (step.n)}
 				<div class="step" use:reveal={{ delay: 160 + i * 120, y: 30 }}>
 					<span class="num">{step.n}</span>
 					<h3>{step.title}</h3>

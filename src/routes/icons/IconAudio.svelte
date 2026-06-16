@@ -7,8 +7,8 @@
 	viewBox="0 0 95 95"
 	enable-background="new 0 0 95 95"
 	xml:space="preserve"
-    stroke="currentColor"
-    fill="currentColor"
+	stroke="currentColor"
+	fill="currentColor"
 	><path
 		d="M10.373,56.736V38.263c0-1.5-1.216-2.716-2.716-2.716S4.94,36.763,4.94,38.263v18.473c0,1.501,1.216,2.717,2.717,2.717  S10.373,58.237,10.373,56.736z"
 	/><path

@@ -77,8 +77,7 @@
 		position: absolute;
 		inset: -10% 0 0;
 		height: 120%;
-		background:
-			url('/concert-bg.webp') center / cover no-repeat;
+		background: url('/hero.webp') center / cover no-repeat;
 		z-index: 0;
 		will-change: transform;
 	}

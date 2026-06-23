@@ -11,7 +11,12 @@
 	import { onMount } from 'svelte';
 	import { initSmoothScroll } from '$lib/motion/smoothScroll';
 	import AmbientParticles from '$lib/components/AmbientParticles.svelte';
+	import { injectAnalytics } from '@vercel/analytics/sveltekit';
+	import { dev } from '$app/environment';
+	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
 
+	injectSpeedInsights();
+	injectAnalytics({ mode: dev ? 'development' : 'production' });
 	let { children } = $props();
 
 	onMount(() => initSmoothScroll());

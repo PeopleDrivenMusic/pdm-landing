@@ -1,6 +1,6 @@
 <script lang="ts">
-	import '@fontsource/playfair-display/latin-500-italic.css';
-	import '@fontsource/playfair-display/latin-600.css';
+	import '@fontsource/fraunces/latin-600.css';
+	import '@fontsource/fraunces/latin-600-italic.css';
 	import '@fontsource/dm-sans/latin-400.css';
 	import '@fontsource/dm-sans/latin-500.css';
 	import '@fontsource/dm-sans/latin-700.css';

@@ -1,10 +1,12 @@
 <script lang="ts">
 	const year = new Date().getFullYear();
-	const social = [
-		{ label: 'Instagram', href: 'https://instagram.com' },
-		{ label: 'X', href: 'https://x.com' },
-		{ label: 'TikTok', href: 'https://tiktok.com' }
-	];
+	const contactEmail = 'izobov.pdm@gmail.com';
+	// No social presence yet — re-enable when channels go live.
+	// const social = [
+	// 	{ label: 'Instagram', href: 'https://instagram.com' },
+	// 	{ label: 'X', href: 'https://x.com' },
+	// 	{ label: 'TikTok', href: 'https://tiktok.com' }
+	// ];
 </script>
 
 <footer class="footer">
@@ -16,30 +18,34 @@
 
 		<nav class="col" aria-label="Footer">
 			<span class="head">Explore</span>
+			<a href="#unlock">Benefits</a>
 			<a href="#how">How it works</a>
-			<a href="#product">Product</a>
-			<a href="#vision">Vision</a>
+			<a href="#faq">FAQ</a>
 		</nav>
 
+		<!-- No social presence yet — re-enable when channels go live.
 		<nav class="col" aria-label="Social">
 			<span class="head">Follow</span>
 			{#each social as s (s.label)}
 				<a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
 			{/each}
 		</nav>
+		-->
 
 		<div class="col">
 			<span class="head">Contact</span>
-			<a href="mailto:hello@pdm.live">hello@pdm.live</a>
+			<a href="mailto:{contactEmail}">{contactEmail}</a>
 		</div>
 	</div>
 
 	<div class="bottom">
 		<span>© {year} PDM. All rights reserved.</span>
+		<!-- Legal pages not ready yet — re-enable when Privacy & Terms are published.
 		<div class="legal">
 			<a href="/privacy">Privacy</a>
 			<a href="/terms">Terms</a>
 		</div>
+		-->
 	</div>
 </footer>
 
@@ -52,7 +58,7 @@
 		max-width: var(--maxw);
 		margin: 0 auto;
 		display: grid;
-		grid-template-columns: 1.5fr 1fr 1fr 1fr;
+		grid-template-columns: 1.5fr 1fr 1fr;
 		gap: 2rem;
 	}
 	.brand {
@@ -93,6 +99,7 @@
 		flex-wrap: wrap;
 		color: var(--text-muted);
 		font-size: 0.9rem;
+		/* Re-enable with the Privacy & Terms links.
 		.legal {
 			display: flex;
 			gap: 1.5rem;
@@ -100,6 +107,7 @@
 				color: var(--gold);
 			}
 		}
+		*/
 	}
 	@media (max-width: 768px) {
 		.inner {

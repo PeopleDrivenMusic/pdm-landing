@@ -16,6 +16,10 @@
 	let orbA: HTMLDivElement;
 	let orbB: HTMLDivElement;
 
+	// Backdrop auto-carousel (cross-fade + Ken Burns zoom).
+	const slides = ['/bg1.webp', '/slid3.webp', '/slide5.webp', '/slide4.webp', '/slide2.webp'];
+	let current = $state(0);
+
 	function scrollTo(e: MouseEvent, href: string) {
 		const target = document.querySelector(href);
 		if (!target) return;
@@ -50,15 +54,6 @@
 				});
 			}
 
-			// Slow cinematic "Ken Burns" zoom so the backdrop keeps breathing.
-			if (!reduce) {
-				gsap.fromTo(
-					bg,
-					{ scale: 1 },
-					{ scale: 1.14, duration: 22, ease: 'sine.inOut', repeat: -1, yoyo: true }
-				);
-			}
-
 			// Slow drifting glow orbs.
 			if (!reduce) {
 				gsap.to(orbA, {
@@ -79,6 +74,14 @@
 				});
 			}
 		}, root);
+
+		// Auto-advance the backdrop carousel (skip when reduced — static image).
+		let slideTimer: ReturnType<typeof setInterval> | undefined;
+		if (!reduce) {
+			slideTimer = setInterval(() => {
+				current = (current + 1) % slides.length;
+			}, 6000);
+		}
 
 		// Cursor-tracked spotlight + card depth parallax.
 		let onMove: ((e: PointerEvent) => void) | null = null;
@@ -111,13 +114,23 @@
 
 		return () => {
 			if (onMove) root.removeEventListener('pointermove', onMove);
+			if (slideTimer) clearInterval(slideTimer);
 			ctx.revert();
 		};
 	});
 </script>
 
 <section id="top" class="hero" bind:this={root}>
-	<div class="bg" bind:this={bg}></div>
+	<div class="bg" bind:this={bg}>
+		{#each slides as src, i (src)}
+			<div
+				class="slide"
+				class:active={i === current}
+				style="background-image: url({src})"
+				aria-hidden="true"
+			></div>
+		{/each}
+	</div>
 	<div class="overlay"></div>
 	<div class="grain" aria-hidden="true"></div>
 	<div class="particles" aria-hidden="true"><Particles /></div>
@@ -194,9 +207,35 @@
 		position: absolute;
 		inset: -10% 0 0;
 		height: 120%;
-		background: url('/bg1.webp') center / cover no-repeat;
 		z-index: 0;
 		will-change: transform;
+	}
+	.slide {
+		position: absolute;
+		inset: 0;
+		background: center / cover no-repeat;
+		opacity: 0;
+		transform: scale(1.04);
+		/* slow reverse on the outgoing slide so it never snaps back */
+		transition:
+			opacity 2.4s ease-in-out,
+			transform 16s linear;
+		will-change: opacity, transform;
+	}
+	.slide.active {
+		opacity: 1;
+		transform: scale(1.16);
+		/* linear, constant zoom across the whole life of the slide */
+		transition:
+			opacity 2.4s ease-in-out,
+			transform 8s linear;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.slide,
+		.slide.active {
+			transform: none;
+			transition: opacity 2.4s ease-in-out;
+		}
 	}
 	.overlay {
 		position: absolute;

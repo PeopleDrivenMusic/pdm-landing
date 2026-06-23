@@ -28,7 +28,7 @@
 ### 2.3. Financial logic
 
 - **In:** Cards/Cryptocurrency.
-- **Out:** Cryptocurrency only (or an internal PDM token), enabling global payouts without cross-border delays.
+- **Out:** Only for verified artists
 
 ---
 
@@ -42,14 +42,12 @@
 4. **Presales:** Priority access to ticket and merch purchases.
 5. **No Ads:** Complete absence of ads in tracks of the paid artist.
 6. **Loyalty tiers:** Spending from $5/month removes ads across the entire app. From $10/month — global discounts on merch and events.
-7. **Producer cabinet:** Interface to track returns from owned shares in tracks and artist growth.
+
 
 ### 3.2. For Artists
 
 1. **Direct income:** Receive subscription funds immediately.
-2. **Launchpad:** Ability to legally raise a budget for a video/album by selling shares in copyrights.
-3. **Data analytics:** Heat map of paying fans for tour planning.
-4. **Protection from AI:** Identity and engagement verification system.
+2. **Data analytics:** Heat map of paying fans for tour planning.
 
 ---
 
@@ -65,11 +63,8 @@ To prevent manipulation by AI farms, a two-sided reputation system is introduced
 
 ## 5. Workflow (User journey)
 
-1. **Registration:** User enters PDM, listens to music for free (with limitations).
-2. **Subscription:** Chooses an artist, pays $1. Caching and chat are unlocked.
-3. **Investment:** Artist opens a raise for a new track. User buys 0.1% share for $5.
-4. **Ownership:** Track releases. Revenue from PDM and external streaming accumulates in the system.
-5. **Payout:** User sees income in the “Producer cabinet” and withdraws in crypto.
+1. **Registration:** User enters PDM, listens to music for free.
+2. **Subscription:** Chooses an artist, pays $1. Caching and chat are unlocked and all the content from this artist are unlocked.
 
 ---
 

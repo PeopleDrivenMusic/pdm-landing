@@ -1,12 +1,18 @@
 import { VITE_GOOGLE_SHEETS_SPREADSHEET_WEB_URL } from '$env/static/private';
 
 export async function POST({ request }) {
-	const { email, role } = await request.json();
+	const { email, role, scale, refCode, referredBy } = await request.json();
 
 	const res = await fetch(VITE_GOOGLE_SHEETS_SPREADSHEET_WEB_URL, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json' },
-		body: JSON.stringify({ email, role })
+		body: JSON.stringify({
+			email,
+			role,
+			scale: scale ?? '',
+			ref_code: refCode ?? '',
+			referred_by: referredBy ?? ''
+		})
 	});
 
 	if (!res.ok) {

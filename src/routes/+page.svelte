@@ -1,29 +1,29 @@
 <script lang="ts">
 	import SEO from './SEO.svelte';
+	import AudienceUrlSync from '$lib/components/AudienceUrlSync.svelte';
 	import Nav from '$lib/components/landing/Nav.svelte';
 	import Hero from '$lib/components/landing/Hero.svelte';
 	import Problem from '$lib/components/landing/Problem.svelte';
 	import Shift from '$lib/components/landing/Shift.svelte';
-	import TwoSides from '$lib/components/landing/TwoSides.svelte';
-	import Product from '$lib/components/landing/Product.svelte';
-	import HowItWorks from '$lib/components/landing/HowItWorks.svelte';
-	import Vision from '$lib/components/landing/Vision.svelte';
-	import Proof from '$lib/components/landing/Proof.svelte';
+	import Steps from '$lib/components/landing/Steps.svelte';
+	import Benefits from '$lib/components/landing/Benefits.svelte';
+	import Referral from '$lib/components/landing/Referral.svelte';
+	import Faq from '$lib/components/landing/Faq.svelte';
 	import Waitlist from '$lib/components/landing/Waitlist.svelte';
 	import Footer from '$lib/components/landing/Footer.svelte';
 </script>
 
+<AudienceUrlSync />
 <SEO />
 <Nav />
 <main>
 	<Hero />
 	<Problem />
 	<Shift />
-	<TwoSides />
-	<Product />
-	<HowItWorks />
-	<Vision />
-	<Proof />
+	<Steps />
+	<Benefits />
+	<Referral />
+	<Faq />
 	<Waitlist />
 </main>
 <Footer />

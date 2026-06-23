@@ -7,9 +7,9 @@
 	let menuOpen = $state(false);
 
 	const links = [
+		{ href: '#unlock', label: 'Benefits' },
 		{ href: '#how', label: 'How it works' },
-		{ href: '#product', label: 'Product' },
-		{ href: '#vision', label: 'Vision' }
+		{ href: '#faq', label: 'FAQ' }
 	];
 
 	function nav(e: MouseEvent, href: string) {

@@ -147,9 +147,18 @@
 		.card {
 			grid-template-columns: 1fr;
 			gap: 2rem;
+			text-align: center;
+		}
+		.text {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 		}
 		h2 {
-			max-width: none;
+			max-width: 18ch;
+		}
+		.body {
+			max-width: 42ch;
 		}
 		.rate {
 			border-left: 0;

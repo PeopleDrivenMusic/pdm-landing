@@ -10,10 +10,15 @@
 	import '$lib/styles/global.scss';
 	import { onMount } from 'svelte';
 	import { initSmoothScroll } from '$lib/motion/smoothScroll';
+	import AmbientParticles from '$lib/components/AmbientParticles.svelte';
 
 	let { children } = $props();
 
 	onMount(() => initSmoothScroll());
 </script>
+
+<!-- Page-wide ambient golden dust: a single fixed layer drifting behind every
+     section, so the whole landing feels alive — not just the hero. -->
+<AmbientParticles variant="fixed" count={12} intensity={0.9} />
 
 {@render children()}

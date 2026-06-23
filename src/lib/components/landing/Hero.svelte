@@ -4,7 +4,7 @@
 	import { gsap } from 'gsap';
 	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import KineticHeading from '$lib/components/KineticHeading.svelte';
-	import Particles from '$lib/components/Particles.svelte';
+	import AmbientParticles from '$lib/components/AmbientParticles.svelte';
 	import { audience } from '$lib/stores/audience.svelte';
 	import { hero, heroBadge, heroPerks } from '$lib/content';
 	import { prefersReducedMotion } from '$lib/motion/prefersReducedMotion';
@@ -19,6 +19,10 @@
 	// Backdrop auto-carousel (cross-fade + Ken Burns zoom).
 	const slides = ['/bg1.webp', '/slid3.webp', '/slide5.webp', '/slide4.webp', '/slide2.webp'];
 	let current = $state(0);
+	// Lazy-load backdrops: fetch only the current + next slide (and keep ones already
+	// shown) instead of pulling all five (~600KB) on mount. Seeded with 0 (the preloaded
+	// LCP image) and 1 (ready for the first cross-fade).
+	let loaded = $state(new Set<number>([0, 1]));
 
 	function scrollTo(e: MouseEvent, href: string) {
 		const target = document.querySelector(href);
@@ -80,6 +84,8 @@
 		if (!reduce) {
 			slideTimer = setInterval(() => {
 				current = (current + 1) % slides.length;
+				// Warm the slide after this one so its cross-fade is ready in time.
+				loaded = new Set(loaded).add(current).add((current + 1) % slides.length);
 			}, 6000);
 		}
 
@@ -126,14 +132,16 @@
 			<div
 				class="slide"
 				class:active={i === current}
-				style="background-image: url({src})"
+				style={loaded.has(i) ? `background-image: url(${src})` : ''}
 				aria-hidden="true"
 			></div>
 		{/each}
 	</div>
 	<div class="overlay"></div>
 	<div class="grain" aria-hidden="true"></div>
-	<div class="particles" aria-hidden="true"><Particles /></div>
+	<div class="particles" aria-hidden="true">
+		<AmbientParticles variant="fill" count={9} intensity={1.05} />
+	</div>
 	<div class="orb orb-gold" bind:this={orbA} aria-hidden="true"></div>
 	<div class="orb orb-cool" bind:this={orbB} aria-hidden="true"></div>
 	<div class="spot" bind:this={spot} aria-hidden="true"></div>

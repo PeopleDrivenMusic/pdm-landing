@@ -2,13 +2,17 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<link
-			href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap"
-			rel="stylesheet"
-		/>
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+		<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<meta name="theme-color" content="#0a0a0b" />
+		<!-- Warm the LCP hero backdrop (first carousel slide, painted as a CSS background). -->
+		<link rel="preload" as="image" href="/bg1.webp" type="image/webp" fetchpriority="high" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="app.css" />
+		<!-- Warm the connection to the analytics origin before the async tag fires. -->
+		<link rel="preconnect" href="https://www.googletagmanager.com" />
+		<link rel="dns-prefetch" href="https://www.google-analytics.com" />
 		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y7LRYPXB3N"></script>
 		<script>

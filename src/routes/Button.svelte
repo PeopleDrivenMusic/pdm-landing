@@ -1,9 +1,9 @@
 <script>
-	let { disabled= false, click, text } = $props();
+	let { disabled = false, click, text } = $props();
 </script>
 
-<button class="button" class:disabled onclick={click}> 
-    {@render text()}
+<button class="button" class:disabled onclick={click}>
+	{@render text()}
 </button>
 
 <style lang="scss">

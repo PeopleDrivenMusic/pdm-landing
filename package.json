@@ -11,7 +11,9 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint ."
+		"lint": "prettier --check . && eslint .",
+		"test": "vitest run",
+		"test:watch": "vitest"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",
@@ -20,20 +22,33 @@
 		"@sveltejs/adapter-vercel": "^5.8.0",
 		"@sveltejs/kit": "^2.16.0",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
+		"@testing-library/svelte": "^5.3.1",
+		"@types/canvas-confetti": "^1.9.0",
+		"@types/three": "^0.184.1",
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-svelte": "^3.0.0",
 		"globals": "^16.0.0",
+		"jsdom": "^29.1.1",
 		"prettier": "^3.4.2",
 		"prettier-plugin-svelte": "^3.3.3",
 		"sass-embedded": "^1.89.2",
+		"sharp": "^0.35.1",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"typescript": "^5.0.0",
 		"typescript-eslint": "^8.20.0",
-		"vite": "^6.2.6"
+		"vite": "^6.2.6",
+		"vitest": "^4.1.9"
 	},
 	"dependencies": {
-		"canvas-confetti": "^1.9.3"
+		"@fontsource/dm-sans": "^5.2.8",
+		"@fontsource/fraunces": "^5.2.9",
+		"@fontsource/playfair-display": "^5.2.8",
+		"@fontsource/sora": "^5.2.8",
+		"canvas-confetti": "^1.9.3",
+		"gsap": "^3.15.0",
+		"lenis": "^1.3.23",
+		"three": "^0.184.0"
 	}
 }

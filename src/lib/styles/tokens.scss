@@ -1,0 +1,30 @@
+:root {
+	/* color */
+	--bg: #0a0a0b;
+	--bg-elev: #15151a;
+	--bg-elev-2: #1e1e25;
+	--gold: #ffd877;
+	--gold-deep: #e0b23a;
+	--text: #f4ece0;
+	--text-muted: rgba(244, 236, 224, 0.62);
+	--line: rgba(244, 236, 224, 0.1);
+	--glow: rgba(255, 216, 119, 0.3);
+
+	/* type */
+	--font-display: 'Fraunces', Georgia, serif;
+	--font-sans: 'DM Sans', system-ui, sans-serif;
+
+	/* motion */
+	--dur-micro: 180ms;
+	--dur-base: 280ms;
+	--dur-slow: 600ms;
+	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+	--ease-in: cubic-bezier(0.55, 0, 0.55, 0.2);
+
+	/* layout */
+	--maxw: 1200px;
+	--z-base: 0;
+	--z-content: 10;
+	--z-nav: 40;
+	--z-overlay: 100;
+}

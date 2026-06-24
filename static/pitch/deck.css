@@ -1,0 +1,806 @@
+/* ============================================================================
+   PDM — Investor deck theme
+   Mirrors the landing brand tokens (src/lib/styles/tokens.scss).
+   Shared by en.html and ru.html. Screen = scroll-snap slides; Print = one
+   slide per page (landscape) for a clean PDF.
+   ========================================================================== */
+
+:root {
+	--bg: #0a0a0b;
+	--bg-elev: #15151a;
+	--bg-elev-2: #1e1e25;
+	--gold: #ffd877;
+	--gold-deep: #e0b23a;
+	--text: #f4ece0;
+	--text-muted: rgba(244, 236, 224, 0.62);
+	--text-dim: rgba(244, 236, 224, 0.42);
+	--line: rgba(244, 236, 224, 0.1);
+	--glow: rgba(255, 216, 119, 0.3);
+
+	--font-display: 'Fraunces', Georgia, serif;
+	--font-sans: 'DM Sans', system-ui, sans-serif;
+	--font-accent: 'Sora', 'DM Sans', sans-serif;
+
+	--maxw: 1080px;
+	--ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html {
+	background: var(--bg);
+	color: var(--text);
+	scroll-behavior: smooth;
+	-webkit-text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: var(--font-sans);
+	line-height: 1.5;
+	overflow-x: hidden;
+}
+
+::selection {
+	background: var(--gold);
+	color: #1a1a1a;
+}
+
+a {
+	color: var(--gold);
+	text-decoration: none;
+}
+
+.lead a {
+	border-bottom: 1px solid rgba(255, 216, 119, 0.35);
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--font-display);
+	line-height: 1.05;
+	margin: 0;
+	font-weight: 600;
+}
+
+p {
+	margin: 0;
+}
+
+em {
+	font-style: italic;
+	color: var(--gold);
+}
+
+strong {
+	color: var(--text);
+	font-weight: 700;
+}
+
+/* ---- Ambient golden backdrop (prints too: pure CSS glows) ----------------- */
+.backdrop {
+	position: fixed;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	background:
+		radial-gradient(60% 50% at 18% 12%, rgba(255, 216, 119, 0.1), transparent 70%),
+		radial-gradient(50% 45% at 85% 80%, rgba(224, 178, 58, 0.08), transparent 70%),
+		radial-gradient(40% 40% at 70% 18%, rgba(255, 216, 119, 0.05), transparent 70%),
+		var(--bg);
+}
+
+/* Live drifting embers (screen only). */
+#embers {
+	position: fixed;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+}
+
+/* ---- Deck / slide layout -------------------------------------------------- */
+.deck {
+	position: relative;
+	z-index: 2;
+	scroll-snap-type: y mandatory;
+	height: 100vh;
+	overflow-y: auto;
+	scroll-behavior: smooth;
+}
+
+.slide {
+	scroll-snap-align: start;
+	position: relative;
+	min-height: 100vh;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding: clamp(2.5rem, 6vw, 6rem) clamp(1.5rem, 7vw, 7rem);
+	gap: 1.6rem;
+}
+
+.slide > * {
+	max-width: var(--maxw);
+	width: 100%;
+	margin-inline: 0;
+}
+
+/* ---- Typographic primitives ---------------------------------------------- */
+.kicker {
+	font-family: var(--font-accent);
+	font-weight: 700;
+	font-size: 0.78rem;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--gold);
+	display: inline-flex;
+	align-items: center;
+	gap: 0.7rem;
+}
+
+.kicker::before {
+	content: '';
+	width: 28px;
+	height: 1px;
+	background: var(--gold);
+	opacity: 0.7;
+}
+
+.headline {
+	font-size: clamp(2rem, 5.2vw, 3.9rem);
+	letter-spacing: -0.01em;
+}
+
+.headline.xl {
+	font-size: clamp(2.6rem, 7vw, 5.2rem);
+}
+
+.lead {
+	font-size: clamp(1.05rem, 1.9vw, 1.5rem);
+	color: var(--text-muted);
+	max-width: 46ch;
+	line-height: 1.55;
+}
+
+.muted {
+	color: var(--text-muted);
+}
+
+.dim {
+	color: var(--text-dim);
+}
+
+.gold {
+	color: var(--gold);
+}
+
+.close-line {
+	font-family: var(--font-display);
+	font-style: italic;
+	font-size: clamp(1.3rem, 2.6vw, 2.1rem);
+	color: var(--text);
+	max-width: 34ch;
+	line-height: 1.3;
+}
+
+.fill {
+	display: inline-block;
+	color: var(--gold);
+	border-bottom: 1.5px dashed var(--gold-deep);
+	font-family: var(--font-accent);
+	font-weight: 700;
+	font-size: 0.92em;
+	letter-spacing: 0.02em;
+	padding-bottom: 1px;
+}
+
+/* ---- Cards / grids -------------------------------------------------------- */
+.grid-2 {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.4rem;
+}
+
+.cards {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.card {
+	background: linear-gradient(180deg, var(--bg-elev), var(--bg-elev-2));
+	border: 1px solid var(--line);
+	border-radius: 16px;
+	padding: 1.3rem 1.4rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+
+.card h3 {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-size: 1.05rem;
+	letter-spacing: -0.01em;
+}
+
+.card p {
+	color: var(--text-muted);
+	font-size: 0.95rem;
+	line-height: 1.45;
+}
+
+.card .ic {
+	font-size: 1.4rem;
+	line-height: 1;
+	margin-bottom: 0.2rem;
+}
+
+/* pain list (problem slides) */
+.pains {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.85rem;
+	max-width: 60ch;
+}
+
+.pains li {
+	position: relative;
+	padding-left: 1.7rem;
+	color: var(--text-muted);
+	font-size: clamp(1rem, 1.6vw, 1.2rem);
+	line-height: 1.45;
+}
+
+.pains li::before {
+	content: '✕';
+	position: absolute;
+	left: 0;
+	top: 0.05em;
+	color: var(--gold-deep);
+	font-size: 0.85em;
+}
+
+/* numbered steps */
+.steps {
+	display: grid;
+	gap: 1.1rem;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.step .n {
+	font-family: var(--font-display);
+	font-style: italic;
+	font-size: 2.4rem;
+	color: var(--gold);
+	line-height: 1;
+}
+
+.step h3 {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-size: 1.1rem;
+	margin-top: 0.5rem;
+}
+
+.step p {
+	color: var(--text-muted);
+	font-size: 0.95rem;
+	margin-top: 0.3rem;
+	line-height: 1.45;
+}
+
+/* ---- The $1 split visual -------------------------------------------------- */
+.split {
+	display: flex;
+	align-items: center;
+	gap: clamp(1rem, 4vw, 3rem);
+	flex-wrap: wrap;
+}
+
+.split .coin {
+	font-family: var(--font-display);
+	font-size: clamp(3.5rem, 10vw, 7rem);
+	color: var(--gold);
+	line-height: 1;
+}
+
+.split .arrow {
+	font-size: 2rem;
+	color: var(--text-dim);
+}
+
+.split .leg {
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+}
+
+.split .leg .pct {
+	font-family: var(--font-display);
+	font-size: clamp(2rem, 5vw, 3.2rem);
+	line-height: 1;
+}
+
+.split .leg.artist .pct {
+	color: var(--gold);
+}
+
+.split .leg .who {
+	font-family: var(--font-accent);
+	text-transform: uppercase;
+	letter-spacing: 0.16em;
+	font-size: 0.72rem;
+	color: var(--text-muted);
+}
+
+/* bar */
+.bar {
+	height: 14px;
+	border-radius: 999px;
+	overflow: hidden;
+	display: flex;
+	border: 1px solid var(--line);
+	max-width: 560px;
+}
+
+.bar .a {
+	background: linear-gradient(90deg, var(--gold), var(--gold-deep));
+	width: 80%;
+}
+
+.bar .b {
+	background: var(--bg-elev-2);
+	width: 20%;
+}
+
+/* versus (loyal fans vs plays) */
+.versus {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	flex-wrap: wrap;
+}
+
+.versus .big {
+	font-family: var(--font-display);
+	font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.versus .vs {
+	font-family: var(--font-accent);
+	color: var(--text-dim);
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	font-size: 0.8rem;
+}
+
+/* tiers */
+.tiers {
+	display: grid;
+	gap: 0.8rem;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.tier {
+	border: 1px solid var(--line);
+	border-radius: 14px;
+	padding: 1rem 1.1rem;
+	background: var(--bg-elev);
+}
+
+.tier .price {
+	font-family: var(--font-display);
+	font-size: 1.8rem;
+	color: var(--gold);
+}
+
+.tier p {
+	color: var(--text-muted);
+	font-size: 0.9rem;
+	margin-top: 0.3rem;
+}
+
+/* competitive compare row */
+.compare {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 0.9rem;
+}
+
+.compare .col {
+	border: 1px solid var(--line);
+	border-radius: 14px;
+	padding: 1.1rem 1rem;
+	background: var(--bg-elev);
+}
+
+.compare .col.us {
+	border-color: var(--gold-deep);
+	background: linear-gradient(180deg, rgba(255, 216, 119, 0.08), var(--bg-elev));
+}
+
+.compare .col h3 {
+	font-family: var(--font-accent);
+	font-size: 0.95rem;
+	letter-spacing: 0.04em;
+}
+
+.compare .col.us h3 {
+	color: var(--gold);
+}
+
+.compare .col p {
+	color: var(--text-muted);
+	font-size: 0.86rem;
+	margin-top: 0.5rem;
+	line-height: 1.4;
+}
+
+/* market funnel */
+.funnel {
+	display: grid;
+	gap: 0.7rem;
+	max-width: 640px;
+}
+
+.funnel .row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	padding: 0.8rem 1.2rem;
+	background: var(--bg-elev);
+}
+
+.funnel .row .t {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 9rem;
+	font-family: var(--font-accent);
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	font-size: 0.78rem;
+	color: var(--gold);
+}
+
+.funnel .row .t .full {
+	font-family: var(--font-sans);
+	letter-spacing: 0;
+	text-transform: none;
+	font-size: 0.62rem;
+	font-weight: 400;
+	color: var(--text-dim);
+}
+
+.sources {
+	font-size: 0.74rem;
+	color: var(--text-dim);
+	margin-top: 0.1rem;
+}
+
+.sources a {
+	color: var(--gold);
+	border-bottom: 1px solid rgba(255, 216, 119, 0.3);
+}
+
+.funnel .row .v {
+	font-family: var(--font-display);
+	font-size: 1.4rem;
+	white-space: nowrap;
+}
+
+.funnel .row .lbl {
+	color: var(--text-muted);
+	font-size: 0.92rem;
+}
+
+/* roadmap timeline */
+.timeline {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1.2rem;
+}
+
+.phase {
+	border: 1px solid var(--line);
+	border-radius: 16px;
+	padding: 1.3rem 1.4rem;
+	background: var(--bg-elev);
+}
+
+.phase.now {
+	border-color: var(--gold-deep);
+}
+
+.phase .tag {
+	font-family: var(--font-accent);
+	text-transform: uppercase;
+	letter-spacing: 0.16em;
+	font-size: 0.72rem;
+	color: var(--gold);
+}
+
+.phase h3 {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	margin: 0.4rem 0 0.6rem;
+	font-size: 1.15rem;
+}
+
+.phase ul {
+	margin: 0;
+	padding-left: 1.1rem;
+	color: var(--text-muted);
+	font-size: 0.94rem;
+	line-height: 1.55;
+}
+
+/* team grid */
+.team {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.member {
+	border: 1px solid var(--line);
+	border-radius: 16px;
+	padding: 1.3rem;
+	background: var(--bg-elev);
+	text-align: center;
+}
+
+.member .avatar {
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	margin: 0 auto 0.8rem;
+	background: radial-gradient(circle at 35% 30%, var(--gold), var(--gold-deep));
+	opacity: 0.85;
+}
+
+.member h3 {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-size: 1.05rem;
+}
+
+.member p {
+	color: var(--text-muted);
+	font-size: 0.88rem;
+	margin-top: 0.25rem;
+}
+
+/* solo / lead founder */
+.founder {
+	display: grid;
+	grid-template-columns: 0.85fr 1.15fr;
+	gap: 2rem;
+	align-items: center;
+}
+
+.founder-card {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1rem;
+	border: 1px solid var(--gold-deep);
+	border-radius: 18px;
+	padding: 1.6rem 1.7rem;
+	background: linear-gradient(180deg, rgba(255, 216, 119, 0.08), var(--bg-elev));
+}
+
+.founder-card .avatar {
+	width: 88px;
+	height: 88px;
+	margin: 0;
+}
+
+.founder-card h3 {
+	font-family: var(--font-sans);
+	font-weight: 700;
+	font-size: 1.35rem;
+}
+
+.founder-card .role {
+	font-family: var(--font-accent);
+	text-transform: uppercase;
+	letter-spacing: 0.14em;
+	font-size: 0.76rem;
+	color: var(--gold);
+	margin-top: 0.3rem;
+}
+
+.founder-bio {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+/* the ask */
+.ask-grid {
+	display: grid;
+	grid-template-columns: 0.9fr 1.1fr;
+	gap: 1.6rem;
+	align-items: start;
+}
+
+.ask-amount {
+	font-family: var(--font-display);
+	font-size: clamp(2.4rem, 6vw, 4rem);
+	color: var(--gold);
+	line-height: 1.05;
+}
+
+.use-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: grid;
+	gap: 0.7rem;
+}
+
+.use-list li {
+	display: flex;
+	align-items: baseline;
+	gap: 0.8rem;
+	color: var(--text-muted);
+}
+
+.use-list li .p {
+	font-family: var(--font-display);
+	color: var(--gold);
+	font-size: 1.2rem;
+	min-width: 3.5rem;
+}
+
+/* cover */
+.cover {
+	align-items: flex-start;
+}
+
+.cover .wordmark {
+	font-family: var(--font-accent);
+	font-weight: 800;
+	letter-spacing: 0.34em;
+	font-size: 1rem;
+	color: var(--gold);
+}
+
+.cover .title {
+	font-size: clamp(2.8rem, 8vw, 6rem);
+	letter-spacing: -0.02em;
+	line-height: 1;
+}
+
+.cover .meta {
+	font-family: var(--font-accent);
+	text-transform: uppercase;
+	letter-spacing: 0.18em;
+	font-size: 0.78rem;
+	color: var(--text-muted);
+}
+
+.contact {
+	color: var(--text-muted);
+	font-size: 0.95rem;
+}
+
+.contact a {
+	color: var(--gold);
+}
+
+/* ---- Slide number + progress (screen only) -------------------------------- */
+.counter {
+	position: fixed;
+	right: 1.4rem;
+	bottom: 1.1rem;
+	z-index: 10;
+	font-family: var(--font-accent);
+	font-size: 0.78rem;
+	letter-spacing: 0.12em;
+	color: var(--text-dim);
+}
+
+.counter b {
+	color: var(--gold);
+	font-weight: 700;
+}
+
+.progress {
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 3px;
+	background: linear-gradient(90deg, var(--gold), var(--gold-deep));
+	width: 0;
+	z-index: 10;
+	transition: width 0.25s var(--ease-out);
+}
+
+.hint {
+	position: fixed;
+	left: 1.4rem;
+	bottom: 1.1rem;
+	z-index: 10;
+	font-family: var(--font-accent);
+	font-size: 0.72rem;
+	letter-spacing: 0.1em;
+	color: var(--text-dim);
+}
+
+/* ---- Responsive ----------------------------------------------------------- */
+@media (max-width: 760px) {
+	.grid-2,
+	.steps,
+	.tiers,
+	.compare,
+	.timeline,
+	.founder,
+	.ask-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html,
+	.deck {
+		scroll-behavior: auto;
+	}
+}
+
+/* ---- Print → PDF (one slide per landscape page) --------------------------- */
+@media print {
+	@page {
+		size: 1280px 720px;
+		margin: 0;
+	}
+
+	html,
+	body {
+		background: var(--bg) !important;
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+	}
+
+	#embers,
+	.counter,
+	.progress,
+	.hint {
+		display: none !important;
+	}
+
+	.backdrop {
+		position: absolute;
+	}
+
+	.deck {
+		height: auto;
+		overflow: visible;
+		scroll-snap-type: none;
+	}
+
+	.slide {
+		min-height: 0;
+		height: 720px;
+		width: 1280px;
+		break-after: page;
+		break-inside: avoid;
+		page-break-after: always;
+	}
+
+	.slide:last-child {
+		break-after: auto;
+		page-break-after: auto;
+	}
+}

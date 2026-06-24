@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>PDM — People Driven Music · Презентация для инвесторов</title>
+		<meta
+			name="description"
+			content="PDM (People Driven Music) — поддержи любого артиста за $1 в месяц, 80% идёт артисту. Презентация для инвесторов."
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,600&family=Sora:wght@700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="deck.css" />
+	</head>
+	<body>
+		<div class="backdrop"></div>
+		<canvas id="embers" aria-hidden="true"></canvas>
+		<div class="progress"></div>
+		<div class="counter"></div>
+		<div class="hint">← → для навигации</div>
+
+		<main class="deck">
+			<!-- 1 · Обложка -->
+			<section class="slide cover">
+				<span class="wordmark">P · D · M</span>
+				<h1 class="title">People<br />Driven<br /><em>Music</em>.</h1>
+				<p class="lead">Хватит просто слушать — стань своим.</p>
+				<p class="muted" style="max-width: 54ch">
+					Музыкальная платформа, где фанаты поддерживают любимых артистов за
+					<strong>$1 в месяц</strong> — и <strong>80%</strong> идёт напрямую артисту.
+				</p>
+				<p class="meta">Презентация для инвесторов · 2026 · Конфиденциально</p>
+				<p class="contact">
+					<a href="mailto:izobov.pdm@gmail.com">izobov.pdm@gmail.com</a> · pdm.live
+				</p>
+			</section>
+
+			<!-- 2 · Проблема (фанаты) -->
+			<section class="slide">
+				<span class="kicker">Проблема · фанаты</span>
+				<h2 class="headline">Любовь к музыке ещё никогда не была так далека от артиста.</h2>
+				<ul class="pains">
+					<li>Ты следишь за артистом в пяти приложениях: музыка здесь, видео там, жизнь — везде.</li>
+					<li>
+						Ты платишь за подписку и получаешь почти ничего, кроме «меньше рекламы», — а любимые
+						артисты зарабатывают доли цента.
+					</li>
+					<li>Боты и перекупщики разбирают билеты за секунды и перепродают их тебе с наценкой.</li>
+				</ul>
+				<p class="close-line">
+					Ты любишь музыку. Но так и не становишься ближе к тем, кто её создаёт.
+				</p>
+			</section>
+
+			<!-- 3 · Проблема (артисты) -->
+			<section class="slide">
+				<span class="kicker">Проблема · артисты</span>
+				<h2 class="headline">Ты борешься с алгоритмом, чтобы достучаться до собственных фанатов.</h2>
+				<ul class="pains">
+					<li>ИИ заполонил стриминг, и ни один живой артист не переиграет машину по объёму.</li>
+					<li>Прослушивание — это не фанат. Объём никогда не станет лояльностью.</li>
+					<li>
+						Фанаты платят подписку, но часть денег уходит артистам, которых они даже не слушают.
+					</li>
+					<li>У тебя нет реального инструмента, чтобы работать со своей аудиторией.</li>
+				</ul>
+				<p class="close-line">Один лояльный фанат важнее тысячи слепых прослушиваний.</p>
+			</section>
+
+			<!-- 4 · Инсайт -->
+			<section class="slide">
+				<span class="kicker">Инсайт</span>
+				<h2 class="headline">От <em>бездушных прослушиваний</em> — к <em>лояльной фан-базе.</em></h2>
+				<div class="versus">
+					<span class="big gold">10 преданных фанатов</span>
+					<span class="vs">важнее</span>
+					<span class="big muted">3 000 анонимных прослушиваний</span>
+				</div>
+				<p class="lead">
+					Прослушивание — это потребление. Подписчик — это отношения: регулярные, прямые, и алгоритм не
+					сможет их отнять.
+				</p>
+			</section>
+
+			<!-- 5 · Решение -->
+			<section class="slide">
+				<span class="kicker">Решение</span>
+				<h2 class="headline">Поддержи любого артиста за <em>$1 в месяц.</em></h2>
+				<div class="split">
+					<span class="coin">$1</span>
+					<span class="arrow">→</span>
+					<div class="leg artist">
+						<span class="pct">$0.80</span>
+						<span class="who">артисту</span>
+					</div>
+					<div class="leg">
+						<span class="pct">$0.20</span>
+						<span class="who">комиссия PDM</span>
+					</div>
+				</div>
+				<div class="bar"><span class="a"></span><span class="b"></span></div>
+				<p class="lead">
+					Фанаты подписываются на <strong>конкретного артиста</strong>, а не на платформу. Слушать —
+					бесплатно, а $1 открывает доступ к его эксклюзивам. Ты становишься ближе к артисту — и
+					частью его успеха.
+				</p>
+			</section>
+
+			<!-- 6 · Продукт (фанаты) -->
+			<section class="slide">
+				<span class="kicker">Продукт · фанатам</span>
+				<h2 class="headline">Всего $1 — и ты открываешь.</h2>
+				<div class="cards">
+					<div class="card">
+						<span class="ic">✦</span>
+						<h3>Эксклюзивные дропы</h3>
+						<p>Личные посты, демо и закулисье от артиста.</p>
+					</div>
+					<div class="card">
+						<span class="ic">⦿</span>
+						<h3>Слушай без рекламы</h3>
+						<p>Ноль рекламы во всём, что делает этот артист.</p>
+					</div>
+					<div class="card">
+						<span class="ic">⤓</span>
+						<h3>Офлайн-режим</h3>
+						<p>Кэшируй треки и слушай где угодно и когда угодно.</p>
+					</div>
+					<div class="card">
+						<span class="ic">◷</span>
+						<h3>Доступ к пресейлам</h3>
+						<p>Первым в очереди за билетами — раньше ботов.</p>
+					</div>
+					<div class="card">
+						<span class="ic">❝</span>
+						<h3>Сообщество и комментарии</h3>
+						<p>Закрытый чат с артистом и твой голос под каждым треком.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 7 · Продукт (артисты) -->
+			<section class="slide">
+				<span class="kicker">Продукт · артистам</span>
+				<h2 class="headline">Всё, чтобы построить свою фан-базу.</h2>
+				<div class="cards">
+					<div class="card">
+						<span class="ic">$</span>
+						<h3>Прямой доход</h3>
+						<p>Подписки приходят на твой счёт и выплачиваются быстро.</p>
+					</div>
+					<div class="card">
+						<span class="ic">⦿</span>
+						<h3>Твоё сообщество</h3>
+						<p>Закрытое пространство для разговора с теми, кто тебя финансирует.</p>
+					</div>
+					<div class="card">
+						<span class="ic">▦</span>
+						<h3>Лента и магазин</h3>
+						<p>Публикуй эксклюзивы, продавай мерч и билеты — как тебе удобно.</p>
+					</div>
+					<div class="card">
+						<span class="ic">◴</span>
+						<h3>Аналитика фанатов</h3>
+						<p>Видь, где твои платящие фанаты, и планируй туры под них.</p>
+					</div>
+					<div class="card">
+						<span class="ic">◐</span>
+						<h3>Ты решаешь</h3>
+						<p>Выбирай, что бесплатно для всех, а что — только для подписчиков.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 8 · Как это работает -->
+			<section class="slide">
+				<span class="kicker">Как это работает</span>
+				<h2 class="headline">Слушай бесплатно. Стань ближе за $1.</h2>
+				<div class="steps">
+					<div class="step">
+						<span class="n">1</span>
+						<h3>Слушай бесплатно</h3>
+						<p>Стримь музыку и изучай всё без оплаты.</p>
+					</div>
+					<div class="step">
+						<span class="n">2</span>
+						<h3>Поддержи артиста за $1</h3>
+						<p>80% идёт артисту, 20% — на работу экосистемы.</p>
+					</div>
+					<div class="step">
+						<span class="n">3</span>
+						<h3>Стань ближе</h3>
+						<p>Открой дропы, заходи в чат и расти вместе с артистом.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 9 · Бизнес-модель -->
+			<section class="slide">
+				<span class="kicker">Бизнес-модель</span>
+				<h2 class="headline">Регулярная выручка, которая растёт вместе с лояльностью.</h2>
+				<p class="lead" style="max-width: 64ch">
+					$1 за артиста в месяц, разделение <strong>80/20</strong> и пул подписок, распределяемый по
+					реальным прослушиваниям каждого фаната (user-centric). Средняя выручка растёт, когда
+					фанаты поддерживают больше артистов и поднимаются по уровням лояльности.
+				</p>
+				<div class="tiers">
+					<div class="tier">
+						<span class="price">$1</span>
+						<p>Поддержи одного артиста — открой всё, что он делает.</p>
+					</div>
+					<div class="tier">
+						<span class="price">$5+</span>
+						<p>Без рекламы во всём приложении.</p>
+					</div>
+					<div class="tier">
+						<span class="price">$10+</span>
+						<p>Глобальные скидки на мерч и события.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 10 · Реферальный маховик -->
+			<section class="slide">
+				<span class="kicker">Двигатель роста</span>
+				<h2 class="headline">Реферальный маховик, встроенный в продукт.</h2>
+				<div class="grid-2">
+					<div class="card">
+						<span class="ic gold">10%</span>
+						<h3>Пожизненная комиссия</h3>
+						<p>Приведи друга и получай долю нашей комиссии — пожизненно.</p>
+					</div>
+					<div class="card" style="border-color: var(--gold-deep)">
+						<span class="ic gold">15%</span>
+						<h3>Founding-участники получают больше</h3>
+						<p>Участники раннего доступа получают самую высокую ставку, зафиксированную при регистрации.</p>
+					</div>
+				</div>
+				<p class="lead">
+					Каждый фанат становится каналом привлечения, а каждый артист приводит свою аудиторию — это
+					вирусный цикл с низким CAC с первого дня.
+				</p>
+			</section>
+
+			<!-- 11 · Почему сейчас / позиционирование -->
+			<section class="slide">
+				<span class="kicker">Почему сейчас · где мы</span>
+				<h2 class="headline">Стриминг, фан-экономика и сообщество — наконец в одном месте.</h2>
+				<div class="compare">
+					<div class="col">
+						<h3>Spotify</h3>
+						<p>Масштаб и открытие новой музыки, но без близости — и доли цента артистам.</p>
+					</div>
+					<div class="col">
+						<h3>Patreon</h3>
+						<p>Прямая поддержка, но без стриминга и в отрыве от самой музыки.</p>
+					</div>
+					<div class="col">
+						<h3>Instagram</h3>
+						<p>Жизнь артиста и новости — но всё захламлено мусорным контентом.</p>
+					</div>
+					<div class="col us">
+						<h3>PDM</h3>
+						<p>Стриминг + прямой доход артисту + сообщество в одних отношениях за $1 в месяц.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 12 · Рынок -->
+			<section class="slide">
+				<span class="kicker">Рынок</span>
+				<h2 class="headline">Точка входа в creator-экономику через музыку.</h2>
+				<div class="funnel">
+					<div class="row">
+						<span class="t">TAM<span class="full">Общий объём рынка</span></span>
+						<span class="lbl">Creator-экономика — фанаты платят авторам напрямую (2025)</span>
+						<span class="v">$250 млрд</span>
+					</div>
+					<div class="row">
+						<span class="t">SAM<span class="full">Доступный нашей модели рынок</span></span>
+						<span class="lbl">Платные музыкальные подписки + прямая поддержка артистов</span>
+						<span class="v">$20 млрд</span>
+					</div>
+					<div class="row">
+						<span class="t">SOM<span class="full">Достижимо — наша цель за 3 года</span></span>
+						<span class="lbl">Независимые артисты и их суперфанаты, которых реально захватить</span>
+						<span class="v">$180 млн</span>
+					</div>
+				</div>
+				<p class="muted">
+					752 млн человек платят за музыкальные подписки, а рынок звукозаписи достиг
+					<strong>$29.6 млрд</strong> в 2024 (IFPI) — внутри creator-экономики на ~<strong>$250
+					млрд</strong>. Уже 8.2 млн артистов выпускаются самостоятельно, но зарабатывают всего $2.0
+					млрд на всех (MIDiA, 2024). SOM ≈ 50 тыс. независимых артистов × их суперфанаты по $1/мес
+					за три года.
+				</p>
+				<p class="sources">
+					Источники:
+					<a
+						href="https://www.ifpi.org/ifpi-amidst-highly-competitive-market-global-recorded-music-revenues-grew-4-8-in-2024/"
+						target="_blank"
+						rel="noopener"
+						>IFPI Global Music Report 2025</a
+					>
+					·
+					<a
+						href="https://www.midiaresearch.com/blog/global-recorded-music-revenues-reach-362-billion-in-2024-amid-slower-growth"
+						target="_blank"
+						rel="noopener"
+						>MIDiA Research 2024</a
+					>
+					·
+					<a href="https://market.us/report/creator-economy-market/" target="_blank" rel="noopener"
+						>market.us — Creator Economy 2025</a
+					>
+					·
+					<a href="https://backlinko.com/patreon-users" target="_blank" rel="noopener">Patreon 2024</a>
+				</p>
+			</section>
+
+			<!-- 13 · Статус и GTM -->
+			<section class="slide">
+				<span class="kicker">Где мы сейчас · go-to-market</span>
+				<h2 class="headline">Перед запуском: платформа в активной разработке.</h2>
+				<p class="lead" style="max-width: 62ch">
+					Уже работает лендинг с открытым листом ожидания раннего доступа —
+					<a href="https://pdm-landing.vercel.app/" target="_blank" rel="noopener"
+						>pdm-landing.vercel.app</a
+					>. Стратегия привлечения заложена в продукт с первого дня.
+				</p>
+				<div class="cards">
+					<div class="card">
+						<h3>Тяга founding-статуса</h3>
+						<p>Founding-статус и зафиксированные 15% реферальной ставки вознаграждают самых ранних фанатов.</p>
+					</div>
+					<div class="card">
+						<h3>Онбординг волнами</h3>
+						<p>Подключаем волнами — кто первый в очереди, тот первый внутри.</p>
+					</div>
+					<div class="card">
+						<h3>Привлечение через артистов</h3>
+						<p>Каждый подключённый артист приводит на платформу свою фан-базу.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 14 · Стратегия роста -->
+			<section class="slide">
+				<span class="kicker">Стратегия роста</span>
+				<h2 class="headline">Органика прежде всего: собираем аудиторию до запуска.</h2>
+				<p class="lead" style="max-width: 64ch">
+					Основной бюджет идёт в собственные каналы и сообщество, а не в платную рекламу — это
+					накопительный охват, который разогревает спрос на PDM ещё до запуска.
+				</p>
+				<div class="cards">
+					<div class="card">
+						<span class="ic">▶</span>
+						<h3>Контент и сообщество</h3>
+						<p>
+							Instagram + YouTube Shorts с настоящими историями музыкантов — комьюнити, которое
+							любит артистов. Затем формируем повестку: индустрия несправедлива, музыканты теряют
+							мотивацию, ИИ захламляет стриминг.
+						</p>
+					</div>
+					<div class="card">
+						<span class="ic">◉</span>
+						<h3>Build in public</h3>
+						<p>
+							Длинные ролики на YouTube — показываем стартап изнутри: встречи, прогресс, развитие.
+							Зрители превращаются в сторонников.
+						</p>
+					</div>
+					<div class="card">
+						<span class="ic">✸</span>
+						<h3>Реклама на запуске</h3>
+						<p>Платное продвижение через музыкальных блогеров — к моменту запуска.</p>
+					</div>
+					<div class="card">
+						<span class="ic">⟲</span>
+						<h3>Реферальная петля</h3>
+						<p>
+							Доп. доход артистам: они приводят фанатов, и даже если фанат подпишется на другого
+							артиста, реферер получает процент от нашей комиссии.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 15 · Видение: биржа роялти -->
+			<section class="slide">
+				<span class="kicker">Видение · фаза 2</span>
+				<h2 class="headline xl">Превратить песни в <em>класс активов.</em></h2>
+				<p class="lead" style="max-width: 66ch">
+					Артисты могут предложить долю в <strong>будущих роялти</strong> трека через краудфандинг.
+					Фанаты входят фиатом или криптой и становятся <strong>микро-инвесторами</strong> — зарабатывая
+					не только на прослушиваниях в PDM, но и на <strong>Spotify, Apple Music и YouTube</strong>,
+					где PDM выступает агрегатором-лицензиатом.
+				</p>
+				<div class="cards">
+					<div class="card">
+						<h3>Фанаты становятся совладельцами</h3>
+						<p>Поддержи трек рано — получай долю везде, где он зарабатывает.</p>
+					</div>
+					<div class="card">
+						<h3>Артисты привлекают деньги без лейблов</h3>
+						<p>Финансируй запись и туры от тех, кто поверил первым.</p>
+					</div>
+					<div class="card">
+						<h3>PDM берёт транзакционный слой</h3>
+						<p>Комиссия маркетплейса с каждой проданной доли и каждого проведённого роялти.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 16 · Защищённость -->
+			<section class="slide">
+				<span class="kicker">Защищённость</span>
+				<h2 class="headline">Защита от ботов и ферм.</h2>
+				<div class="grid-2">
+					<div class="card">
+						<h3>TrustScore</h3>
+						<p>
+							Двусторонняя система репутации. Прослушивания ботов почти ничего не весят, поэтому
+							манипулировать выплатами экономически бессмысленно — а бот-фермы убыточны.
+						</p>
+					</div>
+					<div class="card">
+						<h3>Грейды артистов</h3>
+						<p>
+							Новичок → Активный → Креатор. Краудфандинг открывается только после подтверждённой
+							устойчивой реальной активности — биржа остаётся чистой.
+						</p>
+					</div>
+				</div>
+				<p class="lead">
+					PDM — это <strong>инкубатор, а не конкурент лейблам</strong>: мы доказываем рыночную
+					состоятельность артиста, а когда он подписывает контракт, фанаты могут сделать «выход» — их
+					доли выкупаются с мультипликатором.
+				</p>
+			</section>
+
+			<!-- 17 · Дорожная карта -->
+			<section class="slide">
+				<span class="kicker">Дорожная карта</span>
+				<h2 class="headline">От фан-платформы к фан-экономике.</h2>
+				<div class="timeline">
+					<div class="phase now">
+						<span class="tag">Фаза 1 · сейчас</span>
+						<h3>Платформа</h3>
+						<ul>
+							<li>Музыка: стриминг, плейлисты, открытие нового</li>
+							<li>Лента: посты, эксклюзивы, без шума</li>
+							<li>Соцслой: комментарии и чат-сообщество артиста</li>
+							<li>Подписки на артиста за $1 (80/20)</li>
+							<li>Лист ожидания → запуск на pdm.live</li>
+						</ul>
+					</div>
+					<div class="phase">
+						<span class="tag">Фаза 2 · далее</span>
+						<h3>Фан-экономика</h3>
+						<ul>
+							<li>Краудфандинг и биржа долей в роялти</li>
+							<li>Агрегация внешних роялти (Spotify / Apple / YouTube)</li>
+							<li>TrustScore и грейды артистов в масштабе</li>
+							<li>Уровни лояльности и глобальные скидки</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<!-- 18 · Команда -->
+			<section class="slide">
+				<span class="kicker">Команда</span>
+				<h2 class="headline">Кто строит PDM.</h2>
+				<div class="founder">
+					<div class="founder-card">
+						<div class="avatar"></div>
+						<div>
+							<h3>Иван Изобов</h3>
+							<p class="role">Основатель · Full-stack разработчик</p>
+						</div>
+					</div>
+					<div class="founder-bio">
+						<p class="lead">
+							Full-stack разработчик и большой любитель музыки — строю PDM целиком сам: от стриминга
+							и ленты до платежей и подписки за $1.
+						</p>
+						<p class="muted">
+							Осознанно компактно: продукт делает один технический основатель, и компания остаётся
+							капиталоэффективной. Раунд финансирует найм первой команды (см. «Запрос»).
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 19 · Запрос -->
+			<section class="slide">
+				<span class="kicker">Запрос</span>
+				<h2 class="headline">Давайте построим музыкальную экономику, которую двигают люди.</h2>
+				<div class="ask-grid">
+					<div>
+						<p class="muted">Привлекаем</p>
+						<p class="ask-amount">$150K</p>
+						<p class="muted">Pre-seed · SAFE · cap $1.5M post-money</p>
+						<p class="dim">≈ 15 месяцев runway: запуск + первые платящие суперфаны</p>
+					</div>
+					<div>
+						<p class="muted" style="margin-bottom: 0.8rem">Распределение средств</p>
+						<ul class="use-list">
+							<li><span class="p">60%</span> Продукт и разработка — $90K, основатель full-time + инфра</li>
+							<li><span class="p">17%</span> Привлечение артистов — $25K, первые independent-артисты</li>
+							<li><span class="p">15%</span> Рост и сообщество — $23K, фанаты US/EU и рефералы</li>
+							<li><span class="p">8%</span> Операции и лицензии — $12K, платежи, юр., бухгалтерия</li>
+						</ul>
+					</div>
+				</div>
+				<p class="contact">
+					<a href="mailto:izobov.pdm@gmail.com">izobov.pdm@gmail.com</a> · pdm.live —
+					<em>People Driven Music.</em>
+				</p>
+			</section>
+		</main>
+
+		<script src="deck.js"></script>
+	</body>
+</html>

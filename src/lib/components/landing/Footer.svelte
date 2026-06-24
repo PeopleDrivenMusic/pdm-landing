@@ -13,7 +13,7 @@
 	<div class="inner">
 		<div class="brand-col">
 			<span class="brand">PDM</span>
-			<p class="tagline">People Driving Music</p>
+			<p class="tagline">People Driven Music</p>
 		</div>
 
 		<nav class="col" aria-label="Footer">

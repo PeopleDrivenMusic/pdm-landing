@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>PDM — People Driven Music · Investor Deck</title>
+		<meta
+			name="description"
+			content="PDM (People Driven Music) — back any artist for $1/month, 80% to the artist. Investor deck."
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,600&family=Sora:wght@700;800&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="deck.css" />
+	</head>
+	<body>
+		<div class="backdrop"></div>
+		<canvas id="embers" aria-hidden="true"></canvas>
+		<div class="progress"></div>
+		<div class="counter"></div>
+		<div class="hint">← → to navigate</div>
+
+		<main class="deck">
+			<!-- 1 · Cover -->
+			<section class="slide cover">
+				<span class="wordmark">P · D · M</span>
+				<h1 class="title">People<br />Driven<br /><em>Music</em>.</h1>
+				<p class="lead">Stop streaming. Start belonging.</p>
+				<p class="muted" style="max-width: 52ch">
+					A music platform where fans back the artists they love for <strong>$1/month</strong> —
+					and <strong>80%</strong> goes straight to the artist.
+				</p>
+				<p class="meta">Investor deck · 2026 · Confidential</p>
+				<p class="contact">
+					<a href="mailto:izobov.pdm@gmail.com">izobov.pdm@gmail.com</a> · pdm.live
+				</p>
+			</section>
+
+			<!-- 2 · Problem (fans) -->
+			<section class="slide">
+				<span class="kicker">The problem · fans</span>
+				<h2 class="headline">Loving the music has never felt this far from the artist.</h2>
+				<ul class="pains">
+					<li>You follow one artist across five apps: music here, videos there, life everywhere.</li>
+					<li>
+						You pay for a subscription and get little back but fewer ads, while your favourite
+						artists earn fractions of a cent.
+					</li>
+					<li>Bots and scalpers grab the tickets in seconds, then sell them back to you at a markup.</li>
+				</ul>
+				<p class="close-line">
+					You love the music. You just never get close to the people making it.
+				</p>
+			</section>
+
+			<!-- 3 · Problem (artists) -->
+			<section class="slide">
+				<span class="kicker">The problem · artists</span>
+				<h2 class="headline">You are fighting an algorithm to reach your own fans.</h2>
+				<ul class="pains">
+					<li>AI is flooding streaming, and no real artist can out-produce a machine.</li>
+					<li>A play is not a fan. Volume will never equal loyalty.</li>
+					<li>
+						Fans pay a subscription, but part of that money goes to artists they never even listen
+						to.
+					</li>
+					<li>You have no real tool to actually work with your fanbase.</li>
+				</ul>
+				<p class="close-line">One loyal fan beats a thousand blind plays.</p>
+			</section>
+
+			<!-- 4 · The insight -->
+			<section class="slide">
+				<span class="kicker">The insight</span>
+				<h2 class="headline xl">
+					Move from <em>pay-per-play</em> to <em>a loyal fanbase you own.</em>
+				</h2>
+				<div class="versus">
+					<span class="big gold">10 loyal fans</span>
+					<span class="vs">beat</span>
+					<span class="big muted">3,000 anonymous plays</span>
+				</div>
+				<p class="lead">
+					A stream is a transaction. A backer is a relationship — recurring, direct, and impossible
+					for an algorithm to take away.
+				</p>
+			</section>
+
+			<!-- 5 · The solution -->
+			<section class="slide">
+				<span class="kicker">The solution</span>
+				<h2 class="headline">Back any artist for <em>$1 a month.</em></h2>
+				<div class="split">
+					<span class="coin">$1</span>
+					<span class="arrow">→</span>
+					<div class="leg artist">
+						<span class="pct">$0.80</span>
+						<span class="who">to the artist</span>
+					</div>
+					<div class="leg">
+						<span class="pct">$0.20</span>
+						<span class="who">keeps PDM running</span>
+					</div>
+				</div>
+				<div class="bar"><span class="a"></span><span class="b"></span></div>
+				<p class="lead">
+					Fans subscribe to a <strong>specific artist</strong>, not the platform. Listening is free,
+					and $1 unlocks the artist's exclusives — you get closer to them, and become part of their
+					success.
+				</p>
+			</section>
+
+			<!-- 6 · Product (fans) -->
+			<section class="slide">
+				<span class="kicker">Product · for fans</span>
+				<h2 class="headline">Just $1, and you unlock.</h2>
+				<div class="cards">
+					<div class="card">
+						<span class="ic">✦</span>
+						<h3>Exclusive drops</h3>
+						<p>Private posts, demos and behind-the-scenes from the artist.</p>
+					</div>
+					<div class="card">
+						<span class="ic">⦿</span>
+						<h3>Ad-free listening</h3>
+						<p>Zero ads on everything that artist makes.</p>
+					</div>
+					<div class="card">
+						<span class="ic">⤓</span>
+						<h3>Offline mode</h3>
+						<p>Cache their tracks and listen anywhere, anytime.</p>
+					</div>
+					<div class="card">
+						<span class="ic">◷</span>
+						<h3>Presale access</h3>
+						<p>First in line for tickets — before the bots.</p>
+					</div>
+					<div class="card">
+						<span class="ic">❝</span>
+						<h3>Community &amp; comments</h3>
+						<p>A paid-only chat with the artist, plus your voice on every track.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 7 · Product (artists) -->
+			<section class="slide">
+				<span class="kicker">Product · for artists</span>
+				<h2 class="headline">Everything to build your fanbase.</h2>
+				<div class="cards">
+					<div class="card">
+						<span class="ic">$</span>
+						<h3>Direct income</h3>
+						<p>Subscriptions land in your account and pay out fast.</p>
+					</div>
+					<div class="card">
+						<span class="ic">⦿</span>
+						<h3>Your community</h3>
+						<p>A private space to talk to the fans who fund you.</p>
+					</div>
+					<div class="card">
+						<span class="ic">▦</span>
+						<h3>Feed &amp; store</h3>
+						<p>Post exclusives, sell merch and tickets, your way.</p>
+					</div>
+					<div class="card">
+						<span class="ic">◴</span>
+						<h3>Fan analytics</h3>
+						<p>See where your paying fans are and plan tours around them.</p>
+					</div>
+					<div class="card">
+						<span class="ic">◐</span>
+						<h3>You decide</h3>
+						<p>Choose what is free for everyone and what is subscriber-only.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 8 · How it works -->
+			<section class="slide">
+				<span class="kicker">How it works</span>
+				<h2 class="headline">Free to listen. $1 to belong.</h2>
+				<div class="steps">
+					<div class="step">
+						<span class="n">1</span>
+						<h3>Listen for free</h3>
+						<p>Stream music and explore everything, no charge.</p>
+					</div>
+					<div class="step">
+						<span class="n">2</span>
+						<h3>Back an artist for $1</h3>
+						<p>80% goes to the artist, 20% keeps the ecosystem running.</p>
+					</div>
+					<div class="step">
+						<span class="n">3</span>
+						<h3>Get closer</h3>
+						<p>Unlock drops, join the chat, and grow alongside the artist.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 9 · Business model -->
+			<section class="slide">
+				<span class="kicker">Business model</span>
+				<h2 class="headline">Recurring revenue that compounds with loyalty.</h2>
+				<p class="lead" style="max-width: 60ch">
+					$1/artist/month, an <strong>80/20</strong> split, and a subscription pool distributed by
+					each fan's own listening (user-centric). Average revenue grows as fans back more artists
+					and climb loyalty tiers.
+				</p>
+				<div class="tiers">
+					<div class="tier">
+						<span class="price">$1</span>
+						<p>Back one artist — unlock everything they make.</p>
+					</div>
+					<div class="tier">
+						<span class="price">$5+</span>
+						<p>Ad-free across the entire app.</p>
+					</div>
+					<div class="tier">
+						<span class="price">$10+</span>
+						<p>Global discounts on merch and events.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 10 · Referral flywheel -->
+			<section class="slide">
+				<span class="kicker">Growth engine</span>
+				<h2 class="headline">A referral flywheel built into the product.</h2>
+				<div class="grid-2">
+					<div class="card">
+						<span class="ic gold">10%</span>
+						<h3>Lifetime commission</h3>
+						<p>Refer a friend and earn a slice of our commission — for life.</p>
+					</div>
+					<div class="card" style="border-color: var(--gold-deep)">
+						<span class="ic gold">15%</span>
+						<h3>Founding members lock in more</h3>
+						<p>Early-access members earn the highest rate, locked in at signup.</p>
+					</div>
+				</div>
+				<p class="lead">
+					Every fan becomes an acquisition channel, and every artist brings their own audience —
+					Driven a low-CAC, viral loop from day one.
+				</p>
+			</section>
+
+			<!-- 11 · Why now / positioning -->
+			<section class="slide">
+				<span class="kicker">Why now · where we sit</span>
+				<h2 class="headline">Streaming, the fan economy and community — finally in one place.</h2>
+				<div class="compare">
+					<div class="col">
+						<h3>Spotify</h3>
+						<p>Scale and discovery, but no intimacy and fractions of a cent to artists.</p>
+					</div>
+					<div class="col">
+						<h3>Patreon</h3>
+						<p>Direct support, but no streaming and disconnected from the music itself.</p>
+					</div>
+					<div class="col">
+						<h3>Instagram</h3>
+						<p>The artist's life and updates — but buried in noise and junk content.</p>
+					</div>
+					<div class="col us">
+						<h3>PDM</h3>
+						<p>Streaming + direct fan income + community, in one $1/month relationship.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 12 · Market -->
+			<section class="slide">
+				<span class="kicker">Market</span>
+				<h2 class="headline">A wedge into the creator economy via music.</h2>
+				<div class="funnel">
+					<div class="row">
+						<span class="t">TAM<span class="full">Total addressable market</span></span>
+						<span class="lbl">Creator economy — fans paying creators directly (2025)</span>
+						<span class="v">$250B</span>
+					</div>
+					<div class="row">
+						<span class="t">SAM<span class="full">Serviceable addressable market</span></span>
+						<span class="lbl">Paid music subscriptions + direct-to-artist spend</span>
+						<span class="v">$20B</span>
+					</div>
+					<div class="row">
+						<span class="t">SOM<span class="full">Serviceable obtainable — our 3-yr target</span></span>
+						<span class="lbl">Independent artists &amp; their superfans we can realistically win</span>
+						<span class="v">$180M</span>
+					</div>
+				</div>
+				<p class="muted">
+					752M people now pay for music subscriptions and recorded music hit <strong>$29.6B</strong>
+					in 2024 (IFPI), inside a ~<strong>$250B</strong> creator economy. 8.2M artists already
+					self-release — yet earn just $2.0B between them (MIDiA, 2024). SOM ≈ 50k independent
+					artists × their superfans at $1/month within three years.
+				</p>
+				<p class="sources">
+					Sources:
+					<a
+						href="https://www.ifpi.org/ifpi-amidst-highly-competitive-market-global-recorded-music-revenues-grew-4-8-in-2024/"
+						target="_blank"
+						rel="noopener"
+						>IFPI Global Music Report 2025</a
+					>
+					·
+					<a
+						href="https://www.midiaresearch.com/blog/global-recorded-music-revenues-reach-362-billion-in-2024-amid-slower-growth"
+						target="_blank"
+						rel="noopener"
+						>MIDiA Research 2024</a
+					>
+					·
+					<a href="https://market.us/report/creator-economy-market/" target="_blank" rel="noopener"
+						>market.us — Creator Economy 2025</a
+					>
+					·
+					<a href="https://backlinko.com/patreon-users" target="_blank" rel="noopener">Patreon 2024</a>
+				</p>
+			</section>
+
+			<!-- 13 · Status & GTM -->
+			<section class="slide">
+				<span class="kicker">Where we are · go-to-market</span>
+				<h2 class="headline">Pre-launch: the platform is in active development.</h2>
+				<p class="lead" style="max-width: 60ch">
+					A landing page with an open early-access waitlist is already live —
+					<a href="https://pdm-landing.vercel.app/" target="_blank" rel="noopener"
+						>pdm-landing.vercel.app</a
+					>. Our go-to-market is built into the product from day one.
+				</p>
+				<div class="cards">
+					<div class="card">
+						<h3>Founding-member pull</h3>
+						<p>Founding status + a locked-in 15% referral rate reward the earliest fans.</p>
+					</div>
+					<div class="card">
+						<h3>Wave onboarding</h3>
+						<p>We onboard in waves — first in line gets in first, seeding scarcity.</p>
+					</div>
+					<div class="card">
+						<h3>Artist-led acquisition</h3>
+						<p>Each onboarded artist brings their own fanbase to the platform.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 14 · Growth strategy -->
+			<section class="slide">
+				<span class="kicker">Growth strategy</span>
+				<h2 class="headline">Organic-first: build the audience before the launch.</h2>
+				<p class="lead" style="max-width: 62ch">
+					Most of the budget goes into owned channels and community, not ad spend — compounding
+					reach that primes demand for PDM before it even ships.
+				</p>
+				<div class="cards">
+					<div class="card">
+						<span class="ic">▶</span>
+						<h3>Content &amp; community</h3>
+						<p>
+							Instagram + YouTube Shorts telling the real stories behind musicians — a community
+							that loves the artists. Then we shape the narrative: the industry is unfair, artists
+							lose motivation, AI floods streaming.
+						</p>
+					</div>
+					<div class="card">
+						<span class="ic">◉</span>
+						<h3>Build in public</h3>
+						<p>
+							A long-form YouTube channel showing the startup from the inside — meetings, progress,
+							a real-life Silicon Valley. Viewers become supporters.
+						</p>
+					</div>
+					<div class="card">
+						<span class="ic">✸</span>
+						<h3>Influencer launch push</h3>
+						<p>Paid promotion through music bloggers, timed to the launch wave.</p>
+					</div>
+					<div class="card">
+						<span class="ic">⟲</span>
+						<h3>Referral loop</h3>
+						<p>
+							Extra income for artists: they bring their fans, and even when a fan backs a
+							different artist, the referrer earns a share of our commission.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 15 · Vision: royalty exchange -->
+			<section class="slide">
+				<span class="kicker">Vision · phase 2</span>
+				<h2 class="headline xl">Turn songs into an <em>asset class.</em></h2>
+				<p class="lead" style="max-width: 62ch">
+					Artists can offer a share of a track's <strong>future royalties</strong> via crowdfunding.
+					Fans buy in with fiat or crypto and become <strong>micro-investors</strong> — earning not
+					just from plays on PDM, but from <strong>Spotify, Apple Music and YouTube too</strong>,
+					with PDM acting as the aggregator-licensee.
+				</p>
+				<div class="cards">
+					<div class="card">
+						<h3>Fans become owners</h3>
+						<p>Back a track early, share in its upside everywhere it earns.</p>
+					</div>
+					<div class="card">
+						<h3>Artists raise without labels</h3>
+						<p>Fund recording and tours from the people who believe first.</p>
+					</div>
+					<div class="card">
+						<h3>PDM takes a transaction layer</h3>
+						<p>A marketplace fee on every share traded and royalty routed.</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 16 · Moat -->
+			<section class="slide">
+				<span class="kicker">Defensibility</span>
+				<h2 class="headline">Protection from bots and farms.</h2>
+				<div class="grid-2">
+					<div class="card">
+						<h3>TrustScore</h3>
+						<p>
+							A two-sided reputation system. Bot streams carry minimal weight, so manipulating
+							payouts becomes economically pointless — and bot farms unprofitable.
+						</p>
+					</div>
+					<div class="card">
+						<h3>Artist grades</h3>
+						<p>
+							Newbie → Active → Creator. Crowdfunding unlocks only after verified, sustained real
+							activity — keeping the exchange clean.
+						</p>
+					</div>
+				</div>
+				<p class="lead">
+					PDM is an <strong>incubator, not a label competitor</strong>: we prove an artist's market
+					fit, and when they sign, fans can take an "exit" — their shares bought out at a multiple.
+				</p>
+			</section>
+
+			<!-- 17 · Roadmap -->
+			<section class="slide">
+				<span class="kicker">Roadmap</span>
+				<h2 class="headline">From fan platform to fan economy.</h2>
+				<div class="timeline">
+					<div class="phase now">
+						<span class="tag">Phase 1 · now</span>
+						<h3>The platform</h3>
+						<ul>
+							<li>Music: stream, playlists, discovery</li>
+							<li>Feed: posts, exclusives, no noise</li>
+							<li>Social: comments &amp; artist community chat</li>
+							<li>$1 artist subscriptions (80/20)</li>
+							<li>Waitlist → launch at pdm.live</li>
+						</ul>
+					</div>
+					<div class="phase">
+						<span class="tag">Phase 2 · next</span>
+						<h3>The fan economy</h3>
+						<ul>
+							<li>Crowdfunding &amp; royalty-share exchange</li>
+							<li>External royalty aggregation (Spotify / Apple / YouTube)</li>
+							<li>TrustScore &amp; artist grades at scale</li>
+							<li>Loyalty tiers and global discounts</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<!-- 18 · Team -->
+			<section class="slide">
+				<span class="kicker">Team</span>
+				<h2 class="headline">The person building PDM.</h2>
+				<div class="founder">
+					<div class="founder-card">
+						<div class="avatar"></div>
+						<div>
+							<h3>Ivan Izobov</h3>
+							<p class="role">Founder · Full-stack developer</p>
+						</div>
+					</div>
+					<div class="founder-bio">
+						<p class="lead">
+							Full-stack engineer and lifelong music lover — building PDM end-to-end, from
+							streaming and feed to payments and the $1 subscription.
+						</p>
+						<p class="muted">
+							Lean by design: the product ships from a single technical founder, so the company
+							stays capital-efficient. The raise funds the first key hires (see “The ask”).
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- 19 · The ask -->
+			<section class="slide">
+				<span class="kicker">The ask</span>
+				<h2 class="headline">Let's build the people-driven music economy.</h2>
+				<div class="ask-grid">
+					<div>
+						<p class="muted">Raising</p>
+						<p class="ask-amount">$150K</p>
+						<p class="muted">Pre-seed · SAFE · $1.5M post-money cap</p>
+						<p class="dim">≈ 15-18 months runway to launch + first paying superfans</p>
+					</div>
+					<div>
+						<p class="muted" style="margin-bottom: 0.8rem">Use of funds</p>
+						<ul class="use-list">
+							<li><span class="p">60%</span> Product &amp; engineering — $90K, founder full-time + infra</li>
+							<li><span class="p">17%</span> Artist acquisition — $25K, the first independent artists</li>
+							<li><span class="p">15%</span> Growth &amp; community — $23K, US/EU fans &amp; referrals</li>
+							<li><span class="p">8%</span> Operations &amp; licensing — $12K, payments, legal, accounting</li>
+						</ul>
+					</div>
+				</div>
+				<p class="contact">
+					<a href="mailto:izobov.pdm@gmail.com">izobov.pdm@gmail.com</a> · pdm.live —
+					<em>People Driven Music.</em>
+				</p>
+			</section>
+		</main>
+
+		<script src="deck.js"></script>
+	</body>
+</html>

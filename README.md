@@ -1,6 +1,6 @@
 # PDM Landing Page 🚀
 
-This is the official landing page for **PDM — People Driving Music**, a platform that empowers artists and fans through Web3 and music.
+This is the official landing page for **PDM — People Driven Music**, a platform that empowers artists and fans through Web3 and music.
 
 ## 🔥 Live Preview
 

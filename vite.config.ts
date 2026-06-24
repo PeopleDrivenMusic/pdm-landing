@@ -5,6 +5,6 @@ export default defineConfig({
 	plugins: [sveltekit()],
 	server: {
 		host: true, // или '127.0.0.1' или 'localhost'
-		port: 3000 // или любой другой порт, например 5174
+		port: 5173 // 3000 попадает в зарезервированный Windows диапазон (winnat) → EACCES
 	}
 });

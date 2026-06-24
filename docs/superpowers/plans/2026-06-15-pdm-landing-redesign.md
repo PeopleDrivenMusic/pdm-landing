@@ -687,12 +687,12 @@ import type { Audience } from './stores/audience.svelte';
 
 export const hero: Record<Audience, { kicker: string; heading: string[]; sub: string }> = {
 	fan: {
-		kicker: 'People Driving Music',
+		kicker: 'People Driven Music',
 		heading: ['Where fans', "don't just listen —", 'they lead.'],
 		sub: 'Back the artists you love for $1 a month. Get closer than ever — and put your money where the music is.'
 	},
 	artist: {
-		kicker: 'People Driving Music',
+		kicker: 'People Driven Music',
 		heading: ['Your music.', 'Your fans.', 'Your income.'],
 		sub: 'Earn directly from the people who love your work. No labels skimming, no algorithm tax — just you and your fans.'
 	}
@@ -1453,7 +1453,7 @@ git commit -m "feat: add kinetic heading, stat counter, marquee, tilt-card primi
 
 **Files:** Create `src/lib/components/landing/Footer.svelte`.
 
-- [ ] **Step 1: Implement** — `PDM` wordmark + tagline "People Driving Music", anchor links, social links (SVG icons, real labels), contact email, © year, legal links. Minimal, muted, `border-top: 1px solid var(--line)`.
+- [ ] **Step 1: Implement** — `PDM` wordmark + tagline "People Driven Music", anchor links, social links (SVG icons, real labels), contact email, © year, legal links. Minimal, muted, `border-top: 1px solid var(--line)`.
 - [ ] **Step 2: Verify** — `npm run check`; links have accessible labels; contrast OK.
 - [ ] **Step 3: Commit** — `git commit -m "feat: add footer"`
 
@@ -1499,7 +1499,7 @@ git commit -m "feat: add kinetic heading, stat counter, marquee, tilt-card primi
 <Footer />
 ```
 
-- [ ] **Step 2: Rewrite `SEO.svelte`** — remove ALL Web3/token/"listen-to-earn" language. New title: "PDM — People Driving Music" ; description: "Back the artists you love for $1 a month. PDM is a music platform where fans get closer to artists and artists earn directly — no labels, no algorithm tax." Update keywords, OG/Twitter text, JSON-LD `description`. Keep canonical/structure. Remove `EntertainmentApplication`→ keep but update description; drop token references.
+- [ ] **Step 2: Rewrite `SEO.svelte`** — remove ALL Web3/token/"listen-to-earn" language. New title: "PDM — People Driven Music" ; description: "Back the artists you love for $1 a month. PDM is a music platform where fans get closer to artists and artists earn directly — no labels, no algorithm tax." Update keywords, OG/Twitter text, JSON-LD `description`. Keep canonical/structure. Remove `EntertainmentApplication`→ keep but update description; drop token references.
 - [ ] **Step 3: Verify** — `npm run check`; dev server: full page scrolls top to bottom, all sections present, anchor nav works, no console errors. View source / inspect `<head>`: no "Web3"/"token" strings remain.
 - [ ] **Step 4: Commit** — `git commit -m "feat: compose landing page and rewrite SEO (drop Web3)"`
 

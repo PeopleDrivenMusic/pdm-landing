@@ -2,12 +2,12 @@ import type { Audience } from './stores/audience.svelte';
 
 export const hero: Record<Audience, { kicker: string; heading: string[]; sub: string }> = {
 	fan: {
-		kicker: 'People Driving Music',
+		kicker: 'People Driven Music',
 		heading: ['Stop streaming.', 'Start belonging.'],
 		sub: 'Back the artists you love for $1 a month. Unlock exclusive drops, private community, and a real say.'
 	},
 	artist: {
-		kicker: 'People Driving Music',
+		kicker: 'People Driven Music',
 		heading: ["Don't chase streams.", 'Build real fans.'],
 		sub: 'Turn listeners into paying superfans. Direct income, your own community, and the tools to grow it.'
 	}
@@ -194,7 +194,7 @@ export const waitlistScale: Record<
 export const faq: { q: string; a: string }[] = [
 	{
 		q: 'What is PDM?',
-		a: 'PDM (People Driving Music) is a music platform where fans back the artists they love directly. You subscribe to a specific artist for $1 a month, and 80% of that goes straight to them.'
+		a: 'PDM (People Driven Music) is a music platform where fans back the artists they love directly. You subscribe to a specific artist for $1 a month, and 80% of that goes straight to them.'
 	},
 	{
 		q: 'Is it free to listen?',

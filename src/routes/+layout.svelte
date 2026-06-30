@@ -10,6 +10,7 @@
 	import '$lib/styles/global.scss';
 	import { onMount } from 'svelte';
 	import { initSmoothScroll } from '$lib/motion/smoothScroll';
+	import { runAfterInitialPaint } from '$lib/motion/defer';
 	import AmbientParticles from '$lib/components/AmbientParticles.svelte';
 	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 	import { dev } from '$app/environment';
@@ -19,7 +20,25 @@
 	injectAnalytics({ mode: dev ? 'development' : 'production' });
 	let { children } = $props();
 
-	onMount(() => initSmoothScroll());
+	onMount(() => {
+		let disposed = false;
+		let cleanup = () => {};
+
+		const cancel = runAfterInitialPaint(async () => {
+			const nextCleanup = await initSmoothScroll();
+			if (disposed) {
+				nextCleanup();
+				return;
+			}
+			cleanup = nextCleanup;
+		});
+
+		return () => {
+			disposed = true;
+			cancel();
+			cleanup();
+		};
+	});
 </script>
 
 <!-- Page-wide ambient golden dust: a single fixed layer drifting behind every

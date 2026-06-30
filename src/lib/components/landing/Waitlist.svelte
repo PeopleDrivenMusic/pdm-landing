@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import confetti from 'canvas-confetti';
 	import { audience } from '$lib/stores/audience.svelte';
 	import {
 		submitWaitlist,
@@ -51,6 +50,7 @@
 		}
 		persistJoin({ email, role: audience.value, scale, refCode, referredBy });
 		submitted = true;
+		const { default: confetti } = await import('canvas-confetti');
 		confetti({
 			particleCount: 130,
 			spread: 75,

@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
 	import KineticHeading from '$lib/components/KineticHeading.svelte';
 	import AmbientParticles from '$lib/components/AmbientParticles.svelte';
 	import { audience } from '$lib/stores/audience.svelte';
 	import { hero, heroBadge, heroPerks } from '$lib/content';
 	import { prefersReducedMotion } from '$lib/motion/prefersReducedMotion';
 	import { getLenis } from '$lib/motion/smoothScroll';
+	import { runAfterInitialPaint } from '$lib/motion/defer';
 
 	let root: HTMLElement;
 	let bg: HTMLDivElement;
@@ -21,8 +20,8 @@
 	let current = $state(0);
 	// Lazy-load backdrops: fetch only the current + next slide (and keep ones already
 	// shown) instead of pulling all five (~600KB) on mount. Seeded with 0 (the preloaded
-	// LCP image) and 1 (ready for the first cross-fade).
-	let loaded = $state(new Set<number>([0, 1]));
+	// LCP image); the next slide is warmed after the first paint.
+	let loaded = $state(new Set<number>([0]));
 
 	function scrollTo(e: MouseEvent, href: string) {
 		const target = document.querySelector(href);
@@ -34,94 +33,112 @@
 	}
 
 	onMount(() => {
-		const reduce = prefersReducedMotion();
-		const fine = window.matchMedia('(pointer: fine)').matches;
-		const desktop = window.matchMedia('(min-width: 769px)').matches;
+		let disposed = false;
+		let cleanup = () => {};
 
-		gsap.registerPlugin(ScrollTrigger);
+		const cancel = runAfterInitialPaint(async () => {
+			const reduce = prefersReducedMotion();
+			const fine = window.matchMedia('(pointer: fine)').matches;
+			const desktop = window.matchMedia('(min-width: 769px)').matches;
+			const [{ gsap }, { ScrollTrigger }] = await Promise.all([
+				import('gsap'),
+				import('gsap/ScrollTrigger')
+			]);
 
-		const ctx = gsap.context(() => {
-			// Entrance choreography (skip when reduced — elements stay at rest).
-			if (!reduce) {
-				const tl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.9 } });
-				tl.from('.badge', { y: 18, autoAlpha: 0 }, 0.1)
-					.from('.cta-btn', { y: 22, autoAlpha: 0, stagger: 0.1 }, 0.45)
-					.from('.float', { y: 28, autoAlpha: 0, scale: 0.94, stagger: 0.15 }, 0.6);
-			}
+			if (disposed) return;
 
-			// Parallax on the backdrop while scrolling.
-			if (!reduce && desktop) {
-				gsap.to(bg, {
-					yPercent: 18,
-					ease: 'none',
-					scrollTrigger: { trigger: root, start: 'top top', end: 'bottom top', scrub: true }
-				});
-			}
+			gsap.registerPlugin(ScrollTrigger);
+			loaded = new Set(loaded).add(1);
 
-			// Slow drifting glow orbs.
-			if (!reduce) {
-				gsap.to(orbA, {
-					xPercent: 12,
-					yPercent: -14,
-					duration: 11,
-					ease: 'sine.inOut',
-					repeat: -1,
-					yoyo: true
-				});
-				gsap.to(orbB, {
-					xPercent: -16,
-					yPercent: 10,
-					duration: 13,
-					ease: 'sine.inOut',
-					repeat: -1,
-					yoyo: true
-				});
-			}
-		}, root);
-
-		// Auto-advance the backdrop carousel (skip when reduced — static image).
-		let slideTimer: ReturnType<typeof setInterval> | undefined;
-		if (!reduce) {
-			slideTimer = setInterval(() => {
-				current = (current + 1) % slides.length;
-				// Warm the slide after this one so its cross-fade is ready in time.
-				loaded = new Set(loaded).add(current).add((current + 1) % slides.length);
-			}, 6000);
-		}
-
-		// Cursor-tracked spotlight + card depth parallax.
-		let onMove: ((e: PointerEvent) => void) | null = null;
-		if (!reduce && fine && desktop) {
-			gsap.set(spot, { autoAlpha: 1 });
-			const xS = gsap.quickTo(spot, 'x', { duration: 0.9, ease: 'power3' });
-			const yS = gsap.quickTo(spot, 'y', { duration: 0.9, ease: 'power3' });
-			const cards = gsap.utils.toArray<HTMLElement>('.float', root);
-			const movers = cards.map((c) => ({
-				x: gsap.quickTo(c, 'x', { duration: 1, ease: 'power3' }),
-				y: gsap.quickTo(c, 'y', { duration: 1, ease: 'power3' }),
-				depth: Number(c.dataset.depth ?? 20)
-			}));
-
-			onMove = (e: PointerEvent) => {
-				const r = root.getBoundingClientRect();
-				const px = e.clientX - r.left;
-				const py = e.clientY - r.top;
-				xS(px);
-				yS(py);
-				const nx = px / r.width - 0.5;
-				const ny = py / r.height - 0.5;
-				for (const m of movers) {
-					m.x(-nx * m.depth);
-					m.y(-ny * m.depth);
+			const ctx = gsap.context(() => {
+				// Entrance choreography (skip when reduced — elements stay at rest).
+				if (!reduce) {
+					const tl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.9 } });
+					tl.from('.badge', { y: 18, autoAlpha: 0 }, 0.1)
+						.from('.cta-btn', { y: 22, autoAlpha: 0, stagger: 0.1 }, 0.45)
+						.from('.float', { y: 28, autoAlpha: 0, scale: 0.94, stagger: 0.15 }, 0.6);
 				}
+
+				// Parallax on the backdrop while scrolling.
+				if (!reduce && desktop) {
+					gsap.to(bg, {
+						yPercent: 18,
+						ease: 'none',
+						scrollTrigger: { trigger: root, start: 'top top', end: 'bottom top', scrub: true }
+					});
+				}
+
+				// Slow drifting glow orbs.
+				if (!reduce) {
+					gsap.to(orbA, {
+						xPercent: 12,
+						yPercent: -14,
+						duration: 11,
+						ease: 'sine.inOut',
+						repeat: -1,
+						yoyo: true
+					});
+					gsap.to(orbB, {
+						xPercent: -16,
+						yPercent: 10,
+						duration: 13,
+						ease: 'sine.inOut',
+						repeat: -1,
+						yoyo: true
+					});
+				}
+			}, root);
+
+			// Auto-advance the backdrop carousel (skip when reduced — static image).
+			let slideTimer: ReturnType<typeof setInterval> | undefined;
+			if (!reduce) {
+				slideTimer = setInterval(() => {
+					current = (current + 1) % slides.length;
+					// Warm the slide after this one so its cross-fade is ready in time.
+					loaded = new Set(loaded).add(current).add((current + 1) % slides.length);
+				}, 6000);
+			}
+
+			// Cursor-tracked spotlight + card depth parallax.
+			let onMove: ((e: PointerEvent) => void) | null = null;
+			if (!reduce && fine && desktop) {
+				gsap.set(spot, { autoAlpha: 1 });
+				const xS = gsap.quickTo(spot, 'x', { duration: 0.9, ease: 'power3' });
+				const yS = gsap.quickTo(spot, 'y', { duration: 0.9, ease: 'power3' });
+				const cards = gsap.utils.toArray<HTMLElement>('.float', root);
+				const movers = cards.map((c) => ({
+					x: gsap.quickTo(c, 'x', { duration: 1, ease: 'power3' }),
+					y: gsap.quickTo(c, 'y', { duration: 1, ease: 'power3' }),
+					depth: Number(c.dataset.depth ?? 20)
+				}));
+
+				onMove = (e: PointerEvent) => {
+					const r = root.getBoundingClientRect();
+					const px = e.clientX - r.left;
+					const py = e.clientY - r.top;
+					xS(px);
+					yS(py);
+					const nx = px / r.width - 0.5;
+					const ny = py / r.height - 0.5;
+					for (const m of movers) {
+						m.x(-nx * m.depth);
+						m.y(-ny * m.depth);
+					}
+				};
+				root.addEventListener('pointermove', onMove);
+			}
+
+			cleanup = () => {
+				if (onMove) root.removeEventListener('pointermove', onMove);
+				if (slideTimer) clearInterval(slideTimer);
+				ctx.revert();
 			};
-			root.addEventListener('pointermove', onMove);
-		}
+		});
 
 		return () => {
-			if (onMove) root.removeEventListener('pointermove', onMove);
-			if (slideTimer) clearInterval(slideTimer);
-			ctx.revert();
+			disposed = true;
+			cancel();
+			cleanup();
 		};
 	});
 </script>

@@ -17,16 +17,37 @@ export const reveal: Action<HTMLElement, RevealOptions | undefined> = (node, opt
 		return {};
 	}
 
+	// Duration of the reveal transition (mirrors --dur-slow) — used to know when
+	// the entrance has finished so we can drop the compositing hints.
+	const DURATION = 600;
+
 	node.style.opacity = '0';
 	node.style.transform = `translateY(${y}px)`;
 	node.style.transition = `opacity var(--dur-slow) var(--ease-out) ${delay}ms, transform var(--dur-slow) var(--ease-out) ${delay}ms`;
 	node.style.willChange = 'opacity, transform';
 
+	let settleTimer: ReturnType<typeof setTimeout> | undefined;
+
+	// Once the entrance finishes, drop the transform + will-change. A lingering
+	// compositing layer makes -webkit-background-clip:text render blank on iOS
+	// Safari — the gold headline (and any gradient/stroke text inside a revealed
+	// element) vanishes at rest. Resetting to a plain, un-composited box lets
+	// Safari paint the clipped text again. Driven by a timer rather than
+	// `transitionend`, which never fires when the element is shown before its
+	// first paint (in-viewport reveals) or when iOS drops the event.
+	const settle = () => {
+		node.style.transform = '';
+		node.style.willChange = '';
+	};
+
 	const show = () => {
 		node.style.opacity = '1';
 		node.style.transform = 'translateY(0)';
+		if (once) settleTimer = setTimeout(settle, delay + DURATION + 60);
 	};
 	const hide = () => {
+		if (settleTimer) clearTimeout(settleTimer);
+		node.style.willChange = 'opacity, transform';
 		node.style.opacity = '0';
 		node.style.transform = `translateY(${y}px)`;
 	};
@@ -46,5 +67,10 @@ export const reveal: Action<HTMLElement, RevealOptions | undefined> = (node, opt
 	);
 	io.observe(node);
 
-	return { destroy: () => io.disconnect() };
+	return {
+		destroy: () => {
+			io.disconnect();
+			if (settleTimer) clearTimeout(settleTimer);
+		}
+	};
 };

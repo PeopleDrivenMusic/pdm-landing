@@ -368,19 +368,23 @@
 			height: 14px;
 		}
 	}
-	li:hover {
-		background: linear-gradient(90deg, rgba(255, 216, 119, 0.06), transparent 70%);
-		transform: translateX(4px);
-		.ico {
-			background: var(--gold);
-			color: #1a1a1a;
-			border-color: var(--gold);
-			box-shadow: 0 0 18px rgba(255, 216, 119, 0.4);
-		}
-		.check {
-			opacity: 1;
-			background: var(--gold);
-			color: #1a1a1a;
+	/* Hover only on real pointer devices — on touch it sticks after a tap
+	   and reads as a stuck/awkward state. */
+	@media (hover: hover) and (pointer: fine) {
+		li:hover {
+			background: linear-gradient(90deg, rgba(255, 216, 119, 0.06), transparent 70%);
+			transform: translateX(4px);
+			.ico {
+				background: var(--gold);
+				color: #1a1a1a;
+				border-color: var(--gold);
+				box-shadow: 0 0 18px rgba(255, 216, 119, 0.4);
+			}
+			.check {
+				opacity: 1;
+				background: var(--gold);
+				color: #1a1a1a;
+			}
 		}
 	}
 

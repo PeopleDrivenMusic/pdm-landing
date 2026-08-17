@@ -891,6 +891,32 @@ strong {
 	.ask-grid {
 		grid-template-columns: 1fr;
 	}
+
+	/* TAM/SAM/SOM rows: stop squeezing 3 columns, go title-then-description+number */
+	.funnel .row {
+		flex-wrap: wrap;
+		align-items: flex-start;
+		row-gap: 0.45rem;
+	}
+
+	.funnel .row .t {
+		flex: 1 1 100%;
+		flex-direction: row;
+		align-items: baseline;
+		min-width: 0;
+	}
+
+	.funnel .row .t .full {
+		display: none;
+	}
+
+	.funnel .row .lbl {
+		max-width: 68%;
+	}
+
+	.funnel .row .v {
+		margin-left: auto;
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
